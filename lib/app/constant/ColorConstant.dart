@@ -14,13 +14,15 @@ class ColorConstants {
   static Color introgrey = fromHex("#999999");
 
   //Background
-  static Color backGroundColor = fromHex("#f0eff7");
+  static Color backGroundColor = fromHex("#FAFAFA");
+  // static Color backGroundColor = fromHex("#f0eff7");
 
   //DIVIDER
   static Color getDividerColor = fromHex("#EAEEFC");
 
   //SHADOW
   static Color getShadowColor = fromHex("#6F8FEA");
+  static Color bottomShadowColor = fromHex("#0000001A");
 
   static Color black = fromHex("#000000");
   static Color getGrayColor = fromHex("#9797A8");
