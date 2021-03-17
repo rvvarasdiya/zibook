@@ -87,10 +87,17 @@ bool validateMobile(String value) {
   if (isStringEmpty(value)) {
     return false;
   } else if (!regExp.hasMatch(value)) {
-    if (value.length > 10) return true;
+    if (value.length > 10) return false;
     return false;
   }
   return true;
+}
+
+bool isNumeric(String s) {
+  if(s == null) {
+    return false;
+  }
+  return double.parse(s, (e) => null) != null;
 }
 
 Color darken(Color color, [double amount = .1]) {

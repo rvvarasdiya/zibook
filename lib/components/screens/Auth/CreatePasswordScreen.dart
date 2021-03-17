@@ -61,7 +61,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                 textOption: TextFieldOption(
                   hintText: "New password",
                   maxLine: 1,
-                  keyboardType: TextInputType.name,
+                  keyboardType: TextInputType.text,
                   inputController: emailController,
                 ),
                 inputAction: TextInputAction.next,
@@ -80,7 +80,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                   hintText: "Confirm Password",
                   maxLine: 1,
                   isSecureTextField: true,
-                  keyboardType: TextInputType.name,
+                  keyboardType: TextInputType.text,
                   inputController: passwordController,
                 ),
                 inputAction: TextInputAction.next,

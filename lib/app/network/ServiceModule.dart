@@ -29,9 +29,9 @@ class ServiceModule {
      //   dio.options.headers["Authorization"] =
      //       "JWT " + app.resolve<PrefUtils>().getUserToken();
      // }
-    if (playerId != null) {
-      dio.options.headers["playerId"] = playerId;
-    }
+    // if (playerId != null) {
+    //   dio.options.headers["playerId"] = playerId;
+    // }
          if (kDebugMode) {
         (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
             (client) {

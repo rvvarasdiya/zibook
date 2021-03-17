@@ -95,7 +95,7 @@ class ScrollDirection extends InheritedWidget {
 
   /// `true` when the user is scrolling down (or right if the axis is
   /// horizontal).
-  bool get down => direction == VerticalDirection.down;
+  bool get down => direction == VerticalDirection.down;   
 
   bool get right => down;
 
