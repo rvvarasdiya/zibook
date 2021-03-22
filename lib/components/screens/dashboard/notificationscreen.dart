@@ -157,7 +157,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                       "Show",
                                       style: TextStyle(
                                           color: appTheme.colorPrimary,
-                                          fontWeight: FontWeight.bold,
+                                            fontWeight: FontWeight.bold,
                                           fontFamily: 'Karla',
                                           fontSize: 12),
                                     )

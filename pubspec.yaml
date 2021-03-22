@@ -53,6 +53,7 @@ dependencies:
   animated_text_kit: ^2.5.4
   get: ^3.13.2
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
