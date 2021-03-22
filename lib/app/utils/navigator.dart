@@ -7,6 +7,12 @@ import 'package:zaviato/components/screens/Auth/ForgetPasswordScreen.dart';
 import 'package:zaviato/components/screens/Auth/OtpVerifyScreen.dart';
 import 'package:zaviato/components/screens/Auth/SignInScreen.dart';
 import 'package:zaviato/components/screens/Auth/SignUpScreen.dart';
+import 'package:zaviato/components/screens/Business/BusinessDetail.dart';
+import 'package:zaviato/components/screens/Business/BusinessEdit.dart';
+import 'package:zaviato/components/screens/Business/BusinessFullDetail.dart';
+import 'package:zaviato/components/screens/Business/BusinessView.dart';
+import 'package:zaviato/components/screens/Business/HelpScreen.dart';
+import 'package:zaviato/components/screens/Business/businessDetail1.dart';
 import 'package:zaviato/components/screens/WelcomeScreen/WelcomeScreen.dart';
 import 'package:zaviato/components/screens/editDetail/editprofile.dart';
 import 'fade_route.dart';
@@ -111,6 +117,24 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       break;
     case ForgetPasswordScreen.route:
       screen = ForgetPasswordScreen();
+      break;
+    case BusinessDetailScreen.route:
+      screen = BusinessDetailScreen();
+      break;
+    // case BusinessDetail1.route:
+    //   screen = BusinessDetail1();
+    //   break;
+    case BusinessFullDetail.route:
+      screen = BusinessFullDetail();
+      break;
+    case HelpScreen.route:
+      screen = HelpScreen();
+      break;
+    case BusinessView.route:
+      screen = BusinessView();
+      break;
+    case BusinessEdit.route:
+      screen = BusinessEdit();
       break;
     case EditProfileScreen.route:
       screen = EditProfileScreen();

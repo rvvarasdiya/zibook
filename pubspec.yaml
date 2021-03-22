@@ -51,7 +51,7 @@ dependencies:
   flutter_statusbarcolor: ^0.2.3
   dotted_line: ^2.0.2
   animated_text_kit: ^2.5.4
-  get: ^3.15.0
+  get: ^3.13.2
 
 
 dev_dependencies:

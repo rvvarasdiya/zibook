@@ -31,83 +31,82 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          margin: EdgeInsets.only(
+        appBar: getAppBar(
+          context,
+          '',
+          backgroundColor: appTheme.whiteColor,
+          leadingButton: getBackButton(context),
+          centerTitle: false,
+        ),
+        body: ListView(
+          padding: EdgeInsets.only(
             right: getSize(30),
             left: getSize(30),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: getSize(40),
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: getSize(40),
+            ),
+            Text(
+              "Verify Phone Number",
+              style: appTheme.black22BoldTextStyle,
+            ),
+            SizedBox(
+              height: getSize(8),
+            ),
+            Text(
+              "Please enter the verification code sent to +91 98563 25482",
+              style: appTheme.gray16RegularTextStyle,
+            ),
+            SizedBox(
+              height: getSize(40),
+            ),
+            getPinViewOTP(),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Text(
+                "00:30",
+                style: appTheme.black14BoldTextStyle,
               ),
-              getBackButton(
-                context,
-              ),
-              SizedBox(
-                height: getSize(40),
-              ),
-              Text(
-                "Verify Phone Number",
-                style: appTheme.black22BoldTextStyle,
-              ),
-              SizedBox(
-                height: getSize(8),
-              ),
-              Text(
-                "Please enter the verification code sent to +91 98563 25482",
-                style: appTheme.gray16RegularTextStyle,
-              ),
-              SizedBox(
-                height: getSize(40),
-              ),
-              getPinViewOTP(),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Text(
-                  "00:30",
-                  style: appTheme.black14BoldTextStyle,
+            ),
+            SizedBox(
+              height: getSize(40),
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: RichText(
+                text: new TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: "Didn't receive OTP code! Resend",
+                      style: appTheme.black14RegularTextStyle,
+                    ),
+                    TextSpan(
+                      text: ' Resend',
+                      style: appTheme.colorPrimary14MediumTextStyle,
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(
-                height: getSize(40),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: RichText(
-                  text: new TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: "Didn't receive OTP code! Resend",
-                        style: appTheme.black14RegularTextStyle,
-                      ),
-                      TextSpan(
-                        text: ' Resend',
-                        style: appTheme.colorPrimary14MediumTextStyle,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: getSize(40),
-              ),
-              AppButton.flat(
-                onTap: () {
-                  NavigationUtilities.pushRoute(
-                    CreatePasswordScreen.route,
-                  );
-                },
-                text: "Verify",
-                backgroundColor: appTheme.colorPrimary,
-                textColor: appTheme.whiteColor,
-                fitWidth: true,
-              ),
-            ],
-          ),
+            ),
+            SizedBox(
+              height: getSize(40),
+            ),
+            AppButton.flat(
+              onTap: () {
+                NavigationUtilities.pushRoute(
+                  CreatePasswordScreen.route,
+                );
+              },
+              text: "Verify",
+              backgroundColor: appTheme.colorPrimary,
+              textColor: appTheme.whiteColor,
+              fitWidth: true,
+            ),
+          ],
         ),
       ),
     );
@@ -124,12 +123,12 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
                 ? appTheme.colorPrimary.withOpacity(0.7)
                 : appTheme.redColor.withOpacity(0.7),
         gapSpace: getSize(30),
-        strokeWidth: getSize(1.5),
+        // strokeWidth: getSize(1.5),
         radius: Radius.circular(
-          getSize(10),
+          getSize(0),
         ),
         solidColor: isOtpCheck
-            ? appTheme.colorPrimary.withOpacity(0.2)
+            ? appTheme.colorPrimary.withOpacity(0.1)
             : isOtpTrue
                 ? appTheme.colorPrimary.withOpacity(0.7)
                 : appTheme.redColor.withOpacity(0.7),
@@ -144,7 +143,7 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
         obscureStyle: ObscureStyle(
           isTextObscure: false,
         ),
-        hintText: '',
+        hintText: '0000',
       ),
       controller: _pinEditingController,
       textInputAction: TextInputAction.done,

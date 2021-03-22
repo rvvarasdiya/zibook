@@ -22,12 +22,16 @@ getBackButton(BuildContext context, {bool isWhite = false}) {
     onTap: () {
       Navigator.pop(context);
     },
-    child: Container(
-      child: Image.asset(
-        backButton,
-        color: isWhite == true ? Colors.white : Colors.black,
-        width: getSize(24),
-        height: getSize(24),
+    child: Padding(
+      padding: EdgeInsets.all(getSize(12)),
+      child: Container(
+        child: Image.asset(
+          backButton,
+          color: isWhite == true ? Colors.white : Colors.black,
+          width: getSize(24),
+          height: getSize(24),
+          
+        ),
       ),
     ),
   );
@@ -141,18 +145,18 @@ Widget getAppBar(BuildContext context, String title,
     TextAlign textalign,
     PreferredSize widget,
     Color backgroundColor,
-    bool centerTile}) {
+    bool centerTitle}) {
   return AppBar(
     iconTheme: IconThemeData(
       color: appTheme.whiteColor,
     ),
-    centerTitle: true,
+    centerTitle: centerTitle,
     elevation: 0.0,
     title: isTitleShow
         ? Text(
             title,
             style: AppTheme.of(context).theme.textTheme.body1.copyWith(
-                  color: ColorConstants.blueFontColor,
+                  color: ColorConstants.getWhiteColor,
                   fontWeight: FontWeight.w600,
                   fontSize: getFontSize(20),
                 ),

@@ -18,7 +18,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         actions: [Container()],
         automaticallyImplyLeading: false,
         titleSpacing: 0,
-        toolbarHeight: getSize(80),
+        // toolbarHeight: getSize(80),
         backgroundColor: appTheme.colorPrimary,
         elevation: 0,
         // toolbarHeight: getSize(160),

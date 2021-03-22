@@ -2,6 +2,10 @@ const String baseURL = "http://google.com";
 
 const DEVICE_TYPE_ANDROID = 1; //Android
 const DEVICE_TYPE_IOS = 2; //IOS
+const DEFAULT_PAGE = 1;
+const DEFAULT_LIMIT = 100;
+const SUCCESS = 1;
+const FAIL = 2;
 
 
 const APPNAME = "Campaign Hero";
