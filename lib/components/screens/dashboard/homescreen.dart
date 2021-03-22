@@ -52,21 +52,12 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [Container()],
           automaticallyImplyLeading: false,
           titleSpacing: 0,
-<<<<<<< HEAD
           // toolbarHeight: getSize(160),
             backgroundColor: appTheme.colorPrimary,
             elevation: 0,
             // toolbarHeight: getSize(160),
             title:  Container(
               alignment: Alignment.topCenter,
-=======
-          toolbarHeight: getSize(160),
-          backgroundColor: appTheme.colorPrimary,
-          elevation: 0,
-          // toolbarHeight: getSize(160),
-          title: Container(
-            alignment: Alignment.topCenter,
->>>>>>> 082dbc3f3fc560748eb0c726181fe2c3f1522a76
             color: appTheme.colorPrimary,
             padding: EdgeInsets.symmetric(horizontal: getSize(30)),
             // width: double.infinity,
