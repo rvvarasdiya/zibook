@@ -24,8 +24,8 @@ class _SettingScreenState extends State<SettingScreen> {
           appBar: AppBar(
               actions: [Container()],
               leading: Icon(
-                // Icons.arrow_back_outlined,
-                Icons.add,
+                Icons.arrow_back_outlined,
+                // Icons.add,
                 color: Colors.white,
               ),
               automaticallyImplyLeading: false,
@@ -92,50 +92,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         SizedBox(
                           height: getSize(40),
                         ),
-                        Text(
-                          "Account Privacy",
-                          style: appTheme.black16BoldTextStyle,
-                        ),
-                        Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Image.asset(
-                                privateAcc,
-                                width: getSize(22),
-                                height: getSize(22),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Expanded(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Private Account",
-                                      style: appTheme.black14RegularTextStyle
-                                          .copyWith(color: Color(0xff6E7073)),
-                                    ),
-                                    Switch(
-                                      value: private,
-                                      onChanged: (Value) {
-                                        setState(() {
-                                          private = !private;
-                                        });
-                                      },
-                                      activeColor: appTheme.colorPrimary,
-                                      inactiveThumbColor: appTheme.colorPrimary,
-                                    )
-                                  ],
-                                ),
-                              )
-                            ]),
-                        SizedBox(
-                          height: getSize(20),
-                        ),
+                        
                         Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [

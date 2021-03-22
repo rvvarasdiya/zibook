@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [Container()],
           automaticallyImplyLeading: false,
           titleSpacing: 0,
-          // toolbarHeight: getSize(160),
+          toolbarHeight: getSize(160),
             backgroundColor: appTheme.colorPrimary,
             elevation: 0,
             // toolbarHeight: getSize(160),

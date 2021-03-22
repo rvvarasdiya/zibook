@@ -21,7 +21,7 @@ class ColorConstants {
   static Color getDividerColor = fromHex("#EAEEFC");
 
   //SHADOW
-  static Color getShadowColor = fromHex("#6F8FEA");
+  static Color getShadowColor = fromHex("#0000000D");
   static Color bottomShadowColor = fromHex("#0000001A");
 
   static Color black = fromHex("#000000");
