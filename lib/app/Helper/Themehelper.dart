@@ -57,6 +57,7 @@ class BaseTheme {
   Color get shadowColorWithoutOpacity => fromHex("#7D9EF6").withOpacity(0.1);
 
   Color get shadowColor => shadowColorWithoutOpacity.withOpacity(0.1);
+  Color get textGreyColor => fromHex("#999999");
 
   // Color get shadowColor => fromHex("#7D9EF61A");
 
@@ -108,6 +109,22 @@ class BaseTheme {
     );
   }
 
+  TextStyle get gray14RegularTextStyle {
+    return TextStyle(
+      fontSize: getFontSize(14),
+      color: grayColor,
+      fontWeight: FontWeight.w400,
+    );
+  }
+
+  TextStyle get gray12RegularTextStyle {
+    return TextStyle(
+      fontSize: getFontSize(12),
+      color: grayColor,
+      fontWeight: FontWeight.w400,
+    );
+  }
+
   TextStyle get colorPrimary14MediumTextStyle {
     return TextStyle(
       fontSize: getFontSize(14),
@@ -132,6 +149,14 @@ class BaseTheme {
     );
   }
 
+  TextStyle get black16RegularTextStyle {
+    return TextStyle(
+      fontSize: getFontSize(16),
+      color: textBlackColor,
+      fontWeight: FontWeight.w400,
+    );
+  }
+
   TextStyle get white14BoldTextStyle {
     return TextStyle(
       fontSize: getFontSize(14),
@@ -143,6 +168,38 @@ class BaseTheme {
   TextStyle get black14BoldTextStyle {
     return TextStyle(
       fontSize: getFontSize(14),
+      color: textBlackColor,
+      fontWeight: FontWeight.w700,
+    );
+  }
+  
+    TextStyle get blackSemiBold18TitleColorblack {
+    return TextStyle(
+        fontSize: getFontSize(18),
+        fontWeight: FontWeight.w500,
+        color: textColor);
+  }
+
+  TextStyle get greySemibold18TitleColor {
+    return TextStyle(
+      fontSize: getFontSize(18),
+      color: textGreyColor,
+      fontWeight: FontWeight.w500,
+    );
+  }
+  
+
+  TextStyle get black16BoldTextStyle {
+    return TextStyle(
+      fontSize: getFontSize(14),
+      color: textBlackColor,
+      fontWeight: FontWeight.w700,
+    );
+  }
+
+    TextStyle get black18BoldTextStyle {
+    return TextStyle(
+      fontSize: getFontSize(18),
       color: textBlackColor,
       fontWeight: FontWeight.w700,
     );

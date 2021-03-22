@@ -6,6 +6,7 @@ import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/screens/Auth/OtpVerifyScreen.dart';
+import 'package:zaviato/components/screens/Business/BusinessDetail.dart';
 import 'package:zaviato/components/widgets/shared/buttons.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
@@ -22,6 +23,12 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   bool _isEmailOrMobileValid = true;
   bool _autoValidate = false;
 
+
+  @override
+  void initState() {
+    super.initState();
+    passwordController.text = "1234567890";
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -122,7 +129,8 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     FocusScope.of(context).unfocus();
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
-                      NavigationUtilities.pushRoute(OtpVerifyScreen.route);
+                      // NavigationUtilities.pushRoute(OtpVerifyScreen.route);
+                      NavigationUtilities.pushRoute(BusinessDetailScreen.route);
                     } else {
                       setState(() {
                         _autoValidate = true;

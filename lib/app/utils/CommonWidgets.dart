@@ -150,13 +150,13 @@ Widget getAppBar(BuildContext context, String title,
     iconTheme: IconThemeData(
       color: appTheme.whiteColor,
     ),
-    centerTitle: true,
+    centerTitle: centerTitle,
     elevation: 0.0,
     title: isTitleShow
         ? Text(
             title,
             style: AppTheme.of(context).theme.textTheme.body1.copyWith(
-                  color: ColorConstants.blueFontColor,
+                  color: ColorConstants.getWhiteColor,
                   fontWeight: FontWeight.w600,
                   fontSize: getFontSize(20),
                 ),
