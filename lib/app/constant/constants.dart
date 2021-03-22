@@ -1,4 +1,4 @@
-const String baseURL = "http://google.com";
+const String baseURL = "https://secret-citadel-73539.herokuapp.com";
 
 const DEVICE_TYPE_ANDROID = 1; //Android
 const DEVICE_TYPE_IOS = 2; //IOS

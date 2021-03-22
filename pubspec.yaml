@@ -52,6 +52,9 @@ dependencies:
   dotted_line: ^2.0.2
   animated_text_kit: ^2.5.4
   get: ^3.13.2
+  # animated_splash_screen: ^1.0.1+2
+  # page_transition: ^1.1.7+6
+  animated_splash: ^1.0.0
 
 
 dev_dependencies:

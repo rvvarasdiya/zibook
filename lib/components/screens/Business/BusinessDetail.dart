@@ -75,7 +75,7 @@ class _BusinessDetailScreenState extends State<BusinessDetailScreen> {
       margin: EdgeInsets.only(top: getSize(10)),
       padding: EdgeInsets.only(top: getSize(15)),
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: ColorConstants.backGroundColor,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(35), topRight: Radius.circular(35))),
       child: ListView.builder(
@@ -99,7 +99,15 @@ class _BusinessDetailScreenState extends State<BusinessDetailScreen> {
         // color: Colors.red,
         padding: EdgeInsets.all(getSize(8)),
         decoration: BoxDecoration(
-          boxShadow: getBoxShadow(context),
+          borderRadius: BorderRadius.circular(getSize(15)),
+          boxShadow: [
+            BoxShadow(
+              // color: Colors.red,
+              spreadRadius: 3.0,
+              color: ColorConstants.getBoxShdowColor2,
+              blurRadius: 3.0
+            )
+          ],
           color: Colors.white
         ),
         child: Column(

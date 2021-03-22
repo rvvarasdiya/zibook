@@ -1,6 +1,7 @@
 import 'package:zaviato/app/Helper/LocalizationHelper.dart';
 import 'package:zaviato/app/di/app_module.dart';
 import 'package:zaviato/components/screens/Home/mainscreen.dart';
+import 'package:zaviato/components/screens/WelcomeScreen/SplashScreen.dart';
 import 'package:zaviato/components/screens/WelcomeScreen/WelcomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -91,7 +92,7 @@ class _BaseState extends State<Base> {
       navigatorKey: key,
       onGenerateRoute: onGenerateRoute,
       navigatorObservers: [routeObserver],
-      home: WelcomeScreen(),
+      home: SplashScreen(),
       routes: <String, WidgetBuilder>{
         '/ThemeSetting': (BuildContext context) => ThemeSetting(),
       },
