@@ -100,7 +100,9 @@ class _BusinessViewState extends State<BusinessView> {
         // color: Colors.red,
         padding: EdgeInsets.all(getSize(15)),
         decoration: BoxDecoration(
-            boxShadow: getBoxShadow(context), color: Colors.white),
+          boxShadow: getBoxShadow(context),
+          color: Colors.white,
+        ),
         child: Column(
           children: <Widget>[
             Row(
