@@ -8,9 +8,8 @@ import 'package:zaviato/app/utils/CommonWidgets.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
-import 'package:zaviato/components/screens/Business/HelpScreen.dart';
+import 'package:zaviato/components/screens/contactus/contactusScreen.dart';
 import 'package:zaviato/components/widgets/BusinessFullDetailsWidgets/ReviewAndRatings.dart';
-import 'package:zaviato/models/ReviewAndRatingsModel.dart';
 import 'package:zaviato/models/TabModel.dart';
 import 'package:zaviato/models/categoryListModel.dart';
 
@@ -40,7 +39,7 @@ class _BusinessFullDetailState extends State<BusinessFullDetail> {
       arrList.add(categoryListModel);
     }
 
-    setTabData();
+    // setTabData();
 
     super.initState();
     businessFullDetailBaseList = BaseList(BaseListState(
@@ -215,18 +214,14 @@ class _BusinessFullDetailState extends State<BusinessFullDetail> {
         body: Stack(
           children: <Widget>[
             Container(
-              height: getSize(270),
+              height: getSize(150),
               width: double.infinity,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/common/splashBgImage.png"),
-                  fit: BoxFit.cover,
-                ),
-              ),
+              color: appTheme.colorPrimary,
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: getSize(20), vertical: getSize(10)),
+                    horizontal: getSize(30), vertical: getSize(10)),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Row(
                       // crossAxisAlignment: CrossAxisAlignment.start,
@@ -274,20 +269,38 @@ class _BusinessFullDetailState extends State<BusinessFullDetail> {
                       ],
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: getSize(140)),
+                      padding: EdgeInsets.only(top: getSize(20)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Image.asset(
-                            enquiry,
-                            width: getSize(94),
-                            height: getSize(30),
+                          GestureDetector(
+                            onTap: (){
+                              print("Enquiry pressed ........ ");
+                              NavigationUtilities.push(ContactUsScreen());
+                            },
+                            child: Container(
+                              decoration: getBoxDecoration(Colors.white24, 5),
+                              padding: EdgeInsets.all(5),
+                              child: Row(
+                                children: [
+                                  Image.asset(chatIcon,
+                                      width: getSize(16),
+                                      height: getSize(16),
+                                      color: Colors.white),
+                                  Text(
+                                    "  Enquiry",
+                                    style: appTheme.white14RegularTextStyle,
+                                  )
+                                ],
+                              ),
+                            ),
                           ),
                           Container(
+                            width: getSize(25),
+                            height: getSize(25),
                             child: Image.asset(
                               whatsapp,
-                              width: getSize(40),
-                              height: getSize(40),
+                              fit: BoxFit.cover,
                             ),
                           ),
                         ],

@@ -23,18 +23,25 @@ getBackButton(BuildContext context, {bool isWhite = false}) {
       Navigator.pop(context);
     },
     child: Padding(
-      padding: EdgeInsets.all(getSize(12)),
+      padding: EdgeInsets.all(getSize(0)),
       child: Container(
         child: Image.asset(
           backButton,
           color: isWhite == true ? Colors.white : Colors.black,
           width: getSize(24),
           height: getSize(24),
-          
         ),
       ),
     ),
   );
+}
+
+
+getBoxDecoration(Color color,double radius){
+return BoxDecoration(
+      color:  color,
+      borderRadius: BorderRadius.circular(radius),
+    );
 }
 
 Widget getDividerContainer() {
