@@ -54,10 +54,11 @@ class BaseTheme {
 
   Color get redColor => fromHex("#F14236");
 
-  Color get shadowColorWithoutOpacity => fromHex("#7D9EF6").withOpacity(0.1);
+  Color get shadowColor => fromHex("#0000001A");
 
-  Color get shadowColor => shadowColorWithoutOpacity.withOpacity(0.1);
+  // Color get shadowColor => shadowColorWithoutOpacity.withOpacity(0.1);
   Color get textGreyColor => fromHex("#999999");
+  // Color get shadowColor => shadowColorWithoutOpacity.withOpacity(0.1);
 
   // Color get shadowColor => fromHex("#7D9EF61A");
 
@@ -90,6 +91,13 @@ class BaseTheme {
       fontSize: getFontSize(18),
       color: whiteColor,
       fontWeight: FontWeight.w400,
+    );
+  }
+  TextStyle get white22BoldTextStyle {
+    return TextStyle(
+      fontSize: getFontSize(22),
+      color: whiteColor,
+      fontWeight: FontWeight.w700,
     );
   }
 
@@ -157,9 +165,9 @@ class BaseTheme {
     );
   }
 
-  TextStyle get white14BoldTextStyle {
+  TextStyle get white16BoldTextStyle {
     return TextStyle(
-      fontSize: getFontSize(14),
+      fontSize: getFontSize(16),
       color: whiteColor,
       fontWeight: FontWeight.w700,
     );
@@ -197,7 +205,30 @@ class BaseTheme {
     );
   }
 
-    TextStyle get black18BoldTextStyle {
+  // TextStyle get black16BoldTextStyle {
+  //   return TextStyle(
+  //     fontSize: getFontSize(16),
+  //     color: textBlackColor,
+  //     fontWeight: FontWeight.w700,
+  //   );
+  // }
+
+  // TextStyle get black16RegularTextStyle {
+  //   return TextStyle(
+  //     fontSize: getFontSize(16),
+  //     color: textBlackColor,
+  //     // fontWeight: FontWeight.w700,
+  //   );
+  // }
+
+  TextStyle get black18RegularTextStyle {
+    return TextStyle(
+      fontSize: getFontSize(18),
+      color: textBlackColor,
+      // fontWeight: FontWeight.w700,
+    );
+  }
+  TextStyle get black18BoldTextStyle {
     return TextStyle(
       fontSize: getFontSize(18),
       color: textBlackColor,

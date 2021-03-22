@@ -7,7 +7,7 @@ import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/screens/Auth/SignUpScreen.dart';
 import 'package:zaviato/components/widgets/shared/buttons.dart';
 
-import 'ForgetPasswordScreen.dart';
+import 'ForgetPasswordScreen.dart'; 
 
 class SignInScreen extends StatefulWidget {
   static const route = "SignInScreen";
