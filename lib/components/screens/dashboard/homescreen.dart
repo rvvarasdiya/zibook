@@ -66,8 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: getSize(40),
             decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(
-                      'https://via.placeholder.com/150'),
+                  image:AssetImage(userIcon),
                   fit: BoxFit.fill,
                 ),
                 shape: BoxShape.circle,
