@@ -1,17 +1,20 @@
 import 'package:zaviato/app/Helper/LocalizationHelper.dart';
 import 'package:zaviato/app/di/app_module.dart';
+import 'package:zaviato/components/screens/Home/mainscreen.dart';
 import 'package:zaviato/components/screens/WelcomeScreen/WelcomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kiwi/kiwi.dart';
 import 'package:zaviato/app/theme/settings_models_provider.dart';
+import 'package:zaviato/components/screens/dashboard/dashboard.dart';
 import 'package:zaviato/modules/ThemeSetting.dart';
 import 'app/Helper/Themehelper.dart';
 import 'app/constant/constants.dart';
 import 'app/theme/app_theme.dart';
-import 'app/theme/global_models_provider.dart';
+import 'app/theme/global_models_provider.dart'; 
 import 'app/utils/navigator.dart';
 import 'app/utils/route_observer.dart';
+import 'components/screens/dashboard/homescreen.dart';
 
 KiwiContainer app;
 
@@ -88,7 +91,7 @@ class _BaseState extends State<Base> {
       navigatorKey: key,
       onGenerateRoute: onGenerateRoute,
       navigatorObservers: [routeObserver],
-      home: WelcomeScreen(),
+      home: Dashboard(),
       routes: <String, WidgetBuilder>{
         '/ThemeSetting': (BuildContext context) => ThemeSetting(),
       },

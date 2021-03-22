@@ -46,8 +46,8 @@ class _bottomNavigatorState extends State<bottomNavigator> {
                             height: getSize(24),
                             width: getSize(24),
                             child: Image.asset(
-                            homeIcon,
-                            color: (currentIndex ==1 ) ?appTheme.colorPrimary : Colors.grey,
+                           (currentIndex ==1 )? homeFillIcon  : homeIcon,
+                            color: (currentIndex ==1 ) ?null : Color(0xffCBCBCB),
                             fit: BoxFit.fill,
                   ),
                           ),
@@ -71,8 +71,8 @@ class _bottomNavigatorState extends State<bottomNavigator> {
                             height: getSize(24),
                             width: getSize(24),
                             child: Image.asset(
-                            notifyIcon,
-                             color: (currentIndex ==2 ) ?appTheme.colorPrimary : Colors.grey,
+                            (currentIndex ==2 ) ? notifyFillIcon :notifyIcon,
+                            //  color: (currentIndex ==2 ) ?appTheme.colorPrimary : Colors.grey,
                             fit: BoxFit.fill,
                   ),
                           ),
@@ -96,8 +96,8 @@ class _bottomNavigatorState extends State<bottomNavigator> {
                             height: getSize(24),
                             width: getSize(24),
                             child: Image.asset(
-                            chatIcon,
-                            color: (currentIndex ==3) ?appTheme.colorPrimary : Colors.grey,
+                             (currentIndex ==3) ? chatFillIcon : chatIcon,
+                            // color: (currentIndex ==3) ?appTheme.colorPrimary : Colors.grey,
                             fit: BoxFit.fill,
                   ),
                       ),
@@ -121,8 +121,8 @@ class _bottomNavigatorState extends State<bottomNavigator> {
                             height: getSize(24),
                             width: getSize(24),
                             child: Image.asset(
-                            settingIcon,
-                             color: (currentIndex ==4 ) ?appTheme.colorPrimary : Colors.grey,
+                           (currentIndex ==4 ) ?  settingFillIcon :settingIcon,
+                            //  color: (currentIndex ==4 ) ?appTheme.colorPrimary : Colors.grey,
                             fit: BoxFit.fill,
                   ),
                           ),

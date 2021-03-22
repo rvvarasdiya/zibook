@@ -81,7 +81,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       ),
                       TextSpan(
                         text: ' Sign In',
-                        style: appTheme.white14BoldTextStyle,
+                        style: appTheme.white16BoldTextStyle,
                       ),
                     ],
                   ),

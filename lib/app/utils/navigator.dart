@@ -8,6 +8,7 @@ import 'package:zaviato/components/screens/Auth/OtpVerifyScreen.dart';
 import 'package:zaviato/components/screens/Auth/SignInScreen.dart';
 import 'package:zaviato/components/screens/Auth/SignUpScreen.dart';
 import 'package:zaviato/components/screens/WelcomeScreen/WelcomeScreen.dart';
+import 'package:zaviato/components/screens/editDetail/editprofile.dart';
 import 'fade_route.dart';
 
 /// The [RouteType] determines what [PageRoute] is used for the new route.
@@ -110,6 +111,9 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       break;
     case ForgetPasswordScreen.route:
       screen = ForgetPasswordScreen();
+      break;
+    case EditProfileScreen.route:
+      screen = EditProfileScreen();
       break;
   }
 

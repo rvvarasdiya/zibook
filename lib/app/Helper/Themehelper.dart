@@ -154,6 +154,34 @@ class BaseTheme {
       fontWeight: FontWeight.w700,
     );
   }
+  TextStyle get black16BoldTextStyle {
+    return TextStyle(
+      fontSize: getFontSize(16),
+      color: textBlackColor,
+      fontWeight: FontWeight.w700,
+    );
+  }
+  TextStyle get black16RegularTextStyle {
+    return TextStyle(
+      fontSize: getFontSize(16),
+      color: textBlackColor,
+      // fontWeight: FontWeight.w700,
+    );
+  }
+  TextStyle get black18RegularTextStyle {
+    return TextStyle(
+      fontSize: getFontSize(18),
+      color: textBlackColor,
+      // fontWeight: FontWeight.w700,
+    );
+  }
+  TextStyle get black18BoldTextStyle {
+    return TextStyle(
+      fontSize: getFontSize(18),
+      color: textBlackColor,
+      fontWeight: FontWeight.w700,
+    );
+  }
 
   TextStyle get getHintTextCommonTextStyle {
     return TextStyle(
