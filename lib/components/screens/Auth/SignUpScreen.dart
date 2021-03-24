@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:zaviato/app/AppConfiguration/AppNavigation.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
+import 'package:zaviato/app/constant/EnumConstant.dart';
 import 'package:zaviato/app/network/NetworkCall.dart';
 import 'package:zaviato/app/network/ServiceModule.dart';
 import 'package:zaviato/app/utils/CommonTextfield.dart';
@@ -337,7 +339,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     FocusScope.of(context).unfocus();
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
-                      callLoginApi(context);
+                      callSignUpApi(context);
                     } else {
                       setState(() {
                         _autoValidate = true;
@@ -384,21 +386,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  callLoginApi(BuildContext context) {
+  callSignUpApi(BuildContext context) {
+    SignUpModel req = SignUpModel();
+    req.firstName = firstNameController.text;
+    req.lastName = lastNameController.text;
+    req.email = emailController.text;
+    req.mobile = mobileController.text;
+    req.password = passwordController.text;
 
-    // SignUpModel req = SignUpModel();
-    // req.firstName = firstNameController.text;
-    // req.lastName =  lastNameController.text;
-    // req.email = emailController.text;
-    // req.countryCode = 
+    NetworkCall<SignUpResponseModel>()
+        .makeCall(
+            () => app.resolve<ServiceModule>().networkService().signUpApi(req),
+            context,
+            isProgress: true)
+        .then(
+          (signUpResp) async {
+            // AppNavigation().movetoLogin();
 
-    // NetworkCall<SignUpResponseModel>()
-    //     .makeCall(
-    //         () => app.resolve<ServiceModule>().networkService().login(req),
-    //         context,
-    //         isProgress: true)
-    //     .then((loginResp) async {
+            Map<String,dynamic> arguments = {};
+            arguments["email"] = emailController.text;
+            arguments["moduleType"] = OtpPage.SignUP;
 
-    //     });
+            NavigationUtilities.pushRoute(OtpVerifyScreen.route,args: arguments);
+          },
+        );
   }
 }

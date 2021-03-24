@@ -37,6 +37,7 @@ final GlobalKey<NavigatorState> key = GlobalKey<NavigatorState>();
 //GLOBAL KEY TO DECLARE TO CONTEXT CLASS//
 
 class NavigationUtilities {
+  // static GlobalKey<NavigatorState> key = GlobalKey<NavigatorState>();
   /// A convenience method to push a new [MaterialPageRoute] to the [Navigator].
   static void push(Widget widget, {String name}) {
     key.currentState.push(MaterialPageRoute(
@@ -103,10 +104,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       screen = WelcomeScreen();
       break;
     case OtpVerifyScreen.route:
-      screen = OtpVerifyScreen();
+      screen = OtpVerifyScreen(arguments: arguments,);
       break;
     case CreatePasswordScreen.route:
-      screen = CreatePasswordScreen();
+      screen = CreatePasswordScreen(arguments: arguments,);
       break;
 
     case SignInScreen.route:

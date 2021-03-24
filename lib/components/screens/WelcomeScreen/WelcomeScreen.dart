@@ -72,6 +72,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   onTap: () {
                     NavigationUtilities.pushRoute(
                       SignInScreen.route,
+            
                     );
                   },
                   text: "Get started",

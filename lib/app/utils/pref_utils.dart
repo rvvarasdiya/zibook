@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:logging/logging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zaviato/app/utils/string_utils.dart';
+import 'package:zaviato/models/Auth/LogInResponseModel.dart';
 
 /// Wraps the [SharedPreferences].
 class PrefUtils {
@@ -9,13 +13,22 @@ class PrefUtils {
 
   double screenSizeWidth;
 
-
   /// The [prefix] is used in keys for user specific preferences. You can use unique user-id for multi_user
   String get prefix => "my_app";
 
   String get keyIsShowThemeSelection => "keyIsShowThemeSelection";
 
   String get keySelectedThemeId => "keySelectedThemeId";
+
+  String get keyIsUserLogin => "keyIsUserLogin";
+
+  String get keyUser => "keyUser";
+
+  String get keyToken => "keyToken";
+
+  String get keyMasterSyncDate => "keyMasterSyncDate";
+
+  String get keyUserPermission => "keyUserPermission";
 
   Future<void> init() async {
     preferences ??= await SharedPreferences.getInstance();
@@ -89,11 +102,68 @@ class PrefUtils {
     preferences.setBool(keyIsShowThemeSelection, showThemeSelection);
   }
 
+  // User Getter setter
+  Future<void> saveUser(User user) async {
+    await preferences.setBool(keyIsUserLogin, true);
+    preferences.setString(keyUser, json.encode(user));
+  }
+
+  User getUserDetails() {
+    var userJson = json.decode(preferences.getString(keyUser));
+    return userJson != null ? new User.fromJson(userJson) : null;
+  }
+
+  Future<void> saveUserToken(String token) async {
+    await preferences.setString(keyToken, token);
+  }
+
   bool isUserLogin() {
-    return true;
+    return !isNullEmptyOrFalse(getUserToken());
   }
 
   String getUserToken() {
-    return "token";
+    String str = getString(keyToken);
+    if (!isNullEmptyOrFalse(str)) {
+      String token = getString(keyToken);
+      return token;
+    } else {
+      return null;
+    }
   }
+
+  String getMasterSyncDate() {
+    if (isStringEmpty(getString(keyMasterSyncDate)) == false) {
+      return getString(keyMasterSyncDate);
+    } else {
+      return "1970-01-01T00:00:00+00:00";
+    }
+  }
+
+  void saveMasterSyncDate(String masterSyncDate) {
+    preferences.setString(keyMasterSyncDate, masterSyncDate);
+  }
+
+  // Future<void> saveUserPermission(UserPermissions user) async {
+  //   _preferences.setString(keyUserPermission, json.encode(user));
+  // }
+
+  // UserPermissions getUserPermission() {
+  //   var userPermissionsJson =
+  //       json.decode(_preferences.getString(keyUserPermission));
+  //   return userPermissionsJson != null
+  //       ? new UserPermissions.fromJson(userPermissionsJson)
+  //       : null;
+  // }
+
+  //   Future<void> saveUserPermission(UserPermissions user) async {
+  //   preferences.setString(keyUserPermission, json.encode(user));
+  // }
+
+  // UserPermissions getUserPermission() {
+  //   var userPermissionsJson =
+  //       json.decode(_preferences.getString(keyUserPermission));
+  //   return userPermissionsJson != null
+  //       ? new UserPermissions.fromJson(userPermissionsJson)
+  //       : null;
+  // }
 }

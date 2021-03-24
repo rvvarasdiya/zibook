@@ -56,7 +56,6 @@ dependencies:
   # page_transition: ^1.1.7+6
   animated_splash: ^1.0.0
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
