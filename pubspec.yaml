@@ -52,6 +52,8 @@ dependencies:
   dotted_line: ^2.0.2
   animated_text_kit: ^2.5.4
   get: ^3.13.2
+  direct_select_flutter: ^1.0.5
+  csc_picker: ^0.0.1
 
 
 dev_dependencies:

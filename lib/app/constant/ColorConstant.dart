@@ -34,7 +34,7 @@ class ColorConstants {
   static Color getProgressBarShadow = fromHex("#8FA8FF");
   static Color getProgressBarShadowLight = fromHex("#CCD7FF");
   static Color getWhiteColor = fromHex("#F4F5F8");
-  static Color getGreenColor = fromHex("#28DA66");
+  static Color getGreenColor = fromHex("#4ADC8E");
   static Color getTimeLineList = fromHex("#6C63FF");
   static Color getAcdemyColor = fromHex("#B668FF");
   static Color getAcdemyShadowColor = fromHex("#599FFF");

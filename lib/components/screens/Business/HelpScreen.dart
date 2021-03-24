@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
 import 'package:zaviato/app/constant/ColorConstant.dart';
+import 'package:zaviato/app/constant/ImageConstant.dart';
 import 'package:zaviato/app/utils/CommonWidgets.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
@@ -38,18 +39,18 @@ class _HelpScreenState extends State<HelpScreen> {
       appBar: getAppBar(context, "How can we help you?",
           centerTitle: false,
           backgroundColor: appTheme.colorPrimary,
-          leadingButton: getBackButton(context),
+          leadingButton: IconButton(icon: Icon(Icons.arrow_back,color: Colors.white,), onPressed: ()=>Navigator.pop(context)),
           actionItems: [
             Container(
               // alignment: Alignment.center,
               margin: EdgeInsets.only(
-                  top: getSize(8), bottom: getSize(8), right: getSize(10)),
+                  top: getSize(15), bottom: getSize(8), right: getSize(10)),
               width: getSize(40),
               height: getSize(40),
               decoration: BoxDecoration(
                 color: Colors.white,
                 image: DecorationImage(
-                  image: NetworkImage('https://via.placeholder.com/150'),
+                  image: AssetImage(userIcon),
                   fit: BoxFit.fill,
                 ),
                 shape: BoxShape.circle,
@@ -67,7 +68,10 @@ class _HelpScreenState extends State<HelpScreen> {
           ]),
       body: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20), color: Colors.white),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(35),
+              topRight: Radius.circular(35)
+            ), color: Colors.white),
         child: ListView.builder(
           padding: EdgeInsets.symmetric(
               horizontal: getSize(30), vertical: getSize(30)),
@@ -84,7 +88,11 @@ class _HelpScreenState extends State<HelpScreen> {
   getQuestionAnswer(HelpScreenModel helpScreenModel, int index) {
     return InkWell(
       onTap: () {
-        NavigationUtilities.pushRoute(BusinessView.route);
+        // NavigationUtilities.pushRoute(BusinessView.route);
+        setState(() {
+                      helpScreenModel.isShowMoreLess =
+                          !helpScreenModel.isShowMoreLess;
+                    });
       },
       child: Container(
         padding: EdgeInsets.all(getSize(10)),
@@ -115,8 +123,8 @@ class _HelpScreenState extends State<HelpScreen> {
                     });
                   },
                   child: !helpScreenModel.isShowMoreLess
-                      ? Icon(Icons.arrow_downward)
-                      : Icon(Icons.arrow_upward),
+                      ? Icon(Icons.keyboard_arrow_down_outlined)
+                      : Icon(Icons.keyboard_arrow_up_outlined),
                 ),
               ],
             ),

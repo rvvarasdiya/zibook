@@ -12,13 +12,13 @@ import 'package:zaviato/components/widgets/shared/buttons.dart';
 import 'package:zaviato/components/widgets/shared/start_rating.dart';
 import 'package:zaviato/models/categoryListModel.dart';
 
-class BusinessView extends StatefulWidget {
-  static const route = "BusinessView";
+class FavoriteScreen extends StatefulWidget {
+  static const route = "FavoriteScreen";
   @override
-  _BusinessViewState createState() => _BusinessViewState();
+  _FavoriteScreenState createState() => _FavoriteScreenState();
 }
 
-class _BusinessViewState extends State<BusinessView> {
+class _FavoriteScreenState extends State<FavoriteScreen> {
   BaseList fashionBaseList;
   int page = DEFAULT_PAGE;
   List<CategoryListModel> arrList = [];
@@ -35,7 +35,7 @@ class _BusinessViewState extends State<BusinessView> {
           "Harshil Soni",
           "9999999999",
           "305, krishna texttiles, surat, Gujarat",
-          false
+          true
           );
       arrList.add(categoryListModel);
     }
@@ -315,7 +315,7 @@ class _BusinessViewState extends State<BusinessView> {
   getLocalAppBar() {
     return getAppBar(
       context,
-      "My Business",
+      "My Favorite",
       textalign: TextAlign.left,
       centerTitle: false,
       leadingButton: IconButton(
@@ -428,116 +428,3 @@ class _BusinessViewState extends State<BusinessView> {
   }
 }
 
-// Column(
-//         children: <Widget>[
-//           Container(
-//             // height: getSize(200),
-//             width: double.infinity,
-//             padding: EdgeInsets.all(getSize(14)),
-//             decoration: BoxDecoration(
-//                 // color: appTheme.colorPrimary,
-//                 color: Colors.red,
-//                 borderRadius: BorderRadius.circular(5.0),
-//                 border: Border.all(
-//                   color: appTheme.colorPrimary.withOpacity(1),
-//                   width: 0.5,
-//                 )),
-//             child: Row(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: <Widget>[
-//                 Flexible(
-//                   child: IconButton(
-//                     icon: Icon(
-//                       Icons.arrow_back,
-//                       color: Colors.white,
-//                     ),
-//                   ),
-//                 ),
-//                 Flexible(
-//                   flex: 5,
-//                   fit: FlexFit.tight,
-//                   child: Container(
-//                     padding: EdgeInsets.all(getSize(8)),
-//                     margin: EdgeInsets.only(
-//                         top: getSize(30),
-//                         bottom: getSize(10),
-//                         left: getSize(30)),
-//                     // height: getSize(10),
-//                     decoration: BoxDecoration(
-//                       color: Colors.white,
-//                       borderRadius: BorderRadius.circular(25.0),
-//                       border: Border.all(
-//                         color: Colors.black,
-//                         width: 0.5,
-//                       ),
-//                     ),
-//                     child: Row(
-//                       children: <Widget>[
-//                         Icon(Icons.search),
-//                         Expanded(
-//                           child: TextFormField(
-//                             textAlignVertical: TextAlignVertical.center,
-//                             // controller: searchbarcontroller,
-//                             style: TextStyle(
-//                               fontSize: getFontSize(15),
-//                               // fontFamily: 'Segoe'
-//                               // hintSize(height),
-//                             ),
-//                             maxLines: 1,
-//                             decoration: InputDecoration(
-//                               fillColor: Colors.transparent,
-//                               border: InputBorder.none,
-//                               isDense: true,
-//                               contentPadding: const EdgeInsets.only(
-//                                 left: 10,
-//                               ),
-//                               hintText: "Search Here",
-//                               hintStyle: TextStyle(
-//                                 fontFamily: 'Segoe',
-//                                 fontSize: getFontSize(15),
-//                                 // hintSize(height),
-//                                 // AppStrings.hintTextsize,
-//                                 color: Colors.black.withOpacity(0.5),
-//                               ),
-//                             ),
-//                           ),
-//                         ),
-//                         Icon(Icons.clear),
-//                       ],
-//                     ),
-//                   ),
-//                 ),
-//                 Flexible(
-//                   child: Container(
-//                     // alignment: Alignment.center,
-//                     margin: EdgeInsets.only(top: getSize(30)),
-//                     width: getSize(40),
-//                     height: getSize(40),
-//                     decoration: BoxDecoration(
-//                       color: Colors.white,
-//                       image: DecorationImage(
-//                         image: NetworkImage('https://via.placeholder.com/150'),
-//                         fit: BoxFit.fill,
-//                       ),
-//                       shape: BoxShape.circle,
-//                       boxShadow: [
-//                         new BoxShadow(
-//                           color: ColorConstants.getShadowColor,
-//                           offset: Offset(0, 5),
-//                           blurRadius: 5.0,
-//                         ),
-//                       ],
-//                     ),
-
-//                     // NetworkImage('https://via.placeholder.com/150'),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           ),
-//           Expanded(
-//             child: fashionBaseList,
-//           )
-//         ],
-//       ),

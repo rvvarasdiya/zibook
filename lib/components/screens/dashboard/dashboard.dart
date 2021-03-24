@@ -118,11 +118,12 @@ class _DashboardState extends State<Dashboard> {
 
     _children = [
       HomeScreen(),
-      // RegisterBusinessScreen(),
       NotificationScreen(),
+      RegisterBusinessScreen(),
+      
       // ChatScreen(),
       // ChatScreen(),
-      ContactUsScreen(),
+      // ContactUsScreen(),
       SettingScreen(),
     ];
 //    ColorConstants.introgrey

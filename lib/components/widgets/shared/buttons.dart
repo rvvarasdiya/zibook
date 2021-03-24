@@ -110,6 +110,7 @@ class AppButton extends StatelessWidget {
   const AppButton.raised({
     @required this.onTap,
     this.text,
+    this.textSize,
     this.textColor,
     this.icon,
     this.buttonHeight = 50,
@@ -136,6 +137,7 @@ class AppButton extends StatelessWidget {
       this.text,
       this.textColor,
       this.icon,
+      this.textSize,
       this.iconSize,
       this.buttonHeight = 50,
       this.iconBuilder,
@@ -156,6 +158,7 @@ class AppButton extends StatelessWidget {
   ///
   /// Can be `null` if the button has no text.
   final String text;
+  final double textSize;
   final bool isIconRightSide;
 
   /// The color of the Text.
@@ -264,7 +267,7 @@ class AppButton extends StatelessWidget {
           fontWeight: FontWeight.w600,
           letterSpacing: 1,
           color: textColor == null ? theme.primaryColor : textColor,
-          fontSize: getFontSize(18),
+          fontSize: getFontSize(textSize),
         ),
         overflow: TextOverflow.fade,
 

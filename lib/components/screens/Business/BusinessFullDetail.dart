@@ -35,7 +35,7 @@ class _BusinessFullDetailState extends State<BusinessFullDetail> {
           "Bhavani Fashion",
           "Harshil Soni",
           "9999999999",
-          "305, krishna texttiles, surat, Gujarat");
+          "305, krishna texttiles, surat, Gujarat",false);
       arrList.add(categoryListModel);
     }
 
