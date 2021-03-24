@@ -5,6 +5,7 @@ import 'package:zaviato/app/constant/ImageConstant.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/components/screens/Business/HelpScreen.dart';
+import 'package:zaviato/components/widgets/shared/start_rating.dart';
 import 'package:zaviato/models/ReviewAndRatingsModel.dart';
 
 class ReviewAndRatings extends StatefulWidget {
@@ -36,7 +37,8 @@ class _ReviewAndRatingsState extends State<ReviewAndRatings> {
     return Column(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.only(left: getSize(30), top: getSize(15)),
+          padding: EdgeInsets.only(
+              left: getSize(30), top: getSize(20), bottom: getSize(10)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -53,7 +55,9 @@ class _ReviewAndRatingsState extends State<ReviewAndRatings> {
         Expanded(
           child: ListView.builder(
             padding: EdgeInsets.symmetric(
-                vertical: getSize(30), horizontal: getSize(30)),
+              // vertical: getSize(30),
+              horizontal: getSize(30),
+            ),
             shrinkWrap: true,
             itemCount: reviewAndRatingsModelList.length,
             itemBuilder: (BuildContext context, int index) {
@@ -92,7 +96,7 @@ class _ReviewAndRatingsState extends State<ReviewAndRatings> {
               decoration: BoxDecoration(
                 color: Colors.white,
                 image: DecorationImage(
-                  image: NetworkImage('https://via.placeholder.com/150'),
+                  image: AssetImage(userIcon),
                   fit: BoxFit.fill,
                 ),
                 shape: BoxShape.circle,
@@ -121,7 +125,20 @@ class _ReviewAndRatingsState extends State<ReviewAndRatings> {
                         SizedBox(
                           width: getSize(8),
                         ),
-                        Text("#####"),
+                        SmoothStarRating(
+                            onRatingChanged: (value) {
+                              // print("------------$rating   --------- $value");
+                              // setState(() {
+                              //   rating = value;
+                              // });
+                            },
+                            rating: 4.2,
+                            allowHalfRating: false,
+                            starCount: 5,
+                            size: getSize(15),
+                            color: appTheme.colorPrimary,
+                            borderColor: appTheme.dividerColor,
+                            spacing: 0.0),
                       ],
                     ),
                     Padding(
@@ -142,26 +159,31 @@ class _ReviewAndRatingsState extends State<ReviewAndRatings> {
                         children: <Widget>[
                           Row(
                             children: <Widget>[
-                              Icon(Icons.message),
+                              Image.asset(
+                                chatIcon,
+                                height: getSize(14),
+                                width: getSize(14),
+                              ),
                               SizedBox(
-                                height: getSize(5),
+                                width: getSize(7),
                               ),
                               Text(
                                 "Like",
-                                style: appTheme.gray16RegularTextStyle,
+                                style: appTheme.gray14RegularTextStyle,
                               )
                             ],
                           ),
                           SizedBox(width: getSize(50)),
                           Row(
                             children: <Widget>[
-                              Icon(Icons.favorite_border),
+                              Icon(Icons.favorite_border,
+                                  size: getSize(15), color: appTheme.grayColor),
                               SizedBox(
-                                height: getSize(5),
+                                width: getSize(7),
                               ),
                               Text(
                                 "Comment",
-                                style: appTheme.gray16RegularTextStyle,
+                                style: appTheme.gray14RegularTextStyle,
                               )
                             ],
                           ),

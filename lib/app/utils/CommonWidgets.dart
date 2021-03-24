@@ -136,21 +136,21 @@ fieldFocusChange(BuildContext context, FocusNode nextFocus) {
 
 List<BoxShadow> getBoxShadow(BuildContext context, {Offset offset}) {
   return [
-    // BoxShadow(
-    //   color: appTheme.shadowColor,
-    //   blurRadius: getSize(13),
-    //   spreadRadius: getSize(5),
-    //   offset: offset ?? Offset(0, 5),
-    // )
     BoxShadow(
-            color: ColorConstants.getShadowColor,
-            blurRadius: 5.0, // soften the shadow
-            // spreadRadius: 5.0, //extend the shadow
-            // offset: Offset(
-            //   15.0, // Move to right 10  horizontally
-            //   15.0, // Move to bottom 10 Vertically
-            // ),
-          )
+      color: ColorConstants.getShadowColor,
+      blurRadius: getSize(3),
+      spreadRadius: getSize(5),
+      offset: offset ?? Offset(0, 5),
+    )
+    // BoxShadow(
+    //         color: ColorConstants.getShadowColor,
+    //         blurRadius: 5.0, // soften the shadow
+    //         // spreadRadius: 5.0, //extend the shadow
+    //         // offset: Offset(
+    //         //   15.0, // Move to right 10  horizontally
+    //         //   15.0, // Move to bottom 10 Vertically
+    //         // ),
+    //       )
   ];
 }
 

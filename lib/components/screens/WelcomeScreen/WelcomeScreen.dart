@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:flutter/rendering.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
@@ -14,6 +15,15 @@ class WelcomeScreen extends StatefulWidget {
 
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
+}
+
+@override
+void initState() { 
+  // super.initState();
+  // Timer(
+  //     Duration(seconds: 1),
+  //     () => (callMasterSync() /*callHandler()*/),
+  //   );
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
@@ -62,6 +72,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   onTap: () {
                     NavigationUtilities.pushRoute(
                       SignInScreen.route,
+            
                     );
                   },
                   text: "Get started",

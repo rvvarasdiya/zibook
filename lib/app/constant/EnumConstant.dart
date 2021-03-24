@@ -1,0 +1,4 @@
+enum  OtpPage{
+  ForgotPassword,
+  SignUP,
+}

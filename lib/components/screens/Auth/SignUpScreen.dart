@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:zaviato/app/AppConfiguration/AppNavigation.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
+import 'package:zaviato/app/constant/EnumConstant.dart';
+import 'package:zaviato/app/network/NetworkCall.dart';
+import 'package:zaviato/app/network/ServiceModule.dart';
 import 'package:zaviato/app/utils/CommonTextfield.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/widgets/shared/buttons.dart';
+import 'package:zaviato/main.dart';
+import 'package:zaviato/models/Auth/SignUpModel.dart';
+import 'package:zaviato/models/Auth/SignUpResponseModel.dart';
 
 import 'OtpVerifyScreen.dart';
 
@@ -229,21 +236,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 CommonTextfield(
                     focusNode: mobileFocus,
                     textOption: TextFieldOption(
-                      hintText: "Mobile number",
-                      maxLine: 1,
-                      keyboardType: TextInputType.text,
-                      inputController: mobileController,
-                      errorBorder: _isMobileValid
-                          ? null
-                          : OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(11)),
-                              borderSide:
-                                  BorderSide(width: 1, color: Colors.red),
-                            ),
-                        formatter: [ValidatorInputFormatter(
-                    editingValidator: DecimalNumberEditingRegexValidator(10)),]
-                    ),
+                        hintText: "Mobile number",
+                        maxLine: 1,
+                        keyboardType: TextInputType.text,
+                        inputController: mobileController,
+                        errorBorder: _isMobileValid
+                            ? null
+                            : OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(11)),
+                                borderSide:
+                                    BorderSide(width: 1, color: Colors.red),
+                              ),
+                        formatter: [
+                          ValidatorInputFormatter(
+                              editingValidator:
+                                  DecimalNumberEditingRegexValidator(10)),
+                        ]),
                     inputAction: TextInputAction.next,
                     onNextPress: () {
                       FocusScope.of(context).requestFocus(passwordFocus);
@@ -330,7 +339,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     FocusScope.of(context).unfocus();
                     if (_formKey.currentState.validate()) {
                       _formKey.currentState.save();
-                      // callLoginApi(context);
+                      callSignUpApi(context);
                     } else {
                       setState(() {
                         _autoValidate = true;
@@ -375,5 +384,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+  callSignUpApi(BuildContext context) {
+    SignUpModel req = SignUpModel();
+    req.firstName = firstNameController.text;
+    req.lastName = lastNameController.text;
+    req.email = emailController.text;
+    req.mobile = mobileController.text;
+    req.password = passwordController.text;
+
+    NetworkCall<SignUpResponseModel>()
+        .makeCall(
+            () => app.resolve<ServiceModule>().networkService().signUpApi(req),
+            context,
+            isProgress: true)
+        .then(
+          (signUpResp) async {
+            // AppNavigation().movetoLogin();
+
+            Map<String,dynamic> arguments = {};
+            arguments["email"] = emailController.text;
+            arguments["moduleType"] = OtpPage.SignUP;
+
+            NavigationUtilities.pushRoute(OtpVerifyScreen.route,args: arguments);
+          },
+        );
   }
 }

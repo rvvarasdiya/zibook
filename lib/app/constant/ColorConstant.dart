@@ -23,6 +23,7 @@ class ColorConstants {
   //SHADOW
   static Color getShadowColor = fromHex("#0000000D");
   static Color bottomShadowColor = fromHex("#0000001A");
+  static Color getBoxShdowColor2 = fromHex("#09142333");
 
   static Color black = fromHex("#000000");
   static Color getGrayColor = fromHex("#9797A8");

@@ -55,6 +55,9 @@ dependencies:
   direct_select_flutter: ^1.0.5
   csc_picker: ^0.0.1
 
+  # animated_splash_screen: ^1.0.1+2
+  # page_transition: ^1.1.7+6
+  animated_splash: ^1.0.0
 
 dev_dependencies:
   flutter_test:

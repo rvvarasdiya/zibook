@@ -28,7 +28,7 @@ import 'settingscreen.dart';
 
 class Dashboard extends StatefulWidget {
   int type;
-
+  // static const route = "Dashboard";
   Dashboard() {
 //    if (arguments !=  null){
     // this.type = arguments[Constants.tabType];
@@ -176,150 +176,152 @@ class _DashboardState extends State<Dashboard> {
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
 //    ThemeSettingsModel.of(context).updateSystemUi(isLogin: false);
     return SafeArea(
-          child: WillPopScope(
+      child: WillPopScope(
         onWillPop: () => _onWillPop(context),
         child: AppBackground(
           colors: [Colors.white],
           child: Scaffold(
-              resizeToAvoidBottomInset: false,
-              // appBar: AppBar(
-              //   toolbarHeight: getSize(100),
-              //   elevation: 0,
-              //   title: Column(
-              //     children: [
-              //       Text("app bar"),
-              //       Text("app bar"),
-              //     ],
-              //   ),
-              // ),
-              body: Container(
-                color: Colors.white,
-                // color: AppTheme.of(context).accentColor,
-                child: Stack(
-                  children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(bottom: getSize(60)),
-            child: _children[_currentIndex],
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              decoration: BoxDecoration(
-                boxShadow: getBoxShadow(context),
-                color: AppTheme.of(context).theme.primaryColor,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(getSize(20)),
-                    topRight: Radius.circular(getSize(20))),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
+            resizeToAvoidBottomInset: false,
+            // appBar: AppBar(
+            //   toolbarHeight: getSize(100),
+            //   elevation: 0,
+            //   title: Column(
+            //     children: [
+            //       Text("app bar"),
+            //       Text("app bar"),
+            //     ],
+            //   ),
+            // ),
+            body: Container(
+              color: Colors.white,
+              // color: AppTheme.of(context).accentColor,
+              child: Stack(
+                children: <Widget>[
                   Container(
-                    height: getSize(62),
-                    margin: EdgeInsets.all(getSize(7)),
-                    padding: EdgeInsets.all(getSize(10)),
-                    decoration: new BoxDecoration(
-                      color: AppTheme.of(context)
-                          .theme
-                          .dividerColor
-                          .withOpacity(0.03),
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(getSize(16))),
-                    ),
-                    child: GridView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: model.length,
-                        padding: EdgeInsets.all(getSize(0)),
-                        gridDelegate:
-                            new SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 4),
-                        itemBuilder: (BuildContext context, int index) {
-                          return InkWell(
-                            onTap: () {
-                              setState(() {
-                                if (!app
-                                        .resolve<PrefUtils>()
-                                        .isUserLogin() &&
-                                    (model[index].type == 2 ||
-                                        model[index].type == 3)) {
-                                  Map<String, dynamic> map =
-                                      new HashMap();
-                                  // map[Constants.loginFlow] = false;
-                                  // NavigationUtilities.pushRoute(
-                                  //   Login.route,
-                                  //   type: RouteType.fade,
-                                  //   args: map,
-                                  // );
-                                } else {
-                                  for (var i in model) {
-                                    i.isSelected = false;
+                    margin: EdgeInsets.only(bottom: getSize(60)),
+                    child: _children[_currentIndex],
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: getBoxShadow(context),
+                        color: AppTheme.of(context).theme.primaryColor,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(getSize(20)),
+                            topRight: Radius.circular(getSize(20))),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            height: getSize(62),
+                            margin: EdgeInsets.all(getSize(7)),
+                            padding: EdgeInsets.all(getSize(10)),
+                            decoration: new BoxDecoration(
+                              color: AppTheme.of(context)
+                                  .theme
+                                  .dividerColor
+                                  .withOpacity(0.03),
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(getSize(16))),
+                            ),
+                            child: GridView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: model.length,
+                                padding: EdgeInsets.all(getSize(0)),
+                                gridDelegate:
+                                    new SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 4),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      // setState(() {
+                                      //   if (!app
+                                      //           .resolve<PrefUtils>()
+                                      //           .isUserLogin() &&
+                                      //       (model[index].type == 2 ||
+                                      //           model[index].type == 3)) {
+                                      //     Map<String, dynamic> map =
+                                      //         new HashMap();
+                                      //     // map[Constants.loginFlow] = false;
+                                      //     // NavigationUtilities.pushRoute(
+                                      //     //   Login.route,
+                                      //     //   type: RouteType.fade,
+                                      //     //   args: map,
+                                      //     // );
+                                      //   } else {
+                                      //     for (var i in model) {
+                                      //       i.isSelected = false;
 
-                                    _currentIndex = index;
-                                    model[index].isSelected = true;
-                                  }
-                                }
-                              });
-                            },
-                            child: Column(
-                              children: <Widget>[
-                                Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Container(
-                                        padding: EdgeInsets.only(
-                                          bottom: getSize(5),
-                                          top: getSize(8),
-                                        ),
-                                        child: Image.asset(
-                                            model[index].image,
-                                            height: getSize(20),
-                                            width: getSize(20),
-                                            color: model[index].isSelected
+                                      //       _currentIndex = index;
+                                      //       model[index].isSelected = true;
+                                      //     }
+                                      //   }
+                                      // });
+                                    },
+                                    child: Column(
+                                      children: <Widget>[
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Container(
+                                                padding: EdgeInsets.only(
+                                                  bottom: getSize(5),
+                                                  top: getSize(8),
+                                                ),
+                                                child: Image.asset(
+                                                    model[index].image,
+                                                    height: getSize(20),
+                                                    width: getSize(20),
+                                                    color: model[index]
+                                                            .isSelected
+                                                        ? AppTheme.of(context)
+                                                            .theme
+                                                            .accentColor
+                                                        : AppTheme.of(context)
+                                                            .theme
+                                                            .textTheme
+                                                            .body1
+                                                            .color),
+                                              ),
+                                            ]),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(
+                                                getSize(2.5),
+                                              ),
+                                            ),
+                                            color: (model[index].isSelected)
                                                 ? AppTheme.of(context)
                                                     .theme
                                                     .accentColor
-                                                : AppTheme.of(context)
-                                                    .theme
-                                                    .textTheme
-                                                    .body1
-                                                    .color),
-                                      ),
-                                    ]),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                        getSize(2.5),
-                                      ),
+                                                : Colors.transparent,
+                                          ),
+                                          width: getSize(5),
+                                          height: getSize(5),
+                                        ),
+                                      ],
                                     ),
-                                    color: (model[index].isSelected)
-                                        ? AppTheme.of(context)
-                                            .theme
-                                            .accentColor
-                                        : Colors.transparent,
-                                  ),
-                                  width: getSize(5),
-                                  height: getSize(5),
-                                ),
-                              ],
-                            ),
-                          );
-                        }),
-                  ),
-                  SizedBox(
-                      height: MathUtilities.safeAreaBottomHeight(context))
+                                  );
+                                }),
+                          ),
+                          SizedBox(
+                              height:
+                                  MathUtilities.safeAreaBottomHeight(context))
+                        ],
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
-          )
-                  ],
-                ),
-              ),
-            ),
+          ),
         ),
       ),
     );
