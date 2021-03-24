@@ -28,8 +28,8 @@ class _SettingScreenState extends State<SettingScreen> {
           appBar: AppBar(
               actions: [Container()],
               leading: Icon(
-                // Icons.arrow_back_outlined,
-                Icons.add,
+                Icons.arrow_back_outlined,
+                // Icons.add,
                 color: Colors.white,
               ),
               automaticallyImplyLeading: false,
