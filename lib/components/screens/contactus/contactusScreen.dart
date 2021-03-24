@@ -117,6 +117,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                   },
                   backgroundColor: appTheme.colorPrimary,
                   text: "Send",
+                  textSize: 18,
                   textColor: Colors.white,
                   fitWidth: true,
                   icon: Icons.send,

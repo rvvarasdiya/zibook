@@ -163,6 +163,7 @@ Widget getAppBar(BuildContext context, String title,
     Color backgroundColor,
     bool centerTitle}) {
   return AppBar(
+    titleSpacing: 0,
     iconTheme: IconThemeData(
       color: appTheme.whiteColor,
     ),

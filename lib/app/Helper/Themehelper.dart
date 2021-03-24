@@ -199,7 +199,7 @@ class BaseTheme {
 
   TextStyle get black16BoldTextStyle {
     return TextStyle(
-      fontSize: getFontSize(14),
+      fontSize: getFontSize(16),
       color: textBlackColor,
       fontWeight: FontWeight.w700,
     );

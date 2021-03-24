@@ -113,16 +113,14 @@ class _DashboardState extends State<Dashboard> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       print('dashboard context');
-      //      _afterLayout;
+          //  _afterLayout;
     });
 
     _children = [
       HomeScreen(),
-      // RegisterBusinessScreen(),
-      NotificationScreen(),
-      // ChatScreen(),
-      // ChatScreen(),
-      ContactUsScreen(),
+      
+      SettingScreen(),
+      SettingScreen(),
       SettingScreen(),
     ];
 //    ColorConstants.introgrey

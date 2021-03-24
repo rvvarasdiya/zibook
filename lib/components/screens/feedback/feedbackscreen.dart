@@ -171,6 +171,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   onTap: () {},
                   backgroundColor: appTheme.colorPrimary,
                   text: "Submit",
+                  textSize: 18,
                   textColor: Colors.white,
                   fitWidth: true,
                 
