@@ -50,7 +50,7 @@ class _NetworkService implements NetworkService {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = BaseApiResp.fromJson(_result.data);
+    final value = HomeScreenResponse.fromJson(_result.data);
     return Future.value(value);
   }
 
@@ -103,6 +103,26 @@ class _NetworkService implements NetworkService {
     _data.addAll(req ?? <String, dynamic>{});
     final Response<Map<String, dynamic>> _result = await _dio.request(
         'http://13.233.254.126:5700/api/v1/auth/check-reset-password-otp',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = BaseApiResp.fromJson(_result.data);
+    return Future.value(value);
+  }
+
+  @override
+  verifyMobileOtpApi(req) async {
+    ArgumentError.checkNotNull(req, 'req');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(req ?? <String, dynamic>{});
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        'http://13.233.254.126:5700/api/v1/customer/user/verify-mobile',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',

@@ -7,8 +7,6 @@ class HomeScreenResponse extends BaseApiResp{
   HomeScreenResponse({this.data});
 
   HomeScreenResponse.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
-    code = json['code'];
-    message = json['message'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 

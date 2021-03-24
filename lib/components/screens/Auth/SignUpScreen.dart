@@ -404,7 +404,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             // AppNavigation().movetoLogin();
 
             Map<String,dynamic> arguments = {};
-            arguments["email"] = emailController.text;
+            arguments["mobile"] = mobileController.text;
             arguments["moduleType"] = OtpPage.SignUP;
 
             NavigationUtilities.pushRoute(OtpVerifyScreen.route,args: arguments);

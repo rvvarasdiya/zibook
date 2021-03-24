@@ -18,7 +18,7 @@ abstract class NetworkService {
   Future<SignUpResponseModel> signUpApi(@Body() SignUpModel req);
 
   @POST(ApiConstants.homeScreenApi)
-  Future<BaseApiResp> homeScreenApi();
+  Future<HomeScreenResponse> homeScreenApi();
 
   @POST(ApiConstants.logInApi)
   Future<LogInResponseModel> logInApi(@Body() Map<String, dynamic> req);
@@ -28,6 +28,9 @@ abstract class NetworkService {
 
   @POST(ApiConstants.verifyResetOtp)
   Future<BaseApiResp> verifyOTPApi(@Body() Map<String, dynamic> req);
+
+  @POST(ApiConstants.verifyOtp)
+  Future<BaseApiResp> verifyMobileOtpApi(@Body() Map<String, dynamic> req);
 
   @POST(ApiConstants.sendOTP)
   Future<BaseApiResp> sendOTPApi(@Body() Map<String, dynamic> req);

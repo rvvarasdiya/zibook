@@ -40,7 +40,7 @@ class Dashboard extends StatefulWidget {
   static const route = "Dashboard";
 
   @override
-  _DashboardState createState() => _DashboardState();
+  _DashboardState createState() => _DashboardState(); 
 }
 
 class _DashboardState extends State<Dashboard> {
@@ -236,29 +236,29 @@ class _DashboardState extends State<Dashboard> {
                                 itemBuilder: (BuildContext context, int index) {
                                   return InkWell(
                                     onTap: () {
-                                      // setState(() {
-                                      //   if (!app
-                                      //           .resolve<PrefUtils>()
-                                      //           .isUserLogin() &&
-                                      //       (model[index].type == 2 ||
-                                      //           model[index].type == 3)) {
-                                      //     Map<String, dynamic> map =
-                                      //         new HashMap();
-                                      //     // map[Constants.loginFlow] = false;
-                                      //     // NavigationUtilities.pushRoute(
-                                      //     //   Login.route,
-                                      //     //   type: RouteType.fade,
-                                      //     //   args: map,
-                                      //     // );
-                                      //   } else {
-                                      //     for (var i in model) {
-                                      //       i.isSelected = false;
+                                      setState(() {
+                                        if (!app
+                                                .resolve<PrefUtils>()
+                                                .isUserLogin() &&
+                                            (model[index].type == 2 ||
+                                                model[index].type == 3)) {
+                                          Map<String, dynamic> map =
+                                              new HashMap();
+                                          // map[Constants.loginFlow] = false;
+                                          // NavigationUtilities.pushRoute(
+                                          //   Login.route,
+                                          //   type: RouteType.fade,
+                                          //   args: map,
+                                          // );
+                                        } else {
+                                          for (var i in model) {
+                                            i.isSelected = false;
 
-                                      //       _currentIndex = index;
-                                      //       model[index].isSelected = true;
-                                      //     }
-                                      //   }
-                                      // });
+                                            _currentIndex = index;
+                                            model[index].isSelected = true;
+                                          }
+                                        }
+                                      });
                                     },
                                     child: Column(
                                       children: <Widget>[

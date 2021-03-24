@@ -25,155 +25,51 @@ class _HomeScreenState extends State<HomeScreen> {
   int page = DEFAULT_PAGE;
   int currentIndex = 1;
   List<ListData> cateName = List<ListData>();
-  // List<String> cateName = [
-  //   "Fashion",
-  //   "Insurance",
-  //   "Repairings",
-  //   "Jewellery",
-  //   "Hotels",
-  //   "Electronics",
-  //   "Photography",
-  //   "Education",
-  //   "IT Services",
-  //   "Digital Marketing",
-  //   "Event Management",
-  //   "Electronics"
-  // ];
 
   @override
   void initState() {
     super.initState();
-//     fashionBaseList = BaseList(BaseListState(
-// //      imagePath: noRideHistoryFound,
-//       noDataMsg: APPNAME,
-//       noDataDesc: "No data found",
-//       refreshBtn: "refresh",
-//       enablePullDown: false,
-//       enablePullUp: false,
-//       onPullToRefress: () {
-//         callApi(true);
-//       },
-//       onRefress: () {
-//         callApi(true);
-//       },
-//       onLoadMore: () {
-//         callApi(false, isLoading: true);
-//       },
-//     ));
+    fashionBaseList = BaseList(BaseListState(
+//      imagePath: noRideHistoryFound,
+      noDataMsg: APPNAME,
+      noDataDesc: "No data found",
+      refreshBtn: "refresh",
+      enablePullDown: false,
+      enablePullUp: false,
+      onPullToRefress: () {
+        callApi(true);
+      },
+      onRefress: () {
+        callApi(true);
+      },
+      onLoadMore: () {
+        callApi(false, isLoading: true);
+      },
+    ));
 
-//     WidgetsBinding.instance.addPostFrameCallback((_) {
-//       callApi(false);
-//     });
-    fetchProducts();
-  }
-
-  Future fetchProducts() async {
-    final response = await http.get(
-        'https://secret-citadel-73539.herokuapp.com/api/v1/customer/category/paginate');
-    if (response.statusCode == 200) {
-      print(response.toString());
-      return response;
-    } else {
-      throw Exception('Unable to fetch products from the REST API');
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      callApi(false);
+    });
+    // fetchProducts();
   }
 
   callApi(bool isRefress, {bool isLoading = false}) {
-    NetworkCall<BaseApiResp>()
+    NetworkCall<HomeScreenResponse>()
         .makeCall(
       () => app.resolve<ServiceModule>().networkService().homeScreenApi(),
       context,
       isProgress: false,
     )
         .then((homeScreenResponse) async {
-      // cateName.addAll(homeScreenResponse.data.list);
+      cateName.addAll(homeScreenResponse.data.list);
       print("data scusedddd");
-      // switch (moduleType) {
-      //   case DiamondModuleConstant.MODULE_TYPE_MY_CART:
-      //   case DiamondModuleConstant.MODULE_TYPE_MY_WATCH_LIST:
-      //   case DiamondModuleConstant.MODULE_TYPE_MY_ENQUIRY:
-      //   case DiamondModuleConstant.MODULE_TYPE_MY_OFFER:
-      //   case DiamondModuleConstant.MODULE_TYPE_MY_REMINDER:
-      //   case DiamondModuleConstant.MODULE_TYPE_MY_COMMENT:
-      //   case DiamondModuleConstant.MODULE_TYPE_MY_OFFICE:
-      //   case DiamondModuleConstant.MODULE_TYPE_MY_BID:
-      //     // case DiamondModuleConstant.MODULE_TYPE_MY_DEMAND:
-      //     List<DiamondModel> list = [];
-      //     DiamondModel diamondModel;
-      //     TrackDiamonds trackDiamonds;
-      //     diamondListResp.data.list.forEach((element) {
-      //       if (element.diamonds != null) {
-      //         element.diamonds.forEach((diamonds) {
-      //           switch (moduleType) {
-      //             case DiamondModuleConstant.MODULE_TYPE_MY_OFFICE:
-      //               diamonds.memoNo = element.id;
-      //               diamonds.date = element.date;
-      //               diamonds.purpose = element.purpose;
-      //               break;
-      //           }
-      //           list.add(diamonds);
-      //         });
-      //       } else {
-      //         diamondModel = element.diamond;
-      //         trackDiamonds = TrackDiamonds(
-      //             id: diamondModel.id,
-      //             trackId: element.id,
-      //             remarks: element.remarks,
-      //             reminderDate: element.reminderDate);
-      //         switch (moduleType) {
-      //           case DiamondModuleConstant.MODULE_TYPE_MY_CART:
-      //             diamondModel.trackItemCart = trackDiamonds;
-      //             break;
-      //           case DiamondModuleConstant.MODULE_TYPE_MY_WATCH_LIST:
-      //             diamondModel.trackItemWatchList = trackDiamonds;
-      //             diamondModel.newDiscount = element.newDiscount;
-      //             break;
-      //           case DiamondModuleConstant.MODULE_TYPE_MY_ENQUIRY:
-      //             diamondModel.trackItemEnquiry = trackDiamonds;
-      //             break;
-      //           case DiamondModuleConstant.MODULE_TYPE_MY_OFFER:
-      //             diamondModel.createdAt = element.createdAt;
-      //             diamondModel.trackItemOffer = trackDiamonds;
-      //             diamondModel.memoNo = element.memoNo;
-      //             diamondModel.offerValidDate = element.offerValidDate;
-      //             diamondModel.offerStatus = element.offerStatus;
-      //             diamondModel.newAmount = element.newAmount;
-      //             diamondModel.newDiscount = element.newDiscount;
-      //             diamondModel.newPricePerCarat = element.newPricePerCarat;
-      //             diamondModel.remarks = element.remarks;
-      //             break;
-      //           case DiamondModuleConstant.MODULE_TYPE_MY_REMINDER:
-      //             diamondModel.trackItemReminder = trackDiamonds;
-      //             break;
-      //           case DiamondModuleConstant.MODULE_TYPE_MY_COMMENT:
-      //             diamondModel.trackItemComment = trackDiamonds;
-      //             break;
 
-      //           case DiamondModuleConstant.MODULE_TYPE_MY_BID:
-      //             diamondModel.trackItemBid = trackDiamonds;
-      //             break;
-      //         }
-      //         list.add(diamondModel);
-      //       }
-      //     });
-      //     arraDiamond.addAll(list);
-      //     break;
-
-      //   default:
-      //     arraDiamond.addAll(diamondListResp.data.diamonds);
-      //     break;
-      // }
-      // diamondConfig.setMatchPairItem(arraDiamond);
-
-      // fashionBaseList.state.listCount = homeScreenResponse.data.list.length;
-      // fashionBaseList.state.totalCount = homeScreenResponse.data.count;
-
-      fashionBaseList.state.listCount = 10;
-      fashionBaseList.state.totalCount = 10;
-      // manageDiamondSelection();
-      //callBlockApi(isProgress: true);
+      fashionBaseList.state.listCount = homeScreenResponse.data.list.length;
+      fashionBaseList.state.totalCount = homeScreenResponse.data.count;
       page = page + 1;
       fashionBaseList.state.setApiCalling(false);
+      fillArrayList();
+      setState(() {});
     }).catchError((onError) {
       // if (page == DEFAULT_PAGE) {
       //   cateName.clear();
@@ -191,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
     fashionBaseList.state.listItems = Container(
       height: double.infinity,
       padding: EdgeInsets.only(
-        top: 20,
+        top: getSize(20),
       ),
       // padding: EdgeInsets.all(30),
       width: double.infinity,
@@ -222,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisSpacing: 25,
         crossAxisSpacing: 23,
         children: List.generate(cateName.length, (index) {
-          getItemWidget(cateName[index]);
+          return getItemWidget(cateName[index]);
         }),
       ),
     );
@@ -265,9 +161,10 @@ class _HomeScreenState extends State<HomeScreen> {
             borderRadius: BorderRadius.circular(5),
             boxShadow: [
               new BoxShadow(
-                color: ColorConstants.getShadowColor,
-                // offset: Offset(0, 5),
-                blurRadius: 3.0,
+                // color: ColorConstants.getShadowColor,
+                color: Colors.black12,
+                // offset: Offset(0, -15),
+                blurRadius: 5.0,
               ),
             ]),
       ),
@@ -295,20 +192,17 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        appBar: AppBar(
-          actions: [Container()],
-          automaticallyImplyLeading: false,
-          titleSpacing: 0,
-          // toolbarHeight: getSize(160),
-          backgroundColor: appTheme.colorPrimary,
-          elevation: 0,
-          // toolbarHeight: getSize(160),
-          title: Container(
-            alignment: Alignment.topCenter,
-            color: appTheme.colorPrimary,
-            padding: EdgeInsets.symmetric(horizontal: getSize(30)),
-            // width: double.infinity,
-            // height: getSize(150),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(200.0),
+          child: Container(
+            // height: 100,
+
+            // alignment: Alignment.topCenter,
+            // color: Colors.red,
+            padding: EdgeInsets.symmetric(
+              horizontal: getSize(30),
+              vertical: getSize(30)
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,

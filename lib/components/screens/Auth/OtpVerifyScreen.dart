@@ -178,7 +178,11 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
                       showOTPMsg = "Please Enter OTP";
                     } else if (_pinEditingController.text.trim().length == 6) {
                       FocusScope.of(context).unfocus();
-                      callApiForVerifyOTP(context);
+                      if (widget.moduleType == OtpPage.ForgotPassword) {
+                        callApiForVerifyOTP(context);
+                      } else if (widget.moduleType == OtpPage.SignUP) {
+                        callApipForVerifyOtpFromSignUpScreen(context);
+                      }
                     }
                   } else {
                     setState(() {
@@ -343,9 +347,59 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
         }
         dict["otpNumber"] = _pinEditingController.text.trim();
         NavigationUtilities.pushRoute(CreatePasswordScreen.route, args: dict);
-      } else if(widget.moduleType == OtpPage.SignUP){
+      } else if (widget.moduleType == OtpPage.SignUP) {
         NavigationUtilities.pushRoute(SignInScreen.route);
       }
+    }).catchError((onError) {
+      isOtpTrue = false;
+      isOtpCheck = false;
+      setState(() {});
+      app.resolve<CustomDialogs>().confirmDialog(
+            context,
+            title: R.string().commonString.error,
+            desc: onError.message,
+            positiveBtnTitle: R.string().commonString.btnTryAgain,
+          );
+    });
+  }
+
+  callApipForVerifyOtpFromSignUpScreen(BuildContext context) {
+    Map<String, dynamic> req = {};
+
+    if (isNumeric(widget.value)) {
+      req["mobile"] = widget.value;
+    } else {
+      req["email"] = widget.value;
+    }
+
+    req["token"] = _pinEditingController.text;
+
+    NetworkCall<BaseApiResp>()
+        .makeCall(
+            () => app
+                .resolve<ServiceModule>()
+                .networkService()
+                .verifyMobileOtpApi(req),
+            context,
+            isProgress: true)
+        .then((resp) async {
+      // FocusScope.of(context).unfocus();
+      // if (isResend) {
+      //   if (isTimerCompleted) {
+      //     _start = 30;
+      //     isTimerCompleted = false;
+      //     autoFocus = false;
+      //   }
+      // }
+      // isTimerCompleted = false;
+      // isApiCall = true;
+      // _start = 30;
+      // startTimer();
+      // setState(() {});
+
+      FocusScope.of(context).unfocus();
+
+      NavigationUtilities.pushRoute(SignInScreen.route);
     }).catchError((onError) {
       isOtpTrue = false;
       isOtpCheck = false;

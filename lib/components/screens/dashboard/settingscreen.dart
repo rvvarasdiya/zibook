@@ -92,39 +92,40 @@ class _SettingScreenState extends State<SettingScreen> {
                         SizedBox(
                           height: getSize(40),
                         ),
-                        
                         Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                profile,
-                                width: getSize(25),
-                                height: getSize(25),
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              profile,
+                              width: getSize(25),
+                              height: getSize(25),
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Expanded(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Profile Edit",
+                                      style: appTheme.black16BoldTextStyle),
+                                  IconButton(
+                                      icon: Icon(
+                                        Icons.arrow_forward_ios,
+                                        color: Colors.black,
+                                      ),
+                                      iconSize: getSize(18),
+                                      onPressed: () {
+                                        NavigationUtilities.pushRoute(
+                                            EditProfileScreen.route);
+                                      })
+                                ],
                               ),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Expanded(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("Profile Edit",
-                                        style: appTheme.black16BoldTextStyle),
-                                    IconButton(
-                                        icon: Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: Colors.black,
-                                        ),
-                                        iconSize: getSize(18),
-                                        onPressed: (){
-                                          NavigationUtilities.pushRoute(EditProfileScreen.route);
-                                        })
-                                  ],
-                                ),
-                              )
-                            ]),
-                      
+                            )
+                          ],
+                        ),
                         SizedBox(
                           height: getSize(10),
                         ),
@@ -142,7 +143,8 @@ class _SettingScreenState extends State<SettingScreen> {
                               Expanded(
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text("My Business",
                                         style: appTheme.black16BoldTextStyle),
@@ -157,7 +159,6 @@ class _SettingScreenState extends State<SettingScreen> {
                                 ),
                               )
                             ]),
-                      
                         SizedBox(
                           height: getSize(10),
                         ),
@@ -175,7 +176,8 @@ class _SettingScreenState extends State<SettingScreen> {
                               Expanded(
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text("Help",
                                         style: appTheme.black16BoldTextStyle),
@@ -190,7 +192,6 @@ class _SettingScreenState extends State<SettingScreen> {
                                 ),
                               )
                             ]),
-                      
                         SizedBox(
                           height: getSize(10),
                         ),
@@ -208,7 +209,8 @@ class _SettingScreenState extends State<SettingScreen> {
                               Expanded(
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text("Share App",
                                         style: appTheme.black16BoldTextStyle),
@@ -223,43 +225,41 @@ class _SettingScreenState extends State<SettingScreen> {
                                 ),
                               )
                             ]),
-                      
-                      
                       ],
                     ),
-                   
+
                     Column(
                       children: [
                         Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                logoutIcon,
+                                width: getSize(23),
+                                height: getSize(23),
+                              ),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Image.asset(
-                                    logoutIcon,
-                                    width: getSize(23),
-                                    height: getSize(23),
-                                  ),
-                                  SizedBox(
-                                    width: 15,
-                                  ),
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("Logout",
-                                          style: appTheme.black16BoldTextStyle),
-                                     
-                                    ],
-                                  )
-                                ]),
-                     SizedBox(
-                    height: getSize(20),
-                  )
+                                  Text("Logout",
+                                      style: appTheme.black16BoldTextStyle),
+                                ],
+                              )
+                            ]),
+                        SizedBox(
+                          height: getSize(20),
+                        )
                       ],
                     ),
-                      
-                  // SizedBox(
-                  //   height: getSize(1),
-                  // )
+
+                    // SizedBox(
+                    //   height: getSize(1),
+                    // )
                   ],
                 ),
               ),
