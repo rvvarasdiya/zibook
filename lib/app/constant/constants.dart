@@ -1,5 +1,6 @@
 // const String baseURL = "https://secret-citadel-73539.herokuapp.com/";
-const String baseURL = "http://13.233.254.126:5700/";
+// const String baseURL = "http://13.233.254.126:5700/";
+const String baseURL = "http://13.234.240.252:5700/";
 
 const DEVICE_TYPE_ANDROID = 1; //Android
 const DEVICE_TYPE_IOS = 2; //IOS

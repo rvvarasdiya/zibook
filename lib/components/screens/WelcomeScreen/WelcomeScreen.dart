@@ -29,6 +29,7 @@ void initState() {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
+    FocusScope.of(context).unfocus();
     return Scaffold(
       body: Stack(
         alignment: Alignment.bottomCenter,

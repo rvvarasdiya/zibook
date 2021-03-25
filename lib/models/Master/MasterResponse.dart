@@ -25,14 +25,14 @@ class Data {
   String lastSyncDate;
   User loggedInUser;
 
-  // List<Categories> categories;
-  // List<States> states;
+  List<Categories> categories;
+  List<States> states;
 
   Data({
     this.lastSyncDate,
     this.loggedInUser,
-    // this.categories,
-    // this.states,
+    this.categories,
+    this.states,
   });
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -41,18 +41,18 @@ class Data {
         ? new User.fromJson(json['loggedInUser'])
         : null;
 
-    // if (json['categories'] != null) {
-    //   categories = new List<Categories>();
-    //   json['categories'].forEach((v) {
-    //     categories.add(new Categories.fromJson(v));
-    //   });
-    // }
-    // if (json['states'] != null) {
-    //   states = new List<States>();
-    //   json['states'].forEach((v) {
-    //     states.add(new States.fromJson(v));
-    //   });
-    // }
+    if (json['categories'] != null) {
+      categories = new List<Categories>();
+      json['categories'].forEach((v) {
+        categories.add(new Categories.fromJson(v));
+      });
+    }
+    if (json['states'] != null) {
+      states = new List<States>();
+      json['states'].forEach((v) {
+        states.add(new States.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -62,12 +62,12 @@ class Data {
       data['loggedInUser'] = this.loggedInUser.toJson();
     }
 
-    // if (this.categories != null) {
-    //   data['categories'] = this.categories.map((v) => v.toJson()).toList();
-    // }
-    // if (this.states != null) {
-    //   data['states'] = this.states.map((v) => v.toJson()).toList();
-    // }
+    if (this.categories != null) {
+      data['categories'] = this.categories.map((v) => v.toJson()).toList();
+    }
+    if (this.states != null) {
+      data['states'] = this.states.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }

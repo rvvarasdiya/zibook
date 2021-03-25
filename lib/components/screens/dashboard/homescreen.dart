@@ -34,8 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
       noDataMsg: APPNAME,
       noDataDesc: "No data found",
       refreshBtn: "refresh",
-      enablePullDown: false,
-      enablePullUp: false,
+      enablePullDown: true,
+      enablePullUp: true,
       onPullToRefress: () {
         callApi(true);
       },

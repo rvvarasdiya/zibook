@@ -16,6 +16,7 @@ import 'package:zaviato/components/screens/Business/businessDetail1.dart';
 import 'package:zaviato/components/screens/WelcomeScreen/WelcomeScreen.dart';
 import 'package:zaviato/components/screens/editDetail/editprofile.dart';
 import 'package:zaviato/components/screens/editDetail/favoritescreen.dart';
+import 'package:zaviato/components/screens/resgisterbusiness/registerBusinessScreen.dart';
 import 'fade_route.dart';
 
 /// The [RouteType] determines what [PageRoute] is used for the new route.
@@ -144,6 +145,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     case FavoriteScreen.route:
       screen = FavoriteScreen();
       break;
+    case RegisterBusinessScreen.route:
+      screen = RegisterBusinessScreen();
+      break;
+    
   }
 
   switch (routeType) {

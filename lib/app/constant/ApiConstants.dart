@@ -59,6 +59,12 @@ class ApiConstants {
   static const String resetPasswordApi = commonUrl + "auth/reset-password";
 
   //contactus
+  static const StricontactUsApi = commonUrl + "common/user/contact-us";
+
+  //register business
+  static const String registerBusinessApi = customerCommonUrl + "/business/add";
+
+  //contact us
   static const String contactUsApi = commonUrl + "common/user/contact-us";
 
 }

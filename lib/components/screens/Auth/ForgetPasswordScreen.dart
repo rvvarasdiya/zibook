@@ -44,7 +44,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   @override
   void initState() {
     super.initState();
-    passwordController.text = "1234567890";
+    passwordController.text = "dp@gmail.com";
   }
 
   @override
