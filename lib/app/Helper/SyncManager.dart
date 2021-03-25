@@ -53,9 +53,13 @@ class SyncManager {
             isNetworkError: isNetworkError)
         .then((masterResp) async {
       // save Logged In user
-      // if (masterResp.data.loggedInUser != null) {
-      //   app.resolve<PrefUtils>().saveUser(masterResp.data.loggedInUser);
-      // }
+      if (masterResp.data.loggedInUser != null) {
+        app.resolve<PrefUtils>().saveUser(masterResp.data.loggedInUser);
+      }
+
+      //store state data
+      app.resolve<PrefUtils>().saveMaster(masterResp);
+
 
       // if (masterResp.data.permission != null) {
       //   await app.resolve<PrefUtils>().saveUserPermission(

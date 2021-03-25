@@ -4,6 +4,7 @@ import 'package:logging/logging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/models/Auth/LogInResponseModel.dart';
+import 'package:zaviato/models/Master/MasterResponse.dart';
 
 /// Wraps the [SharedPreferences].
 class PrefUtils {
@@ -23,6 +24,8 @@ class PrefUtils {
   String get keyIsUserLogin => "keyIsUserLogin";
 
   String get keyUser => "keyUser";
+
+  String get keyMaster => "keyMaster";
 
   String get keyToken => "keyToken";
 
@@ -111,6 +114,17 @@ class PrefUtils {
   User getUserDetails() {
     var userJson = json.decode(preferences.getString(keyUser));
     return userJson != null ? new User.fromJson(userJson) : null;
+  }
+
+    // master Getter setter
+  Future<void> saveMaster(MasterResp masterResp) async {
+    await preferences.setBool(keyIsUserLogin, true);
+    preferences.setString(keyMaster, json.encode(masterResp));
+  }
+
+  MasterResp getMaster() {
+    var masterJson = json.decode(preferences.getString(keyMaster));
+    return masterJson != null ? new MasterResp.fromJson(masterJson) : null;
   }
 
   Future<void> saveUserToken(String token) async {

@@ -8,6 +8,7 @@ import 'package:zaviato/models/Auth/SignUpResponseModel.dart';
 import 'package:zaviato/models/ContactUs/contactUsModel.dart';
 import 'package:zaviato/models/Home/HomeScreenResponse.dart';
 import 'package:zaviato/models/Master/MasterResponse.dart';
+import 'package:zaviato/models/RegisterBusiness/RegisterBusiness.dart';
 import '../app.export.dart';
 part 'NetworkService.g.dart';
 
@@ -44,4 +45,7 @@ abstract class NetworkService {
 
   @POST(ApiConstants.contactUsApi)
   Future<ContactUsRes> contactUs(@Body() ContactUsReq req);
+
+  @POST(ApiConstants.registerBusinessApi)
+  Future<BaseApiResp> registerBusiness(@Body() RegisterBusinessReq req);
 }

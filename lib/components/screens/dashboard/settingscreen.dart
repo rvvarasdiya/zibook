@@ -11,6 +11,7 @@ import 'package:zaviato/components/screens/Business/HelpScreen.dart';
 import 'package:zaviato/components/screens/editDetail/editprofile.dart';
 import 'package:zaviato/components/screens/editDetail/favoritescreen.dart';
 import 'package:zaviato/components/screens/feedback/feedbackscreen.dart';
+import 'package:zaviato/components/screens/resgisterbusiness/registerBusinessScreen.dart';
 
 class SettingScreen extends StatefulWidget {
   @override
@@ -87,10 +88,10 @@ class _SettingScreenState extends State<SettingScreen> {
                       children: [
                         //----- edit profile
                         GestureDetector(
-                           onTap: () {
-                                            NavigationUtilities.pushRoute(
-                                                EditProfileScreen.route);
-                                          },
+                          onTap: () {
+                            NavigationUtilities.pushRoute(
+                                EditProfileScreen.route);
+                          },
                           child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -112,13 +113,13 @@ class _SettingScreenState extends State<SettingScreen> {
                                       Text("Profile Edit",
                                           style: appTheme.black16BoldTextStyle),
                                       IconButton(
-                                          icon: Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: Colors.black,
-                                          ),
-                                          iconSize: getSize(18),
-                                         onPressed: null,
-                                         )
+                                        icon: Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: Colors.black,
+                                        ),
+                                        iconSize: getSize(18),
+                                        onPressed: null,
+                                      )
                                     ],
                                   ),
                                 )
@@ -211,36 +212,43 @@ class _SettingScreenState extends State<SettingScreen> {
                         // ),
 
                         // ------------ Share App
-                        Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                share,
-                                width: getSize(23),
-                                height: getSize(23),
-                              ),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Expanded(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text("Share App",
-                                        style: appTheme.black16BoldTextStyle),
-                                    IconButton(
-                                        icon: Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: Colors.black,
-                                        ),
-                                        iconSize: getSize(18),
-                                        onPressed: null)
-                                  ],
+                        InkWell(
+                          onTap: () {
+                            NavigationUtilities.pushRoute(
+                                RegisterBusinessScreen.route);
+                          },
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  share,
+                                  width: getSize(23),
+                                  height: getSize(23),
                                 ),
-                              )
-                            ]),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                Expanded(
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("Share App",
+                                          style: appTheme.black16BoldTextStyle),
+                                      IconButton(
+                                          icon: Icon(
+                                            Icons.arrow_forward_ios,
+                                            color: Colors.black,
+                                          ),
+                                          iconSize: getSize(18),
+                                          onPressed: null)
+                                    ],
+                                  ),
+                                )
+                              ]),
+                        ),
                         // SizedBox(
                         //   height: getSize(10),
                         // ),
@@ -324,15 +332,14 @@ class _SettingScreenState extends State<SettingScreen> {
                                 )
                               ]),
                         ),
-
                       ],
                     ),
 
                     // SizedBox(
                     //   height: getSize(1),
                     // )
-                    
-                        //------------- LogOut
+
+                    //------------- LogOut
                     Padding(
                       padding: EdgeInsets.only(bottom: getSize(20)),
                       child: Row(

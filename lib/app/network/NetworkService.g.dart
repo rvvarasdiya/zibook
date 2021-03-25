@@ -213,4 +213,24 @@ class _NetworkService implements NetworkService {
     final value = ContactUsRes.fromJson(_result.data);
     return Future.value(value);
   }
+
+  @override
+  registerBusiness(req) async {
+    ArgumentError.checkNotNull(req, 'req');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(req?.toJson() ?? <String, dynamic>{});
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        'http://13.234.240.252:5700/api/v1/customer/business/add',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = BaseApiResp.fromJson(_result.data);
+    return Future.value(value);
+  }
 }

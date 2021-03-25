@@ -125,26 +125,29 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
                         style: appTheme.black14BoldTextStyle,
                       ),
                     )
-                  : InkWell(
-                      onTap: () {
-                        // Navigator.pop(context);
-                        setState(() {
-                          if (_start <= 0) {
-                            if (widget.moduleType == OtpPage.ForgotPassword) {
-                              callForgetApi(context);
-                            } else {
-                              if (widget.moduleType == OtpPage.SignUP)
-                                _pinEditingController.clear();
-                              isOtpCheck = true;
-                              isOtpTrue = false;
-                              callSendOTP();
+                  : Align(
+                      alignment: Alignment.bottomRight,
+                      child: InkWell(
+                        onTap: () {
+                          // Navigator.pop(context);
+                          setState(() {
+                            if (_start <= 0) {
+                              if (widget.moduleType == OtpPage.ForgotPassword) {
+                                callForgetApi(context);
+                              } else {
+                                if (widget.moduleType == OtpPage.SignUP)
+                                  _pinEditingController.clear();
+                                isOtpCheck = true;
+                                isOtpTrue = false;
+                                callSendOTP();
+                              }
                             }
-                          }
-                        });
-                      },
-                      child: Text(
-                        "Resend",
-                        style: appTheme.colorPrimary14MediumTextStyle,
+                          });
+                        },
+                        child: Text(
+                          "Resend",
+                          style: appTheme.colorPrimary14MediumTextStyle,
+                        ),
                       ),
                     ),
               SizedBox(
@@ -440,17 +443,18 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
             : isOtpTrue
                 ? appTheme.colorPrimary.withOpacity(0.7)
                 : appTheme.redColor.withOpacity(0.7),
-        gapSpace: getSize(30),
-        // strokeWidth: getSize(1.5),
+        gapSpace: getSize(10),
+        strokeWidth: getSize(1.5),
         radius: Radius.circular(
-          getSize(0),
+          getSize(10),
         ),
+        
         solidColor: isOtpCheck
             ? appTheme.colorPrimary.withOpacity(0.1)
             : isOtpTrue
                 ? appTheme.colorPrimary.withOpacity(0.7)
                 : appTheme.redColor.withOpacity(0.7),
-        textStyle: appTheme.getLabelStyle,
+        textStyle: appTheme.getLabelStyle.copyWith(fontSize: getSize(20)),
         errorTextStyle: appTheme.errorLabelStyle.copyWith(
           color: isOtpCheck
               ? appTheme.grayColor
@@ -458,6 +462,7 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
                   ? appTheme.colorPrimary.withOpacity(0.7)
                   : appTheme.redColor.withOpacity(0.7),
         ),
+
         obscureStyle: ObscureStyle(
           isTextObscure: false,
         ),
