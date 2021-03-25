@@ -11,6 +11,8 @@ import 'package:zaviato/components/screens/Business/BusinessEdit.dart';
 import 'package:zaviato/components/widgets/shared/buttons.dart';
 import 'package:zaviato/components/widgets/shared/start_rating.dart';
 import 'package:zaviato/models/categoryListModel.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
+
 
 class BusinessView extends StatefulWidget {
   static const route = "BusinessView";
@@ -194,7 +196,7 @@ class _BusinessViewState extends State<BusinessView> {
                           });
                         },
                         child: Icon(
-                         (categoryListModel.isFavorite) ? Icons.favorite_rounded : Icons.favorite_outline_outlined,
+                         (categoryListModel.isFavorite) ? Icons.favorite_border : Icons.favorite,
                           size: getSize(20),
                           color: (categoryListModel.isFavorite) ? appTheme.colorPrimary : null ,
                       ),)
@@ -275,7 +277,7 @@ class _BusinessViewState extends State<BusinessView> {
                       },
                       text: "Edit",
                       textSize: 12,
-                      icon: Icons.edit_outlined,
+                      icon: OMIcons.edit,
                       iconSize: getSize(15),
                       backgroundColor: appTheme.colorPrimary,
                     ),

@@ -92,7 +92,7 @@ class _BaseState extends State<Base> {
       navigatorKey: key,
       onGenerateRoute: onGenerateRoute,
       navigatorObservers: [routeObserver],
-      home: Dashboard(),
+      home: SplashScreen(),
       //  WelcomeScreen(),
       routes: <String, WidgetBuilder>{
         '/ThemeSetting': (BuildContext context) => ThemeSetting(),

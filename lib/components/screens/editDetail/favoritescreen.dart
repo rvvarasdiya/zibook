@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
 import 'package:zaviato/app/base/BaseList.dart';
 import 'package:zaviato/app/constant/ColorConstant.dart';
@@ -194,7 +195,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           });
                         },
                         child: Icon(
-                         (categoryListModel.isFavorite) ? Icons.favorite_rounded : Icons.favorite_outline_outlined,
+                         (categoryListModel.isFavorite) ? OMIcons.favoriteBorder : OMIcons.favorite,
                           size: getSize(20),
                           color: (categoryListModel.isFavorite) ? appTheme.colorPrimary : null ,
                       ),)
@@ -275,7 +276,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       },
                       text: "Edit",
                       textSize: 12,
-                      icon: Icons.edit_outlined,
+                      icon: OMIcons.edit,
                       iconSize: getSize(15),
                       backgroundColor: appTheme.colorPrimary,
                     ),

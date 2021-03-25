@@ -77,6 +77,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   },
                   text: "Get started",
                   backgroundColor: appTheme.whiteColor,
+                  textSize: getSize(18),
                   textColor: appTheme.colorPrimary,
                   fitWidth: true,
                 ),

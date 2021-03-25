@@ -118,9 +118,10 @@ class _DashboardState extends State<Dashboard> {
 
     _children = [
       HomeScreen(),
-      
-      SettingScreen(),
-      SettingScreen(),
+      NotificationScreen(),
+      ContactUsScreen(),
+      // SettingScreen(),
+      // SettingScreen(),
       SettingScreen(),
     ];
 //    ColorConstants.introgrey

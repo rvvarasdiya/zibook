@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
         .makeCall(
       () => app.resolve<ServiceModule>().networkService().homeScreenApi(),
       context,
-      isProgress: false,
+      isProgress: true,
     )
         .then((homeScreenResponse) async {
       cateName.addAll(homeScreenResponse.data.list);

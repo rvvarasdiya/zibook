@@ -193,4 +193,24 @@ class _NetworkService implements NetworkService {
     final value = MasterResp.fromJson(_result.data);
     return Future.value(value);
   }
+
+  @override
+  contactUs(req) async {
+    ArgumentError.checkNotNull(req, 'req');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(req?.toJson() ?? <String, dynamic>{});
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        'http://13.233.254.126:5700/api/v1/common/user/contact-us',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ContactUsRes.fromJson(_result.data);
+    return Future.value(value);
+  }
 }

@@ -180,6 +180,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   },
                   text: "Sign In",
                   backgroundColor: appTheme.colorPrimary,
+                  textSize: getSize(18),
                   textColor: appTheme.whiteColor,
                   fitWidth: true,
                 ),

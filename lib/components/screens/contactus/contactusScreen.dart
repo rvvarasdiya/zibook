@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
 import 'package:zaviato/app/constant/ImageConstant.dart';
+import 'package:zaviato/app/network/NetworkCall.dart';
+import 'package:zaviato/app/network/NetworkCall.dart';
+import 'package:zaviato/app/network/ServiceModule.dart';
 import 'package:zaviato/app/utils/CommonTextfield.dart';
+import 'package:zaviato/app/utils/CustomDialog.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
+import 'package:zaviato/app/utils/pref_utils.dart';
+import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/screens/feedback/feedbackscreen.dart';
 import 'package:zaviato/components/widgets/shared/buttons.dart';
+import 'package:zaviato/models/ContactUs/contactUsModel.dart';
+
+import '../../../main.dart';
 
 class ContactUsScreen extends StatefulWidget {
   @override
@@ -28,6 +37,9 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         elevation: 0,
         backgroundColor: appTheme.colorPrimary,
         leading: IconButton(
+          onPressed: (){
+            Navigator.pop(context);
+          },
           icon: Icon(
             Icons.arrow_back,
             color: Colors.white,
@@ -113,7 +125,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                 ),
                 AppButton.flat(
                   onTap: () {
-                    NavigationUtilities.push(FeedbackScreen());
+                    callContactUsApi(context);
                   },
                   backgroundColor: appTheme.colorPrimary,
                   text: "Send",
@@ -130,5 +142,44 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
         ],
       ),
     );
+  }
+
+  callContactUsApi(BuildContext context){
+
+    ContactUsReq contactUsReq = ContactUsReq();
+    contactUsReq.countryCode = "+91";
+    contactUsReq.name = nameController.text;
+    List<String> emails = [];
+    for(var i in app.resolve<PrefUtils>().getUserDetails().emails){
+      emails.add(i.email);
+    }
+    if(!isNullEmptyOrFalse(emails))
+      contactUsReq.email = emails.first;
+
+      contactUsReq.message = messageController.text;
+      contactUsReq.phone = mobileController.text;
+      
+    
+    NetworkCall<ContactUsRes>()
+        .makeCall(
+      () => app.resolve<ServiceModule>().networkService().contactUs(contactUsReq),
+      context,
+      isProgress: true,
+    )
+        .then((contactUsRes) async {
+          showToast(contactUsRes.message,context:context,);
+          Navigator.pop(context);
+      setState(() {});
+    }).catchError((onError) {
+      // if (page == DEFAULT_PAGE) {
+      //   cateName.clear();
+      //   fashionBaseListstate.listCount = cateName.length;
+      //   diamondList.state.totalCount = cateName.length;
+      //   manageDiamondSelection();
+      // }
+      print("error");
+
+      // fashionBaseList.state.setApiCalling(false);
+    });
   }
 }

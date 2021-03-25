@@ -5,6 +5,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:zaviato/models/Auth/LogInResponseModel.dart';
 import 'package:zaviato/models/Auth/SignUpModel.dart';
 import 'package:zaviato/models/Auth/SignUpResponseModel.dart';
+import 'package:zaviato/models/ContactUs/contactUsModel.dart';
 import 'package:zaviato/models/Home/HomeScreenResponse.dart';
 import 'package:zaviato/models/Master/MasterResponse.dart';
 import '../app.export.dart';
@@ -40,4 +41,7 @@ abstract class NetworkService {
 
   @POST(ApiConstants.masterSync)
   Future<MasterResp> getMaster(@Body() Map<String, dynamic> req);
+
+  @POST(ApiConstants.contactUsApi)
+  Future<ContactUsRes> contactUs(@Body() ContactUsReq req);
 }

@@ -123,8 +123,8 @@ class _HelpScreenState extends State<HelpScreen> {
                     });
                   },
                   child: !helpScreenModel.isShowMoreLess
-                      ? Icon(Icons.keyboard_arrow_down_outlined)
-                      : Icon(Icons.keyboard_arrow_up_outlined),
+                      ? Icon(Icons.keyboard_arrow_down)
+                      : Icon(Icons.keyboard_arrow_up),
                 ),
               ],
             ),
