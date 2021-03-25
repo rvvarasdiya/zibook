@@ -3,7 +3,7 @@ import 'package:zaviato/app/constant/constants.dart';
 import '../app.export.dart';
 
 class ApiConstants {
-  static const String PROXY_URL = "PROXY 192.168.1.14:8888";
+  static const String PROXY_URL = "PROXY 192.168.1.17:8888";
 
   static const String   commonUrl = apiUrl + "api/v1/";
   static const String customerCommonUrl = commonUrl + "customer";

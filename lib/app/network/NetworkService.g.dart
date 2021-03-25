@@ -9,7 +9,7 @@ part of 'NetworkService.dart';
 class _NetworkService implements NetworkService {
   _NetworkService(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    this.baseUrl ??= 'http://13.233.254.126:5700/';
+    this.baseUrl ??= 'http://13.234.240.252:5700/';
   }
 
   final Dio _dio;
@@ -24,7 +24,7 @@ class _NetworkService implements NetworkService {
     final _data = <String, dynamic>{};
     _data.addAll(req?.toJson() ?? <String, dynamic>{});
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        'http://13.233.254.126:5700/api/v1/customer/user/register',
+        'http://13.234.240.252:5700/api/v1/customer/user/register',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -42,7 +42,7 @@ class _NetworkService implements NetworkService {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        'http://13.233.254.126:5700/api/v1/customer/category/paginate',
+        'http://13.234.240.252:5700/api/v1/customer/category/paginate',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -62,7 +62,7 @@ class _NetworkService implements NetworkService {
     final _data = <String, dynamic>{};
     _data.addAll(req ?? <String, dynamic>{});
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        'http://13.233.254.126:5700/api/v1/common/user/login',
+        'http://13.234.240.252:5700/api/v1/common/user/login',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -82,7 +82,7 @@ class _NetworkService implements NetworkService {
     final _data = <String, dynamic>{};
     _data.addAll(req ?? <String, dynamic>{});
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        'http://13.233.254.126:5700/api/v1/auth/forgot-password',
+        'http://13.234.240.252:5700/api/v1/auth/forgot-password',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -102,7 +102,7 @@ class _NetworkService implements NetworkService {
     final _data = <String, dynamic>{};
     _data.addAll(req ?? <String, dynamic>{});
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        'http://13.233.254.126:5700/api/v1/auth/check-reset-password-otp',
+        'http://13.234.240.252:5700/api/v1/auth/check-reset-password-otp',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -122,7 +122,7 @@ class _NetworkService implements NetworkService {
     final _data = <String, dynamic>{};
     _data.addAll(req ?? <String, dynamic>{});
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        'http://13.233.254.126:5700/api/v1/customer/user/verify-mobile',
+        'http://13.234.240.252:5700/api/v1/customer/user/verify-mobile',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -142,7 +142,7 @@ class _NetworkService implements NetworkService {
     final _data = <String, dynamic>{};
     _data.addAll(req ?? <String, dynamic>{});
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        'http://13.233.254.126:5700/api/v1/customer/user/mobile-verification-otp',
+        'http://13.234.240.252:5700/api/v1/customer/user/mobile-verification-otp',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -162,7 +162,7 @@ class _NetworkService implements NetworkService {
     final _data = <String, dynamic>{};
     _data.addAll(req ?? <String, dynamic>{});
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        'http://13.233.254.126:5700/api/v1/auth/reset-password',
+        'http://13.234.240.252:5700/api/v1/auth/reset-password',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -182,7 +182,7 @@ class _NetworkService implements NetworkService {
     final _data = <String, dynamic>{};
     _data.addAll(req ?? <String, dynamic>{});
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        'http://13.233.254.126:5700/api/v1/customer/user/sync',
+        'http://13.234.240.252:5700/api/v1/customer/user/sync',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -202,7 +202,7 @@ class _NetworkService implements NetworkService {
     final _data = <String, dynamic>{};
     _data.addAll(req?.toJson() ?? <String, dynamic>{});
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        'http://13.233.254.126:5700/api/v1/common/user/contact-us',
+        'http://13.234.240.252:5700/api/v1/common/user/contact-us',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',

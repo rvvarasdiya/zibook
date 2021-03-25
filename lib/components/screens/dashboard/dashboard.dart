@@ -6,7 +6,9 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:rxbus/rxbus.dart';
+import 'package:zaviato/app/Helper/Themehelper.dart';
 import 'package:zaviato/app/constant/ColorConstant.dart';
+import 'package:zaviato/app/constant/ImageConstant.dart';
 import 'package:zaviato/app/theme/app_theme.dart';
 import 'package:zaviato/app/utils/BaseDialog.dart';
 import 'package:zaviato/app/utils/CommonWidgets.dart';
@@ -119,7 +121,8 @@ class _DashboardState extends State<Dashboard> {
     _children = [
       HomeScreen(),
       NotificationScreen(),
-      ContactUsScreen(),
+      // ContactUsScreen(),
+      RegisterBusinessScreen(),
       // SettingScreen(),
       // SettingScreen(),
       SettingScreen(),
@@ -168,7 +171,35 @@ class _DashboardState extends State<Dashboard> {
 
   bool useWhiteForeground(Color backgroundColor) =>
       1.05 / (backgroundColor.computeLuminance() + 0.05) > 4.5;
+  getProfilePhoto() {
+    return Padding(
+      padding: EdgeInsets.all(getSize(10)),
+      child: Container(
+        // alignment: Alignment.center,
+        // margin: EdgeInsets.only(top: getSize(30)),
+        width: getSize(130),
+        height: getSize(130),
+        decoration: BoxDecoration(
+          color: ColorConstants.backGroundColor,
+          image: DecorationImage(
+            image: AssetImage(userIcon),
+            fit: BoxFit.fitHeight,
+          ),
+          shape: BoxShape.circle,
+          boxShadow: [
+            new BoxShadow(
+              // color: Color(0xff00000033),
+              color: Colors.black12,
+              offset: Offset(0, 5),
+              blurRadius: 15.0,
+            ),
+          ],
+        ),
 
+        // NetworkImage('https://via.placeholder.com/150'),
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
@@ -180,6 +211,33 @@ class _DashboardState extends State<Dashboard> {
           colors: [Colors.white],
           child: Scaffold(
             resizeToAvoidBottomInset: false,
+           endDrawer: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(40),
+            bottomLeft: Radius.circular(40),
+          ),
+          child: Drawer(
+            child: Container(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: getSize(80),
+                  ),
+                  getProfilePhoto(),
+                   SizedBox(
+                    height: getSize(20),
+                  ),
+                  Text("Marcin Kohut",
+                  style: appTheme.black22BoldTextStyle.copyWith(fontSize: getFontSize(28))
+                  ),
+                  Text("marcinkohut26@gmail.com",
+                  style: appTheme.black14RegularTextStyle,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
             // appBar: AppBar(
             //   toolbarHeight: getSize(100),
             //   elevation: 0,

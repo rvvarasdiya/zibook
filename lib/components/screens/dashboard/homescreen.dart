@@ -34,8 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
       noDataMsg: APPNAME,
       noDataDesc: "No data found",
       refreshBtn: "refresh",
-      enablePullDown: false,
-      enablePullUp: false,
+      enablePullDown: true,
+      enablePullUp: true,
       onPullToRefress: () {
         callApi(true);
       },
@@ -54,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   callApi(bool isRefress, {bool isLoading = false}) {
+    // cateName.clear();
     NetworkCall<HomeScreenResponse>()
         .makeCall(
       () => app.resolve<ServiceModule>().networkService().homeScreenApi(),
@@ -107,6 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
             topRight: Radius.circular(35),
           )),
       child: GridView.count(
+        // physics: ,
         padding: EdgeInsets.only(
           bottom: 10,
           right: 30,
@@ -176,22 +178,22 @@ class _HomeScreenState extends State<HomeScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: appTheme.colorPrimary,
-        endDrawer: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(40),
-            bottomLeft: Radius.circular(40),
-          ),
-          child: Drawer(
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    bottomLeft: Radius.circular(40),
-                  )),
-            ),
-          ),
-        ),
+        // endDrawer: ClipRRect(
+        //   borderRadius: BorderRadius.only(
+        //     topLeft: Radius.circular(40),
+        //     bottomLeft: Radius.circular(40),
+        //   ),
+        //   child: Drawer(
+        //     child: Container(
+        //       decoration: BoxDecoration(
+        //           color: Colors.amber,
+        //           borderRadius: BorderRadius.only(
+        //             topLeft: Radius.circular(40),
+        //             bottomLeft: Radius.circular(40),
+        //           )),
+        //     ),
+        //   ),
+        // ),
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(200.0),
           child: Container(
