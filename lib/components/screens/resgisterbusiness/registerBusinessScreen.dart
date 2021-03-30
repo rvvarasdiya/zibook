@@ -3,16 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
+import 'package:zaviato/app/base/BaseApiResp.dart';
 import 'package:zaviato/app/constant/ColorConstant.dart';
 import 'package:zaviato/app/network/NetworkCall.dart';
 import 'package:zaviato/app/network/ServiceModule.dart';
 import 'package:zaviato/app/utils/CommonTextfield.dart';
+import 'package:zaviato/app/utils/CustomDialog.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/pref_utils.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/screens/feedback/feedbackscreen.dart';
 import 'package:zaviato/components/widgets/shared/buttons.dart';
+import 'package:zaviato/models/ContactUs/contactUsModel.dart';
 import 'package:zaviato/models/Master/MasterResponse.dart';
 import 'package:zaviato/models/RegisterBusiness/RegisterBusiness.dart';
 import 'package:zaviato/models/cities/citiesModel.dart' as city;
@@ -46,10 +49,11 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
   bool _isBusinessEmailValid = false;
   bool _isBusinessMobileNumberValid = true;
   bool _isbusinessDescriptionValid = true;
-  bool _autoValidate = false; 
+  bool _autoValidate = false;
 
   List<States> stateLists = [];
   List<city.Data> cityLists = [];
+  List<Categories> categoriesList = [];
   String countryValue = "";
   String stateValue = "";
   String cityValue = "";
@@ -58,6 +62,7 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
   void initState() {
     super.initState();
     stateLists = app.resolve<PrefUtils>().getMaster().data.states;
+    categoriesList = app.resolve<PrefUtils>().getMaster().data.categories;
     print(stateLists.length);
   }
 
@@ -270,17 +275,56 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
               SizedBox(
                 height: getSize(20),
               ),
-              GestureDetector(
+              InkWell(
                 onTap: () {
                   showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return Container(
-                          height: getSize(100),
-                          width: double.infinity,
-                          child: Text("data"),
-                        );
-                      });
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(
+                        getSize(20),
+                      ),
+                      topRight: Radius.circular(
+                        getSize(20),
+                      ),
+                    )),
+                    context: context,
+                    builder: (context) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(vertical: getSize(8.0)),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: categoriesList.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      businessCateController.text =
+                                          categoriesList[index].name;
+                                      // callApiForCityList(stateLists[index].sId);
+                                      Navigator.pop(context);
+                                    },
+                                    child: Column(
+                                      children: <Widget>[
+                                        Container(
+                                          alignment: Alignment.center,
+                                          padding: EdgeInsets.all(getSize(10)),
+                                          child:
+                                              Text(categoriesList[index].name),
+                                        ),
+                                        (index != categoriesList.length - 1)
+                                            ? Divider()
+                                            : Container()
+                                      ],
+                                    ),
+                                  );
+                                }),
+                          ],
+                        ),
+                      );
+                    },
+                  );
                 },
                 child: CommonTextfield(
                   enable: false,
@@ -297,15 +341,24 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
               SizedBox(
                 height: getSize(20),
               ),
-              GestureDetector(
+              InkWell(
                 onTap: () {
                   showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(
+                          getSize(20),
+                        ),
+                        topRight: Radius.circular(
+                          getSize(20),
+                        ),
+                      )),
                       context: context,
                       builder: (context) {
-                        return Container(
-                          height: getSize(400),
-                          width: double.infinity,
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: getSize(8.0)),
                           child: ListView.builder(
+                              shrinkWrap: true,
                               itemCount: stateLists.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
@@ -315,9 +368,17 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
                                     callApiForCityList(stateLists[index].sId);
                                     Navigator.pop(context);
                                   },
-                                  child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    child: Text(stateLists[index].name),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Container(
+                                        alignment: Alignment.center,
+                                        padding: EdgeInsets.all(getSize(10)),
+                                        child: Text(stateLists[index].name),
+                                      ),
+                                      (index != stateLists.length - 1)
+                                          ? Divider()
+                                          : Container()
+                                    ],
                                   ),
                                 );
                               }),
@@ -337,39 +398,59 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
               SizedBox(
                 height: getSize(20),
               ),
-              GestureDetector(
+              InkWell(
                 onTap: () {
                   showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(
+                          getSize(20),
+                        ),
+                        topRight: Radius.circular(
+                          getSize(20),
+                        ),
+                      )),
                       context: context,
                       builder: (context) {
-                        return Container(
-                          height: getSize(400),
-                          width: double.infinity,
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: getSize(8.0)),
                           child: ListView.builder(
+                              shrinkWrap: true,
                               itemCount: cityLists.length,
                               itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                businessCityController.text = cityLists[index].name;
-                                Navigator.pop(context);
-                              },
-                              child: Container(
-                                padding: EdgeInsets.all(10),
-                                child: Text(cityLists[index].name),
-                              ),
-                            );
-                          }),
+                                return GestureDetector(
+                                  onTap: () {
+                                    businessCityController.text =
+                                        cityLists[index].name;
+                                    Navigator.pop(context);
+                                  },
+                                  child: Column(
+                                    children: <Widget>[
+                                      Container(
+                                        alignment: Alignment.center,
+                                        padding: EdgeInsets.all(getSize(10)),
+                                        child: Text(cityLists[index].name),
+                                      ),
+                                      (index != cityLists.length - 1)
+                                          ? Divider()
+                                          : Container()
+                                    ],
+                                  ),
+                                );
+                              }),
                         );
                       });
                 },
                 child: CommonTextfield(
-                    enable: false,
-                    textOption: TextFieldOption(
-                      hintText: "City",
-                      hintStyleText: appTheme.black16BoldTextStyle,
-                      // inputController: businessTypeController,
-                    ),
-                    textCallback: null),
+                  enable: false,
+                  textOption: TextFieldOption(
+                    hintText: "City",
+                    hintStyleText: appTheme.black16BoldTextStyle,
+                    inputController: businessCityController,
+                  ),
+                  textCallback: null,
+
+                ),
               ),
               SizedBox(
                 height: getSize(50),
@@ -379,7 +460,7 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
                   FocusScope.of(context).unfocus();
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    // callRegisterBusinessApi(context);
+                    callRegisterBusinessApi(context);
                   } else {
                     setState(() {
                       _autoValidate = true;
@@ -410,8 +491,7 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
       isProgress: true,
     )
         .then((citiesRes) async {
-
-          cityLists.clear();
+      cityLists.clear();
       cityLists.addAll(citiesRes.data);
       setState(() {});
       // showToast(contactUsRes.message,context:context,);
@@ -430,44 +510,71 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
     });
   }
 
-  // callRegisterBusinessApi(BuildContext context){
+  callRegisterBusinessApi(BuildContext context) {
+    RegisterBusinessReq contactUsReq = RegisterBusinessReq();
+    contactUsReq.countryCode = "+91";
+    contactUsReq.name = businessNameController.text;
+    contactUsReq.mobile = businessMobileController.text;
 
-  //   RegisterBusinessReq contactUsReq = RegisterBusinessReq();
-  //   contactUsReq.countryCode = "+91";
-  //   contactUsReq.name = businessNameController.text;
-  //   contactUsReq.mobile = businessMobileController.text;
+    // List<String> emails = [];
+    // for(var i in app.resolve<PrefUtils>().getUserDetails().emails){
+    //   emails.add(i.email);
+    // }
+    // if(!isNullEmptyOrFalse(emails))
+    //   contactUsReq.email = emails.first;
 
-  //   List<String> emails = [];
-  //   for(var i in app.resolve<PrefUtils>().getUserDetails().emails){
-  //     emails.add(i.email);
-  //   }
-  //   if(!isNullEmptyOrFalse(emails))
-  //     contactUsReq.email = emails.first;
+    // contactUsReq.message = messageController.text;
+    // contactUsReq.phone = mobileController.text;
+    for (var cate in categoriesList) {
+      if (cate.name == businessCateController.text) {
+        contactUsReq.category = cate.sId;
+        break;
+      }
+    }
 
-  //     contactUsReq.message = messageController.text;
-  //     contactUsReq.phone = mobileController.text;
+    for (var state in stateLists) {
+      if (state.name == businessStateController.text) {
+        contactUsReq.state = state.sId;
+        break;
+      }
+    }
 
-  //   NetworkCall<ContactUsRes>()
-  //       .makeCall(
-  //     () => app.resolve<ServiceModule>().networkService().contactUs(contactUsReq),
-  //     context,
-  //     isProgress: true,
-  //   )
-  //       .then((contactUsRes) async {
-  //         showToast(contactUsRes.message,context:context,);
-  //         Navigator.pop(context);
-  //     setState(() {});
-  //   }).catchError((onError) {
-  //     // if (page == DEFAULT_PAGE) {
-  //     //   cateName.clear();
-  //     //   fashionBaseListstate.listCount = cateName.length;
-  //     //   diamondList.state.totalCount = cateName.length;
-  //     //   manageDiamondSelection();
-  //     // }
-  //     print("error");
+    for (var city in cityLists) {
+      if (city.name == businessCityController.text) {
+        contactUsReq.city = city.sId;
+        break;
+      }
+    }
 
-  //     // fashionBaseList.state.setApiCalling(false);
-  //   });
+    contactUsReq.address = "c1/405 vrajbhumi";
+    contactUsReq.postalCode = "395006";
 
-  // }
+    NetworkCall<BaseApiResp>()
+        .makeCall(
+      () => app
+          .resolve<ServiceModule>()
+          .networkService()
+          .registerBusiness(contactUsReq),
+      context,
+      isProgress: true,
+    )
+        .then((contactUsRes) async {
+      showToast(
+        "your business has been added.",
+        context: context,
+      );
+      Navigator.pop(context);
+      setState(() {});
+    }).catchError((onError) {
+      // if (page == DEFAULT_PAGE) {
+      //   cateName.clear();
+      //   fashionBaseListstate.listCount = cateName.length;
+      //   diamondList.state.totalCount = cateName.length;
+      //   manageDiamondSelection();
+      // }
+      print("error");
+      print(onError.runtimeType);
+      // fashionBaseList.state.setApiCalling(false);
+    });
+  }
 }
