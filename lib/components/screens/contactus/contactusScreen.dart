@@ -17,6 +17,7 @@ import 'package:zaviato/models/ContactUs/contactUsModel.dart';
 import '../../../main.dart';
 
 class ContactUsScreen extends StatefulWidget {
+   static const route = "ContctUsScreen";
   @override
   _ContactUsScreenState createState() => _ContactUsScreenState();
 }

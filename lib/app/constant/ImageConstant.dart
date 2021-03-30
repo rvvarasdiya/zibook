@@ -12,6 +12,7 @@ const String homeIcon = "assets/common/home.png";
 const String notifyIcon = "assets/common/notify.png";
 const String chatIcon = "assets/common/chat.png";
 const String settingIcon = "assets/common/setting.png";
+const String settingDarkIcon = "assets/common/settingdark.png";
 const String homeFillIcon = "assets/common/homefill.png";
 const String notifyFillIcon = "assets/common/notifyfill.png";
 const String chatFillIcon = "assets/common/chatfill.png";

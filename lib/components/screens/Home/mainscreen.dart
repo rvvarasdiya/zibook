@@ -147,12 +147,12 @@ class _mainScreenState extends State<mainScreen> {
           
   }
 
-  getScreen(){
-    switch (currentIndex) {
-      case 1 :
-      return HomeScreen();
-      default:
-       return HomeScreen();
-    }
-  }
+//   getScreen(){
+//     switch (currentIndex) {
+//       case 1 :
+//       return HomeScreen();
+//       default:
+//        return HomeScreen();
+//     }
+//   }
 }

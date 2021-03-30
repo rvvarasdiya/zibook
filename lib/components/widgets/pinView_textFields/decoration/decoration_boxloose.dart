@@ -104,7 +104,7 @@ class BoxLooseDecoration extends PinDecoration implements SupportGap {
     /// Assign paint if [solidColor] is not null
     Paint insidePaint;
     if (solidColor != null) {
-      print('solod ${solidColor}');
+      // print('solod ${solidColor}');
       insidePaint = Paint()
         ..color = solidColor
         ..style = PaintingStyle.fill

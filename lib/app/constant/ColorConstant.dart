@@ -41,6 +41,7 @@ class ColorConstants {
   static Color getAcdemyShadowColor = fromHex("#599FFF");
   static Color textGray = fromHex("#7B7E84");
   static Color getLightButton = fromHex("#A0BAFF");
+  static Color getDrawerText = fromHex("#091423");
 
   //Report Color
   static Color commentBoxColor = fromHex("#C5C5C5");

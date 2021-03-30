@@ -70,7 +70,7 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
           titleSpacing: 0,
           automaticallyImplyLeading: false,
           leading: IconButton(
-            onPressed: (){},
+            onPressed: ()=>Navigator.pop(context),
             icon: Icon(
               Icons.arrow_back,
               color: Colors.black,
@@ -306,7 +306,7 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
                                 return GestureDetector(
                                   onTap: () {
                                     businessStateController.text =
-                                        stateLists[index].sId;
+                                        stateLists[index].name;
                                     Navigator.pop(context);
                                   },
                                   child: Container(

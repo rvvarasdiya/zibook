@@ -5,6 +5,8 @@ import 'package:zaviato/app/constant/ImageConstant.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 
 class NotificationScreen extends StatefulWidget {
+  final _drawerKey;
+  NotificationScreen(this._drawerKey);
   @override
   _NotificationScreenState createState() => _NotificationScreenState();
 }
@@ -39,23 +41,28 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     "Notification",
                     style: appTheme.white16BoldTextStyle,
                   ),
-                  Container(
-                    width: getSize(40),
-                    height: getSize(40),
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(userIcon),
-                        ),
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          new BoxShadow(
-                            color: ColorConstants.getShadowColor,
-                            offset: Offset(0, 5),
-                            blurRadius: 5.0,
+                  GestureDetector(
+                    onTap: (){
+                     widget._drawerKey.currentState.openEndDrawer();
+                    } ,
+                    child: Container(
+                      width: getSize(40),
+                      height: getSize(40),
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(userIcon),
                           ),
-                        ]),
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            new BoxShadow(
+                              color: ColorConstants.getShadowColor,
+                              offset: Offset(0, 5),
+                              blurRadius: 5.0,
+                            ),
+                          ]),
 
-                    // NetworkImage('https://via.placeholder.com/150'),
+                      // NetworkImage('https://via.placeholder.com/150'),
+                    ),
                   ),
                 ],
               ),
@@ -138,16 +145,16 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           ),
                           Expanded(
                             child: Column(
-                              mainAxisAlignment:  MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                   
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 5,left: 10),
+                                      padding: const EdgeInsets.only(
+                                          top: 5, left: 10),
                                       child: Text(
                                         "Business Name",
                                         style: appTheme.black16BoldTextStyle,
@@ -157,19 +164,21 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                       "Show",
                                       style: TextStyle(
                                           color: appTheme.colorPrimary,
-                                            fontWeight: FontWeight.bold,
+                                          fontWeight: FontWeight.bold,
                                           fontFamily: 'Karla',
                                           fontSize: 12),
                                     )
                                   ],
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 10,top: 5),
-                                  child: Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                                  style: appTheme.black14RegularTextStyle.copyWith(
-                                    fontSize: 12,
-                                    color: Color(0xff6E7073)
-                                  ),
+                                  padding:
+                                      const EdgeInsets.only(left: 10, top: 5),
+                                  child: Text(
+                                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                                    style: appTheme.black14RegularTextStyle
+                                        .copyWith(
+                                            fontSize: 12,
+                                            color: Color(0xff6E7073)),
                                   ),
                                 )
                               ],
