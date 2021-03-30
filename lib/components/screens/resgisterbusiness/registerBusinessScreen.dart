@@ -46,7 +46,7 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
   bool _isBusinessEmailValid = false;
   bool _isBusinessMobileNumberValid = true;
   bool _isbusinessDescriptionValid = true;
-  bool _autoValidate = false;
+  bool _autoValidate = false; 
 
   List<States> stateLists = [];
   List<city.Data> cityLists = [];
