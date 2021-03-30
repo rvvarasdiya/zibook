@@ -33,6 +33,7 @@ class NetworkCall<T extends BaseApiResp> {
 
         if (resp != null) {
           hideDialog(isProgress);
+          print(resp.code);
           if (resp.code == CODE_OK)
             return resp;
           else if (resp.code == CODE_UNAUTHORIZED) {
