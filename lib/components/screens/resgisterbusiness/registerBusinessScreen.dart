@@ -42,7 +42,7 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
   bool _isBusinessEmailValid = false;
   bool _isBusinessMobileNumberValid = true;
   bool _isbusinessDescriptionValid = true;
-  bool _autoValidate = false;
+  bool _autoValidate = false; 
 
   List<States> stateLists = [];
   String countryValue = "";
@@ -70,6 +70,7 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
           titleSpacing: 0,
           automaticallyImplyLeading: false,
           leading: IconButton(
+            onPressed: (){},
             icon: Icon(
               Icons.arrow_back,
               color: Colors.black,
