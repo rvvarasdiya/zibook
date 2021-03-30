@@ -14,6 +14,7 @@ import 'package:zaviato/components/screens/Business/BusinessView.dart';
 import 'package:zaviato/components/screens/Business/HelpScreen.dart';
 import 'package:zaviato/components/screens/Business/businessDetail1.dart';
 import 'package:zaviato/components/screens/WelcomeScreen/WelcomeScreen.dart';
+import 'package:zaviato/components/screens/contactus/contactusScreen.dart';
 import 'package:zaviato/components/screens/editDetail/editprofile.dart';
 import 'package:zaviato/components/screens/editDetail/favoritescreen.dart';
 import 'package:zaviato/components/screens/resgisterbusiness/registerBusinessScreen.dart';
@@ -147,6 +148,9 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       break;
     case RegisterBusinessScreen.route:
       screen = RegisterBusinessScreen();
+      break;
+    case ContactUsScreen.route:
+      screen = ContactUsScreen();
       break;
     
   }

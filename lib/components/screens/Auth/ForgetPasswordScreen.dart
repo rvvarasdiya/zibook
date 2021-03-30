@@ -55,8 +55,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
           context,
           '',
           backgroundColor: appTheme.whiteColor,
-          leadingButton: getBackButton(context),
-          centerTitle: false,
+          leadingButton: IconButton(icon: Icon(Icons.arrow_back,color: Colors.black,), onPressed: ()=>Navigator.pop(context)),
         ),
         body: Form(
           key: _formKey,

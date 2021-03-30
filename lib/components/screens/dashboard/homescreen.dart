@@ -10,12 +10,15 @@ import 'package:zaviato/app/network/ServiceModule.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/components/screens/Business/BusinessFullDetail.dart';
+import 'package:zaviato/components/screens/Business/BusinessView.dart';
 import 'package:zaviato/models/Home/HomeScreenResponse.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../main.dart';
 
 class HomeScreen extends StatefulWidget {
+  final _drawerKey;
+  HomeScreen(this._drawerKey);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -129,6 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
   getItemWidget(ListData listDataModel) {
     return GestureDetector(
       onTap: () {
+            // NavigationUtilities.pushRoute(BusinessView.route);
         NavigationUtilities.push(BusinessFullDetail());
       },
       child: Container(
@@ -202,9 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
             // alignment: Alignment.topCenter,
             // color: Colors.red,
             padding: EdgeInsets.symmetric(
-              horizontal: getSize(30),
-              vertical: getSize(30)
-            ),
+                horizontal: getSize(30), vertical: getSize(30)),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -216,24 +218,29 @@ class _HomeScreenState extends State<HomeScreen> {
                       "Suratmart",
                       style: appTheme.white16BoldTextStyle,
                     ),
-                    Container(
-                      width: getSize(40),
-                      height: getSize(40),
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(userIcon),
-                            fit: BoxFit.fill,
-                          ),
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            new BoxShadow(
-                              color: ColorConstants.getShadowColor,
-                              offset: Offset(0, 5),
-                              blurRadius: 5.0,
+                    GestureDetector(
+                      onTap: (){
+                         widget._drawerKey.currentState.openEndDrawer();
+                      },
+                      child: Container(
+                        width: getSize(40),
+                        height: getSize(40),
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(userIcon),
+                              fit: BoxFit.fill,
                             ),
-                          ]),
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              new BoxShadow(
+                                color: ColorConstants.getShadowColor,
+                                offset: Offset(0, 5),
+                                blurRadius: 5.0,
+                              ),
+                            ]),
 
-                      // NetworkImage('https://via.placeholder.com/150'),
+                        // NetworkImage('https://via.placeholder.com/150'),
+                      ),
                     ),
                   ],
                 ),

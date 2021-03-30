@@ -11,6 +11,7 @@ import 'package:zaviato/app/constant/constants.dart';
 import 'package:zaviato/app/localization/app_locales.dart';
 import 'package:zaviato/app/network/NetworkCall.dart';
 import 'package:zaviato/app/network/ServiceModule.dart';
+import 'package:zaviato/app/utils/BaseDialog.dart';
 import 'package:zaviato/app/utils/CommonWidgets.dart';
 import 'package:zaviato/app/utils/CustomDialog.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
@@ -71,7 +72,11 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
 
   @override
   void initState() {
-    startTimer();
+   if(this.mounted){
+            setState(() {
+          startTimer();
+        });
+        }
     super.initState();
     if (widget.moduleType == OtpPage.SignUP) {
       callSendOTP();
@@ -86,7 +91,7 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
           context,
           '',
           backgroundColor: appTheme.whiteColor,
-          leadingButton: getBackButton(context),
+          leadingButton: IconButton(icon: Icon(Icons.arrow_back,color: Colors.black,), onPressed: ()=>Navigator.pop(context)),
           centerTitle: false,
         ),
         body: Form(
@@ -249,8 +254,11 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
         isTimerCompleted = false;
         isApiCall = true;
         _start = 30;
-        startTimer();
-        setState(() {});
+       if(this.mounted){
+            setState(() {
+          startTimer();
+        });
+        }
       },
     ).catchError((onError) {
       // isOtpTrue = false;
@@ -288,8 +296,12 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
         isTimerCompleted = false;
         isApiCall = true;
         _start = 30;
-        startTimer();
-        setState(() {});
+        if(this.mounted){
+            setState(() {
+          startTimer();
+        });
+        }
+        
       },
     ).catchError((onError) {
       // isOtpTrue = false;
@@ -357,11 +369,18 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
       isOtpTrue = false;
       isOtpCheck = false;
       setState(() {});
+      
       app.resolve<CustomDialogs>().confirmDialog(
             context,
             title: R.string().commonString.error,
             desc: onError.message,
             positiveBtnTitle: R.string().commonString.btnTryAgain,
+            onClickCallback: (ButtonType tryagain){
+                // isOtpTrue = false;
+                isOtpCheck = true;
+                _pinEditingController.clear();
+                setState(() {});
+            }
           );
     });
   }
@@ -435,90 +454,94 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
 
   Widget getPinViewOTP() {
     return PinInputTextFormField(
-      key: pinFormKey,
-      pinLength: 6,
-      decoration: BoxLooseDecoration(
-        strokeColor: isOtpCheck
-            ? appTheme.grayColor
-            : isOtpTrue
-                ? appTheme.colorPrimary.withOpacity(0.7)
-                : appTheme.redColor.withOpacity(0.7),
-        gapSpace: getSize(10),
-        strokeWidth: getSize(1.5),
-        radius: Radius.circular(
-          getSize(10),
-        ),
-        
-        solidColor: isOtpCheck
-            ? appTheme.colorPrimary.withOpacity(0.1)
-            : isOtpTrue
-                ? appTheme.colorPrimary.withOpacity(0.7)
-                : appTheme.redColor.withOpacity(0.7),
-        textStyle: appTheme.getLabelStyle.copyWith(fontSize: getSize(20)),
-        errorTextStyle: appTheme.errorLabelStyle.copyWith(
-          color: isOtpCheck
-              ? appTheme.grayColor
-              : isOtpTrue
-                  ? appTheme.colorPrimary.withOpacity(0.7)
-                  : appTheme.redColor.withOpacity(0.7),
-        ),
+        key: pinFormKey,
+        pinLength: 6,
+        decoration: BoxLooseDecoration(
+    strokeColor: isOtpCheck
+        ? appTheme.grayColor
+        : isOtpTrue
+            ? appTheme.colorPrimary.withOpacity(0.7)
+            : appTheme.redColor.withOpacity(0.7),
+    gapSpace: getSize(10),
+    strokeWidth: getSize(1.5),
+    radius: Radius.circular(
+      getSize(10),
+    ),
+    
+    solidColor: isOtpCheck
+        ? appTheme.colorPrimary.withOpacity(0.1)
+        : isOtpTrue
+            ? appTheme.colorPrimary.withOpacity(0.7)
+            : appTheme.redColor.withOpacity(0.7),
+    textStyle: appTheme.getLabelStyle.copyWith(fontSize: getSize(20)),
+    errorTextStyle: appTheme.errorLabelStyle.copyWith(
+      color: isOtpCheck
+          ? appTheme.grayColor
+          : isOtpTrue
+              ? appTheme.colorPrimary.withOpacity(0.7)
+              : appTheme.redColor.withOpacity(0.7),
+    ),
 
-        obscureStyle: ObscureStyle(
-          isTextObscure: false,
+    obscureStyle: ObscureStyle(
+      isTextObscure: false,
+    ),
+    hintText: '000000',
+    // hintTextStyle: appTheme.black16RegularTextStyle
         ),
-        hintText: '000000',
-      ),
-      controller: _pinEditingController,
-      textInputAction: TextInputAction.done,
-      enabled: true,
-      inputFormatter: [
-        BlacklistingTextInputFormatter(RegExp(RegexForEmoji)),
-        ValidatorInputFormatter(
-          editingValidator: DecimalNumberEditingRegexValidator(6),
-        ),
-      ],
-      keyboardType: TextInputType.number,
-      autovalidate: true,
-      onSubmit: (pin) {
-        // setState(() {});
-        // if (_formKey.currentState.validate()) {
-        //   _formKey.currentState.save();
-        //   if (pin.trim().length != 4) {
-        //     isOtpTrue = false;
-        //     isOtpCheck = false;
-        //     showOTPMsg = "Please enter OTP";
-        //   } else if (pin.trim().length == 4) {
-        //     FocusScope.of(context).unfocus();
-        //     callApiForVerifyingOtp();
-        //   }
-        // } else {
-        //   setState(() {
-        //     isOtpCheck = false;
-        //     isOtpTrue = false;
-        //   });
-        // }
-      },
-      validator: (text) {
-        // if (text.isEmpty) {
-        //   isOtpValid = false;
-        //   return "Enter Otp";
-        // }
-        // /* else if(!validateStructure(text)) {
-        //       return R.string().errorString.wrongPassword;
-        //     } */
-        // else {
-        //   return null;
-        // }
-      },
-      onChanged: (pin) {
-        // if (pin.trim().length < 4) {
-        //   showOTPMsg = null;
-        //   isOtpTrue = false;
-        // } else if (pin.trim().length == 4) {
-        //   callApiForVerifyingOtp();
-        // }
-        // setState(() {});
-      },
-    );
+        controller: _pinEditingController,
+        textInputAction: TextInputAction.done,
+        enabled: true,
+        inputFormatter: [
+    BlacklistingTextInputFormatter(RegExp(RegexForEmoji)),
+    ValidatorInputFormatter(
+      editingValidator: DecimalNumberEditingRegexValidator(6),
+    ),
+        ],
+        keyboardType: TextInputType.number,
+        autovalidate: true,
+        onSubmit: (pin) {
+    // setState(() {});
+    // if (_formKey.currentState.validate()) {
+    //   _formKey.currentState.save();
+    //   if (pin.trim().length != 4) {
+    //     isOtpTrue = false;
+    //     isOtpCheck = false;
+    //     showOTPMsg = "Please enter OTP";
+    //   } else if (pin.trim().length == 4) {
+    //     FocusScope.of(context).unfocus();
+    //     callApiForVerifyingOtp();
+    //   }
+    // } else {
+    //   setState(() {
+    //     isOtpCheck = false;
+    //     isOtpTrue = false;
+    //   });
+    // }
+        },
+        validator: (text) {
+    // if (text.isEmpty) {
+    //   isOtpValid = false;
+    //   return "Enter Otp";
+    // }
+    // /* else if(!validateStructure(text)) {
+    //       return R.string().errorString.wrongPassword;
+    //     } */
+    // else {
+    //   return null;
+    // }
+        },
+        onChanged: (pin) {
+    setState(() {
+      isOtpCheck = true;
+    });
+    // if (pin.trim().length < 4) {
+    //   showOTPMsg = null;
+    //   isOtpTrue = false;
+    // } else if (pin.trim().length == 4) {
+    //   callApiForVerifyingOtp();
+    // }
+    // setState(() {});
+        },
+      );
   }
 }

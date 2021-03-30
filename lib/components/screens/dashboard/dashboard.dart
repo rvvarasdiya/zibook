@@ -42,10 +42,11 @@ class Dashboard extends StatefulWidget {
   static const route = "Dashboard";
 
   @override
-  _DashboardState createState() => _DashboardState(); 
+  _DashboardState createState() => _DashboardState();
 }
 
 class _DashboardState extends State<Dashboard> {
+  GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
   List<BottomNavModel> model;
   int _currentIndex = 0;
   List<Widget> _children;
@@ -115,14 +116,14 @@ class _DashboardState extends State<Dashboard> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       print('dashboard context');
-          //  _afterLayout;
+      //  _afterLayout;
     });
 
     _children = [
-      HomeScreen(),
-      NotificationScreen(),
-      // ContactUsScreen(),
-      RegisterBusinessScreen(),
+      HomeScreen(_drawerKey),
+      NotificationScreen(_drawerKey),
+      ContactUsScreen(),
+      // RegisterBusinessScreen(),
       // SettingScreen(),
       // SettingScreen(),
       SettingScreen(),
@@ -200,6 +201,186 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   }
+
+  getDrawer() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          children: [
+            SizedBox(
+              height: getSize(80),
+            ),
+            getProfilePhoto(),
+            SizedBox(
+              height: getSize(20),
+            ),
+            Text("Marcin Kohut",
+                style: appTheme.black22BoldTextStyle.copyWith(
+                    fontSize: getFontSize(28),
+                    color: ColorConstants.getDrawerText)),
+            SizedBox(
+              height: getSize(5),
+            ),
+            Text(
+              "marcinkohut26@gmail.com",
+              style: appTheme.black14RegularTextStyle
+                  .copyWith(color: Color(0xff6E7073)),
+            ),
+            SizedBox(
+              height: getSize(40),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                setState(() {
+                  _currentIndex = 0;
+                  // model[0].isSelected = true;
+                  for (var i in model) {
+                    i.isSelected = false;
+
+                    _currentIndex = 0;
+                    model[0].isSelected = true;
+                  }
+                });
+              },
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                Image.asset(
+                  homeIcon,
+                  width: getSize(26),
+                  height: getSize(26),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Text("Home",
+                    style: appTheme.black18BoldTextStyle
+                        .copyWith(color: ColorConstants.getDrawerText))
+              ]),
+            ),
+            SizedBox(
+              height: getSize(30),
+            ),
+            GestureDetector(
+               onTap: (){
+                Navigator.pop(context);
+                NavigationUtilities.pushRoute(RegisterBusinessScreen.route);
+              },
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                Image.asset(
+                  business,
+                  width: getSize(26),
+                  height: getSize(26),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Text("Register Business",
+                    style: appTheme.black18BoldTextStyle
+                        .copyWith(color: ColorConstants.getDrawerText))
+              ]),
+            ),
+            SizedBox(
+              height: getSize(30),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                setState(() {
+                  _currentIndex = 3;
+                  // model[0].isSelected = true;
+                  for (var i in model) {
+                    i.isSelected = false;
+
+                    _currentIndex = 3;
+                    model[3].isSelected = true;
+                  }
+                });
+              },
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                Image.asset(
+                  settingDarkIcon,
+                  width: getSize(26),
+                  height: getSize(26),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Text("Setting",
+                    style: appTheme.black18BoldTextStyle
+                        .copyWith(color: ColorConstants.getDrawerText))
+              ]),
+            ),
+            SizedBox(
+              height: getSize(30),
+            ),
+            Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              Image.asset(
+                faqIcon,
+                width: getSize(26),
+                height: getSize(26),
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              Text("FAQs",
+                  style: appTheme.black18BoldTextStyle
+                      .copyWith(color: ColorConstants.getDrawerText))
+            ]),
+            SizedBox(
+              height: getSize(30),
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+                NavigationUtilities.pushRoute(ContactUsScreen.route);
+              },
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                Image.asset(
+                  profile,
+                  width: getSize(26),
+                  height: getSize(26),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Text("Contact Us",
+                    style: appTheme.black18BoldTextStyle
+                        .copyWith(color: ColorConstants.getDrawerText))
+              ]),
+            ),
+          ],
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: getSize(40)),
+          child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            Image.asset(
+              logoutIcon,
+              width: getSize(26),
+              height: getSize(26),
+            ),
+            SizedBox(
+              width: 15,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Logout",
+                    style: appTheme.black18BoldTextStyle
+                        .copyWith(color: ColorConstants.getDrawerText)),
+              ],
+            )
+          ]),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
@@ -210,34 +391,21 @@ class _DashboardState extends State<Dashboard> {
         child: AppBackground(
           colors: [Colors.white],
           child: Scaffold(
+            key: _drawerKey,
             resizeToAvoidBottomInset: false,
-           endDrawer: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(40),
-            bottomLeft: Radius.circular(40),
-          ),
-          child: Drawer(
-            child: Container(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: getSize(80),
-                  ),
-                  getProfilePhoto(),
-                   SizedBox(
-                    height: getSize(20),
-                  ),
-                  Text("Marcin Kohut",
-                  style: appTheme.black22BoldTextStyle.copyWith(fontSize: getFontSize(28))
-                  ),
-                  Text("marcinkohut26@gmail.com",
-                  style: appTheme.black14RegularTextStyle,
-                  )
-                ],
+            endDrawer: ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(40),
+                bottomLeft: Radius.circular(40),
               ),
+              child: Drawer(
+                  child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: getSize(30)),
+                child: getDrawer(),
+              )
+                  // getDrawer()
+                  ),
             ),
-          ),
-        ),
             // appBar: AppBar(
             //   toolbarHeight: getSize(100),
             //   elevation: 0,

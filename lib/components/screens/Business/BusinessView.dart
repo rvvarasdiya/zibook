@@ -92,14 +92,14 @@ class _BusinessViewState extends State<BusinessView> {
         itemCount: fashionBaseList.state.listCount,
         itemBuilder: (BuildContext context, int index) {
           CategoryListModel savedSearchModel = arrList[index];
-          return getItemWidget(savedSearchModel);
+          return getItemWidget(savedSearchModel,index);
           // return Text("hello");
         },
       ),
     );
   }
 
-  getItemWidget(CategoryListModel categoryListModel) {
+  getItemWidget(CategoryListModel categoryListModel,int index) {
     return Padding(
       padding: EdgeInsets.all(getSize(10)),
       child: Container(
@@ -188,17 +188,25 @@ class _BusinessViewState extends State<BusinessView> {
                       ),
                       GestureDetector(
                         onTap: (){
+                          print("----index $index");
                           print(categoryListModel.isFavorite);
                           print("favorite pressed ||| ");
                           setState(() {
-                          categoryListModel.isFavorite = ! categoryListModel.isFavorite;
-                            
+                            for(int i =0 ;i<10; i++){
+                              if(i==index){
+                                arrList[i].isFavorite =true;
+                              }
+                              // else{
+                              //   arrList[i].isFavorite =false;
+                              // }
+                            }
+                          // arrList[index].isFavorite = ! categoryListModel.isFavorite;
                           });
                         },
                         child: Icon(
-                         (categoryListModel.isFavorite) ? Icons.favorite_border : Icons.favorite,
+                         (arrList[index].isFavorite) ? Icons.favorite : Icons.favorite_border,
                           size: getSize(20),
-                          color: (categoryListModel.isFavorite) ? appTheme.colorPrimary : null ,
+                          color: (arrList[index].isFavorite) ? appTheme.colorPrimary : null ,
                       ),)
                     ],
                   ),

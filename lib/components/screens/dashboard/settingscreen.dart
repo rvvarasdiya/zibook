@@ -214,8 +214,8 @@ class _SettingScreenState extends State<SettingScreen> {
                         // ------------ Share App
                         InkWell(
                           onTap: () {
-                            NavigationUtilities.pushRoute(
-                                RegisterBusinessScreen.route);
+                            // NavigationUtilities.pushRoute(
+                            //     RegisterBusinessScreen.route);
                           },
                           child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
