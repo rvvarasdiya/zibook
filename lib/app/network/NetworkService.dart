@@ -11,6 +11,7 @@ import 'package:zaviato/models/Home/HomeScreenResponse.dart';
 import 'package:zaviato/models/Master/MasterResponse.dart';
 import 'package:zaviato/models/RegisterBusiness/RegisterBusiness.dart';
 import 'package:zaviato/models/cities/citiesModel.dart';
+import 'package:zaviato/models/mybusiness/MyBusinessRes.dart';
 import '../app.export.dart';
 part 'NetworkService.g.dart';
 
@@ -50,8 +51,11 @@ abstract class NetworkService {
 
   @POST(ApiConstants.registerBusinessApi)
   Future<BaseApiResp> registerBusiness(@Body() RegisterBusinessReq req);
+ 
+  @POST(ApiConstants.mybusiness)
+  Future<MyBusinessRes> getMyBusinesses();
   
-  @POST(ApiConstants.getCityApi)
+  @POST(ApiConstants.getCityApi) 
   Future<Cities> getAllCity(@Body() String stateID);
  
   @POST(ApiConstants.logoutApi)

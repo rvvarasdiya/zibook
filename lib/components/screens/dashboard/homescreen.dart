@@ -134,6 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: () {
             // NavigationUtilities.pushRoute(BusinessView.route);
         NavigationUtilities.push(BusinessFullDetail());
+        NavigationUtilities.push(BusinessFullDetail());
       },
       child: Container(
         alignment: Alignment.center,

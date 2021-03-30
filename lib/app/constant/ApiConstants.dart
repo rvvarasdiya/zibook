@@ -64,6 +64,9 @@ class ApiConstants {
   //register business
   static const String registerBusinessApi = customerCommonUrl + "/business/add";
 
+  //register business
+  static const String mybusiness = customerCommonUrl + "/business/paginate-my-businesses";
+
   //contact us
   static const String contactUsApi = commonUrl + "common/user/contact-us";
     
