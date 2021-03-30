@@ -239,17 +239,35 @@ class _NetworkService implements NetworkService {
     ArgumentError.checkNotNull(stateID, 'stateID');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    // final _data = stateID;
+    final _data = stateID;
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        'http://13.234.240.252:5700/api/v1/customer/common/cities-by-state/'+stateID,
+        'http://13.234.240.252:5700/api/v1/customer/common/cities-by-state/',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),
-      );
+        data: _data);
     final value = Cities.fromJson(_result.data);
+    return Future.value(value);
+  }
+
+  @override
+  logout() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        'http://13.234.240.252:5700/api/v1/common/user/logout',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = BaseApiResp.fromJson(_result.data);
     return Future.value(value);
   }
 }

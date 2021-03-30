@@ -6,6 +6,7 @@ import 'package:zaviato/app/constant/ImageConstant.dart';
 import 'package:zaviato/app/utils/CommonWidgets.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
+import 'package:zaviato/app/utils/pref_utils.dart';
 import 'package:zaviato/components/screens/Business/BusinessView.dart';
 import 'package:zaviato/components/screens/Business/HelpScreen.dart';
 import 'package:zaviato/components/screens/editDetail/editprofile.dart';
@@ -342,26 +343,32 @@ class _SettingScreenState extends State<SettingScreen> {
                     //------------- LogOut
                     Padding(
                       padding: EdgeInsets.only(bottom: getSize(20)),
-                      child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              logoutIcon,
-                              width: getSize(23),
-                              height: getSize(23),
-                            ),
-                            SizedBox(
-                              width: 15,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Logout",
-                                    style: appTheme.black16BoldTextStyle),
-                              ],
-                            )
-                          ]),
+                      child: GestureDetector(
+                        onTap: (){
+                          logoutFromApp(context);
+                        },
+                        child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                logoutIcon,
+                                width: getSize(23),
+                                height: getSize(23),
+                              ),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Logout",
+                                      style: appTheme.black16BoldTextStyle),
+                                ],
+                              )
+                            ]),
+                      ),
                     ),
                     // SizedBox(
                     //   height: getSize(20),
@@ -415,4 +422,8 @@ class _SettingScreenState extends State<SettingScreen> {
     //   ),
     // )
   }
+
+
+
 }
+

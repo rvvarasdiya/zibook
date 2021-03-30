@@ -3,6 +3,7 @@ import 'package:zaviato/app/constant/ApiConstants.dart';
 import 'package:zaviato/app/constant/constants.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:zaviato/models/Auth/LogInResponseModel.dart';
+import 'package:zaviato/models/Auth/LogoutModel.dart';
 import 'package:zaviato/models/Auth/SignUpModel.dart';
 import 'package:zaviato/models/Auth/SignUpResponseModel.dart';
 import 'package:zaviato/models/ContactUs/contactUsModel.dart';
@@ -52,4 +53,7 @@ abstract class NetworkService {
   
   @POST(ApiConstants.getCityApi)
   Future<Cities> getAllCity(@Body() String stateID);
+ 
+  @POST(ApiConstants.logoutApi)
+  Future<BaseApiResp> logout();
 }

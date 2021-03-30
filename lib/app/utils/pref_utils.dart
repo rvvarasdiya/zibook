@@ -1,10 +1,24 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zaviato/app/base/BaseApiResp.dart';
+import 'package:zaviato/app/base/ErrorResp.dart';
+import 'package:zaviato/app/localization/app_locales.dart';
+import 'package:zaviato/app/network/NetworkCall.dart';
+import 'package:zaviato/app/network/NetworkCall.dart';
+import 'package:zaviato/app/network/NetworkCall.dart';
+import 'package:zaviato/app/network/ServiceModule.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
+import 'package:zaviato/components/screens/Auth/SignInScreen.dart';
+import 'package:zaviato/main.dart';
 import 'package:zaviato/models/Auth/LogInResponseModel.dart';
+import 'package:zaviato/models/Auth/LogoutModel.dart';
 import 'package:zaviato/models/Master/MasterResponse.dart';
+
+import 'BaseDialog.dart';
+import 'CustomDialog.dart';
 
 /// Wraps the [SharedPreferences].
 class PrefUtils {
@@ -179,5 +193,68 @@ class PrefUtils {
   //   return userPermissionsJson != null
   //       ? new UserPermissions.fromJson(userPermissionsJson)
   //       : null;
+  // }.
+    Future<void> clearPreferenceAndDB() async {
+    preferences.clear();
+    // await AppDatabase.instance.masterDao.deleteAllMasterItems();
+    // await AppDatabase.instance.sizeMasterDao.deleteAllMasterItems();
+  }
+    resetAndLogout(BuildContext context) {
+    // bool rememberMe = app.resolve<PrefUtils>().getBool("rememberMe");
+    // String userName = app.resolve<PrefUtils>().getString("userName");
+    // String passWord = app.resolve<PrefUtils>().getString("passWord");
+
+    app.resolve<PrefUtils>().clearPreferenceAndDB();
+
+    // if (rememberMe) {
+    //   app.resolve<PrefUtils>().saveBoolean("rememberMe", rememberMe);
+    //   app.resolve<PrefUtils>().saveString("userName", userName);
+    //   app.resolve<PrefUtils>().saveString("passWord", passWord);
+    // }
+
+    Navigator.of(context).pushNamed(SignInScreen.route);
+  }
+  //   Future deleteAllMasterItems() async {
+  //   await masterStore.delete(await db);
   // }
 }
+
+
+logoutFromApp(BuildContext context) {
+  app.resolve<CustomDialogs>().confirmDialog(context,
+      title: R.string().commonString.lbllogout,
+      desc: R.string().authStrings.logoutConfirmationMsg,
+      positiveBtnTitle: R.string().commonString.yes,
+      negativeBtnTitle: R.string().commonString.no,
+      onClickCallback: (buttonType) {
+    if (buttonType == ButtonType.PositveButtonClick) {
+      callLogout(context);
+    }
+  });
+}
+
+callLogout(BuildContext context) {
+  // LogoutReq req = LogoutReq();
+  //  List<String> emails = [];
+  //   for(var i in app.resolve<PrefUtils>().getUserDetails().emails){
+  //     emails.add(i.email);
+  //   }
+  //   if(!isNullEmptyOrFalse(emails))
+  //     req.username = emails.first;
+  
+  // req.password = app.resolve<PrefUtils>().getUserDetails().
+  // req.username = app.resolve<PrefUtils>().getUserDetails().
+  NetworkCall<BaseApiResp>()
+      .makeCall(
+          () => app.resolve<ServiceModule>().networkService().logout(), 
+          context,
+          isProgress: true)
+      .then((response) {
+    app.resolve<PrefUtils>().resetAndLogout(context);
+  }).catchError((onError) {
+    if (onError is ErrorResp) {
+      app.resolve<PrefUtils>().resetAndLogout(context);
+    }
+  });
+}
+

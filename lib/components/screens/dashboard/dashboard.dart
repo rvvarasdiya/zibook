@@ -263,7 +263,7 @@ class _DashboardState extends State<Dashboard> {
               height: getSize(30),
             ),
             GestureDetector(
-               onTap: (){
+              onTap: () {
                 Navigator.pop(context);
                 NavigationUtilities.pushRoute(RegisterBusinessScreen.route);
               },
@@ -357,25 +357,32 @@ class _DashboardState extends State<Dashboard> {
         ),
         Padding(
           padding: EdgeInsets.only(bottom: getSize(40)),
-          child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            Image.asset(
-              logoutIcon,
-              width: getSize(26),
-              height: getSize(26),
-            ),
-            SizedBox(
-              width: 15,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Logout",
-                    style: appTheme.black18BoldTextStyle
-                        .copyWith(color: ColorConstants.getDrawerText)),
-              ],
-            )
-          ]),
+          child: GestureDetector(
+            onTap: (){
+              Navigator.pop(context);
+                logoutFromApp(context);
+            },
+            child:
+                Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              Image.asset(
+                logoutIcon,
+                width: getSize(26),
+                height: getSize(26),
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Logout",
+                      style: appTheme.black18BoldTextStyle
+                          .copyWith(color: ColorConstants.getDrawerText)),
+                ],
+              )
+            ]),
+          ),
         ),
       ],
     );

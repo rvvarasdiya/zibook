@@ -69,5 +69,8 @@ class ApiConstants {
     
   //city
   static const String getCityApi = customerCommonUrl + "/common/cities-by-state/";
+  
+  //logout
+  static const String logoutApi = commonUrl + "common/user/logout";
 
 }
