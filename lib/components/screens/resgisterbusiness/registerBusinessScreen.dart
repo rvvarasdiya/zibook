@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
 import 'package:zaviato/app/constant/ColorConstant.dart';
+import 'package:zaviato/app/network/NetworkCall.dart';
+import 'package:zaviato/app/network/ServiceModule.dart';
 import 'package:zaviato/app/utils/CommonTextfield.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
@@ -13,6 +15,8 @@ import 'package:zaviato/components/screens/feedback/feedbackscreen.dart';
 import 'package:zaviato/components/widgets/shared/buttons.dart';
 import 'package:zaviato/models/Master/MasterResponse.dart';
 import 'package:zaviato/models/RegisterBusiness/RegisterBusiness.dart';
+import 'package:zaviato/models/cities/citiesModel.dart' as city;
+import 'package:zaviato/models/cities/citiesModel.dart';
 
 import '../../../main.dart';
 
@@ -45,6 +49,7 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
   bool _autoValidate = false;
 
   List<States> stateLists = [];
+  List<city.Data> cityLists = [];
   String countryValue = "";
   String stateValue = "";
   String cityValue = "";
@@ -70,7 +75,7 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
           titleSpacing: 0,
           automaticallyImplyLeading: false,
           leading: IconButton(
-            onPressed: ()=>Navigator.pop(context),
+            onPressed: () => Navigator.pop(context),
             icon: Icon(
               Icons.arrow_back,
               color: Colors.black,
@@ -286,7 +291,7 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
                     hintStyleText: appTheme.black16BoldTextStyle,
                     inputController: businessCateController,
                   ),
-                  textCallback: (value){},
+                  textCallback: (value) {},
                 ),
               ),
               SizedBox(
@@ -307,6 +312,7 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
                                   onTap: () {
                                     businessStateController.text =
                                         stateLists[index].name;
+                                    callApiForCityList(stateLists[index].sId);
                                     Navigator.pop(context);
                                   },
                                   child: Container(
@@ -319,13 +325,14 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
                       });
                 },
                 child: CommonTextfield(
-                    enable: false,
-                    textOption: TextFieldOption(
-                      hintText: "State",
-                      hintStyleText: appTheme.black16BoldTextStyle,
-                      inputController: businessStateController,
-                    ),
-                    textCallback: (value){},),
+                  enable: false,
+                  textOption: TextFieldOption(
+                    hintText: "State",
+                    hintStyleText: appTheme.black16BoldTextStyle,
+                    inputController: businessStateController,
+                  ),
+                  textCallback: (value) {},
+                ),
               ),
               SizedBox(
                 height: getSize(20),
@@ -339,16 +346,16 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
                           height: getSize(400),
                           width: double.infinity,
                           child: ListView.builder(
-                              // itemCount: data.length,
+                              itemCount: cityLists.length,
                               itemBuilder: (context, index) {
                             return GestureDetector(
                               onTap: () {
-                                // businessCityController.text = data[index];
+                                businessCityController.text = cityLists[index].name;
                                 Navigator.pop(context);
                               },
                               child: Container(
                                 padding: EdgeInsets.all(10),
-                                // child: Text(data[index]),
+                                child: Text(cityLists[index].name),
                               ),
                             );
                           }),
@@ -393,6 +400,34 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
         ),
       ),
     );
+  }
+
+  callApiForCityList(String stateId) {
+    NetworkCall<Cities>()
+        .makeCall(
+      () => app.resolve<ServiceModule>().networkService().getAllCity(stateId),
+      context,
+      isProgress: true,
+    )
+        .then((citiesRes) async {
+
+          cityLists.clear();
+      cityLists.addAll(citiesRes.data);
+      setState(() {});
+      // showToast(contactUsRes.message,context:context,);
+      // Navigator.pop(context);
+      setState(() {});
+    }).catchError((onError) {
+      // if (page == DEFAULT_PAGE) {
+      //   cateName.clear();
+      //   fashionBaseListstate.listCount = cateName.length;
+      //   diamondList.state.totalCount = cateName.length;
+      //   manageDiamondSelection();
+      // }
+      print("error");
+
+      // fashionBaseList.state.setApiCalling(false);
+    });
   }
 
   // callRegisterBusinessApi(BuildContext context){

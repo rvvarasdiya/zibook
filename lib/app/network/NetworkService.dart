@@ -9,6 +9,7 @@ import 'package:zaviato/models/ContactUs/contactUsModel.dart';
 import 'package:zaviato/models/Home/HomeScreenResponse.dart';
 import 'package:zaviato/models/Master/MasterResponse.dart';
 import 'package:zaviato/models/RegisterBusiness/RegisterBusiness.dart';
+import 'package:zaviato/models/cities/citiesModel.dart';
 import '../app.export.dart';
 part 'NetworkService.g.dart';
 
@@ -48,4 +49,7 @@ abstract class NetworkService {
 
   @POST(ApiConstants.registerBusinessApi)
   Future<BaseApiResp> registerBusiness(@Body() RegisterBusinessReq req);
+  
+  @POST(ApiConstants.getCityApi)
+  Future<Cities> getAllCity(@Body() String stateID);
 }
