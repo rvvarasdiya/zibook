@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
-import 'package:zaviato/app/constant/ColorConstant.dart';
 import 'package:zaviato/app/constant/ImageConstant.dart';
-import 'package:zaviato/app/utils/CommonWidgets.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/pref_utils.dart';
@@ -12,7 +9,7 @@ import 'package:zaviato/components/screens/Business/HelpScreen.dart';
 import 'package:zaviato/components/screens/editDetail/editprofile.dart';
 import 'package:zaviato/components/screens/editDetail/favoritescreen.dart';
 import 'package:zaviato/components/screens/feedback/feedbackscreen.dart';
-import 'package:zaviato/components/screens/resgisterbusiness/registerBusinessScreen.dart';
+import 'package:zaviato/main.dart';
 
 class SettingScreen extends StatefulWidget {
   @override
@@ -29,21 +26,19 @@ class _SettingScreenState extends State<SettingScreen> {
           backgroundColor: appTheme.colorPrimary,
           appBar: AppBar(
               actions: [Container()],
-              leading: Icon(
-                // Icons.arrow_back_outlined,
-                Icons.arrow_back,
-                // Icons.add,
-                color: Colors.white,
-              ),
               automaticallyImplyLeading: false,
               titleSpacing: 0,
               // toolbarHeight: getSize(160),
               backgroundColor: appTheme.colorPrimary,
               elevation: 0,
               // toolbarHeight: getSize(160),
-              title: Text(
-                "Setting",
-                style: appTheme.white18RegularTextStyle,
+              title: Padding(
+                padding:  EdgeInsets.only(left:getSize(30),),
+                child: 
+                Text(
+                  "Setting",
+                  style: appTheme.white18RegularTextStyle,
+                ),
               )),
           // backgroundColor: Color(0xffFAFAFA),
           // bottomNavigationBar: bottomNavigator(),
@@ -77,7 +72,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Padding(
                       padding: EdgeInsets.only(top: getSize(5)),
                       child: Text(
-                        "Tome Letham",
+                        app.resolve<PrefUtils>().getUserDetails().firstName + " "+ app.resolve<PrefUtils>().getUserDetails().lastName,
                         textAlign: TextAlign.center,
                         style: appTheme.black22BoldTextStyle,
                       ),

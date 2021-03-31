@@ -71,7 +71,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
                 AppButton.flat(
                   onTap: () {
-                    NavigationUtilities.pushRoute(
+                    NavigationUtilities.pushReplacementNamed(
                       SignInScreen.route,
             
                     );

@@ -259,6 +259,7 @@ class _SignInScreenState extends State<SignInScreen> {
         () async {
           //success
           // AppNavigation.shared.movetoHome(isPopAndSwitch: true);
+          Navigator.of(context).pop();
           NavigationUtilities.push(Dashboard());
         },
         () {},

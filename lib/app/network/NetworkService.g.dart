@@ -252,22 +252,22 @@ class _NetworkService implements NetworkService {
     return Future.value(value);
   }
 
-  @override
+@override
   getAllCity(stateID) async {
     ArgumentError.checkNotNull(stateID, 'stateID');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = stateID;
-    final Response<Map<String, dynamic>> _result = await _dio.request(
-        'http://13.234.240.252:5700/api/v1/customer/common/cities-by-state/',
+    // final _data = stateID;
+    final Response<Map<String, dynamic>> result = await _dio.request(
+        'http://13.234.240.252:5700/api/v1/customer/common/cities-by-state/'+stateID,
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),
-        data: _data);
-    final value = Cities.fromJson(_result.data);
+      );
+    final value = Cities.fromJson(result.data);
     return Future.value(value);
   }
 

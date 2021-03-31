@@ -212,7 +212,7 @@ class PrefUtils {
     //   app.resolve<PrefUtils>().saveString("passWord", passWord);
     // }
 
-    Navigator.of(context).pushNamed(SignInScreen.route);
+    Navigator.of(context).pushNamedAndRemoveUntil(SignInScreen.route, (route) => false);
   }
   //   Future deleteAllMasterItems() async {
   //   await masterStore.delete(await db);
