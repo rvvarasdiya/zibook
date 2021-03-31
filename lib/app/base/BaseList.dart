@@ -75,8 +75,10 @@ class BaseListState extends State<BaseList> {
   Widget build(BuildContext context) {
     return SmartRefresher(
         header: MaterialClassicHeader(
+          // backgroundColor: appTheme.whiteColor,
+          // color: appTheme.whiteColor,
           backgroundColor: appTheme.whiteColor,
-          color: appTheme.whiteColor,
+          color: appTheme.colorPrimary,
         ),
         enablePullDown: enablePullDown,
         enablePullUp: enablePullUp && listCount > 0 && listCount < totalCount,

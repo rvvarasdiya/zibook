@@ -43,6 +43,9 @@ class ColorConstants {
   static Color getLightButton = fromHex("#A0BAFF");
   static Color getDrawerText = fromHex("#091423");
 
+  static Color notificationBorderColor = fromHex("#6E7073");
+  static Color notificatiinDescriptionColor = fromHex("#333333");
+    
   //Report Color
   static Color commentBoxColor = fromHex("#C5C5C5");
 

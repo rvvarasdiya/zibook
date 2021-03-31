@@ -108,220 +108,73 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   getItemWidget(Business businessModel, int index) {
-    return Padding(
+    return Container(
+      // margin: EdgeInsets.symmetric(vertical: getSize(10)),
       padding: EdgeInsets.all(getSize(10)),
-      child: Container(
-        // color: Colors.red,
-        padding: EdgeInsets.all(getSize(15)),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: getBoxShadow(context),
-          color: Colors.white,
-        ),
-        child: Column(
-          children: <Widget>[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  // alignment: Alignment.center,
-                  // margin: EdgeInsets.only(top: getSize(30)),
-                  width: getSize(40),
-                  height: getSize(40),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    image: DecorationImage(
-                      image: AssetImage(userIcon),
-                      fit: BoxFit.fill,
-                    ),
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      new BoxShadow(
-                        color: ColorConstants.getShadowColor,
-                        offset: Offset(0, 5),
-                        blurRadius: 5.0,
-                      ),
-                    ],
-                  ),
-                  // NetworkImage('https://via.placeholder.com/150'),
-                ),
-                SizedBox(
-                  width: getSize(10),
-                ),
-                Expanded(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        // borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: getSize(50),
+            height: getSize(50),
+            decoration:
+                BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+            child: Image.asset(userIcon),
+          ),
+          SizedBox(
+            height: getSize(20),
+          ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(
+                bottom: getSize(20),
+              ),
+              decoration: BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(
+                          color: ColorConstants.notificationBorderColor,
+                          width: getSize(0.5)))),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Text(
-                            businessModel.name,
-                            style: appTheme.black16BoldTextStyle,
-                          ),
-                          SizedBox(
-                            height: getSize(5),
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Container(
-                                  decoration: getBoxDecoration(
-                                      ColorConstants.getGreenColor, 3),
-                                  padding: EdgeInsets.symmetric(horizontal: 5),
-                                  child: Text(
-                                    "4.2",
-                                    style: appTheme.white14RegularTextStyle,
-                                  )),
-                              SizedBox(width: getSize(4)),
-                              SmoothStarRating(
-                                  onRatingChanged: (value) {
-                                    // print("------------$rating   --------- $value");
-                                    // setState(() {
-                                    //   rating = value;
-                                    // });
-                                  },
-                                  rating: 4.2,
-                                  allowHalfRating: false,
-                                  starCount: 5,
-                                  size: getSize(15),
-                                  color: appTheme.colorPrimary,
-                                  borderColor: appTheme.dividerColor,
-                                  spacing: 0.0),
-                            ],
-                          ),
-                        ],
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5, left: 10),
+                        child: Text(
+                          "Business Name",
+                          style: appTheme.black16BoldTextStyle,
+                        ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          // print("----index $index");
-                          // print(categoryListModel.isFavorite);
-                          // print("favorite pressed ||| ");
-                          // setState(() {
-                          //   for (int i = 0; i < 10; i++) {
-                          //     if (i == index) {
-                          //       arrList[i].isFavorite = true;
-                          //     }
-                          //     // else{
-                          //     //   arrList[i].isFavorite =false;
-                          //     // }
-                          //   }
-                          //   // arrList[index].isFavorite = ! categoryListModel.isFavorite;
-                          // });
-                        },
-                        // child: Icon(
-                        //   (arrList[index].isFavorite)
-                        //       ? Icons.favorite
-                        //       : Icons.favorite_border,
-                        //   size: getSize(20),
-                        //   color: (arrList[index].isFavorite)
-                        //       ? appTheme.colorPrimary
-                        //       : null,
-                        // ),
-                        child: Icon(Icons.favorite),
+                      Text(
+                        "3:20 pm",
+                        style: TextStyle(
+                            color: appTheme.colorPrimary,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Karla',
+                            fontSize: 12),
                       )
                     ],
                   ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: getSize(15)),
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.person,
-                    size: getSize(18),
-                  ),
-                  SizedBox(
-                    width: getSize(10),
-                  ),
-                  Text(
-                    businessModel.getOwnerName(businessModel),
-                    style: appTheme.black14RegularTextStyle,
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: getSize(15)),
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.call,
-                    size: getSize(18),
-                  ),
-                  SizedBox(
-                    width: getSize(10),
-                  ),
-                  Text(
-                    businessModel.getMobileName(businessModel),
-                    style: appTheme.black14RegularTextStyle,
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: getSize(15)),
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.location_on,
-                    size: getSize(18),
-                  ),
-                  SizedBox(
-                    width: getSize(10),
-                  ),
-                  Expanded(
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10, top: 5),
                     child: Text(
-                      "hello it's a dummy address...",
-                      style: appTheme.black14RegularTextStyle,
+                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                      style: appTheme.black14RegularTextStyle
+                          .copyWith(fontSize: 12, color: Color(0xff6E7073)),
                     ),
                   )
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                  top: getSize(15), left: getSize(28), right: getSize(15)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: getSize(10)),
-                    height: getSize(35),
-                    width: getSize(130),
-                    child: AppButton.flat(
-                      onTap: () {
-                        NavigationUtilities.pushRoute(BusinessEdit.route);
-                      },
-                      text: "Edit",
-                      textSize: 12,
-                      icon: OMIcons.edit,
-                      iconSize: getSize(15),
-                      backgroundColor: appTheme.colorPrimary,
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: getSize(10)),
-                    height: getSize(35),
-                    width: getSize(130),
-                    child: AppButton.flat(
-                      onTap: () {},
-                      text: "Delete",
-                      textSize: 12,
-                      icon: Icons.delete_outline,
-                      iconSize: getSize(15),
-                      backgroundColor: appTheme.colorPrimary,
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
@@ -357,9 +210,9 @@ class _ChatScreenState extends State<ChatScreen> {
                     style: appTheme.white16BoldTextStyle,
                   ),
                   GestureDetector(
-                    onTap: (){
-                     widget._drawerKey.currentState.openEndDrawer();
-                    } ,
+                    onTap: () {
+                      widget._drawerKey.currentState.openEndDrawer();
+                    },
                     child: Container(
                       width: getSize(40),
                       height: getSize(40),
@@ -385,10 +238,7 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ),
       ),
-     
       body: businessEnquiryBaseList,
     );
   }
-
- 
 }

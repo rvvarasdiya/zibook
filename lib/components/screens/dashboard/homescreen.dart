@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return GestureDetector(
       onTap: () {
             // NavigationUtilities.pushRoute(BusinessView.route);
-        NavigationUtilities.push(BusinessFullDetail());
+        // NavigationUtilities.push(BusinessFullDetail());
         NavigationUtilities.push(BusinessFullDetail());
       },
       child: Container(

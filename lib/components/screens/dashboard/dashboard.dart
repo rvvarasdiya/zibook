@@ -18,6 +18,7 @@ import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/pref_utils.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
+import 'package:zaviato/components/screens/Business/HelpScreen.dart';
 import 'package:zaviato/components/screens/contactus/contactusScreen.dart';
 import 'package:zaviato/components/screens/dashboard/homescreen.dart';
 import 'package:zaviato/components/screens/dashboard/BottomNavModel.dart';
@@ -66,27 +67,27 @@ class _DashboardState extends State<Dashboard> {
   Future<bool> _onWillPop(BuildContext context) {
     // if (!Navigator.of(context).canPop()) {
 
-      return showModalBottomSheet(
-        context: context,
-        builder: (context) => CustomAlertDialog(
-          message: R.string().commonString.reallyExit,
-          actions: [
-            DialogAction<bool>(
-              dense: false,
-              isWhite: true,
-              result: false,
-              text: R.string().commonString.no,
-            ),
-            DialogAction<bool>(
-              dense: false,
-              isWhite: false,
-              result: true,
-              text: R.string().commonString.yes,
-            )
-          ],
-        ),
-      ).then((result) => result == true);
-    // } 
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) => CustomAlertDialog(
+        message: R.string().commonString.reallyExit,
+        actions: [
+          DialogAction<bool>(
+            dense: false,
+            isWhite: true,
+            result: false,
+            text: R.string().commonString.no,
+          ),
+          DialogAction<bool>(
+            dense: false,
+            isWhite: false,
+            result: true,
+            text: R.string().commonString.yes,
+          )
+        ],
+      ),
+    ).then((result) => result == true);
+    // }
     // else {
     //   return Future.value(true);
     // }
@@ -100,15 +101,16 @@ class _DashboardState extends State<Dashboard> {
 
     return hslDark.toColor();
   }
-List<String> emails = [];
-String email = "";
-getEmail(){
-  for(var i in app.resolve<PrefUtils>().getUserDetails().emails){
+
+  List<String> emails = [];
+  String email = "";
+  getEmail() {
+    for (var i in app.resolve<PrefUtils>().getUserDetails().emails) {
       emails.add(i.email);
     }
-    if(!isNullEmptyOrFalse(emails))
-      email = emails.first;
-}
+    if (!isNullEmptyOrFalse(emails)) email = emails.first;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -117,7 +119,7 @@ getEmail(){
       ColorConstants.colorPrimary,
     ));
     getEmail();
-  
+
     // for (var j = 0; j < model.length; j++) {
     //   if (model[j].type == widget.type) {
     //     model[j].isSelected = true;
@@ -127,7 +129,7 @@ getEmail(){
     //   }
     // }
     _currentIndex = 0;
-    model[0].isSelected =true;
+    model[0].isSelected = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       print('dashboard context');
       //  _afterLayout;
@@ -229,7 +231,10 @@ getEmail(){
             SizedBox(
               height: getSize(20),
             ),
-            Text(app.resolve<PrefUtils>().getUserDetails().firstName + " "+ app.resolve<PrefUtils>().getUserDetails().lastName,
+            Text(
+                app.resolve<PrefUtils>().getUserDetails().firstName +
+                    " " +
+                    app.resolve<PrefUtils>().getUserDetails().lastName,
                 style: appTheme.black22BoldTextStyle.copyWith(
                     fontSize: getFontSize(28),
                     color: ColorConstants.getDrawerText)),
@@ -331,19 +336,26 @@ getEmail(){
             SizedBox(
               height: getSize(30),
             ),
-            Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              Image.asset(
-                faqIcon,
-                width: getSize(26),
-                height: getSize(26),
-              ),
-              SizedBox(
-                width: 15,
-              ),
-              Text("FAQs",
-                  style: appTheme.black18BoldTextStyle
-                      .copyWith(color: ColorConstants.getDrawerText))
-            ]),
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+                NavigationUtilities.pushRoute(HelpScreen.route);
+              },
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                Image.asset(
+                  faqIcon,
+                  width: getSize(26),
+                  height: getSize(26),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Text("FAQs",
+                    style: appTheme.black18BoldTextStyle
+                        .copyWith(color: ColorConstants.getDrawerText))
+              ]),
+            ),
             SizedBox(
               height: getSize(30),
             ),
@@ -372,9 +384,9 @@ getEmail(){
         Padding(
           padding: EdgeInsets.only(bottom: getSize(40)),
           child: GestureDetector(
-            onTap: (){
+            onTap: () {
               Navigator.pop(context);
-                logoutFromApp(context);
+              logoutFromApp(context);
             },
             child:
                 Row(crossAxisAlignment: CrossAxisAlignment.center, children: [

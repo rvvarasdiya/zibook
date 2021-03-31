@@ -61,7 +61,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
         body: Form(
           autovalidate: _autoValidate,
           key: _formKey,
-                  child: Container(
+          child: Container(
             padding: EdgeInsets.only(
               right: getSize(30),
               left: getSize(30),
@@ -235,8 +235,10 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
 
     NetworkCall<BaseApiResp>()
         .makeCall(
-            () =>
-                app.resolve<ServiceModule>().networkService().resetPasswordApi(req),
+            () => app
+                .resolve<ServiceModule>()
+                .networkService()
+                .resetPasswordApi(req),
             context,
             isProgress: true)
         .then((resp) async {

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:zaviato/app/AppConfiguration/AppNavigation.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
 import 'package:zaviato/app/constant/EnumConstant.dart';
+import 'package:zaviato/app/localization/app_locales.dart';
 import 'package:zaviato/app/network/NetworkCall.dart';
 import 'package:zaviato/app/network/ServiceModule.dart';
 import 'package:zaviato/app/utils/CommonTextfield.dart';
+import 'package:zaviato/app/utils/CustomDialog.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
@@ -57,10 +59,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
       },
       child: SafeArea(
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomPadding: true,
           body: Form(
             key: _formKey,
             autovalidate: _autoValidate,
             child: ListView(
+              shrinkWrap: true,
               padding: EdgeInsets.only(
                 left: getSize(30),
                 right: getSize(30),
@@ -236,23 +241,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 CommonTextfield(
                     focusNode: mobileFocus,
                     textOption: TextFieldOption(
-                        hintText: "Mobile number",
-                        maxLine: 1,
-                        keyboardType: TextInputType.text,
-                        inputController: mobileController,
-                        errorBorder: _isMobileValid
-                            ? null
-                            : OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(11)),
-                                borderSide:
-                                    BorderSide(width: 1, color: Colors.red),
-                              ),
-                        formatter: [
-                          ValidatorInputFormatter(
-                              editingValidator:
-                                  DecimalNumberEditingRegexValidator(10)),
-                        ]),
+                      hintText: "Mobile number",
+                      maxLine: 1,
+                      keyboardType: TextInputType.number,
+                      inputController: mobileController,
+                      errorBorder: _isMobileValid
+                          ? null
+                          : OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(11)),
+                              borderSide:
+                                  BorderSide(width: 1, color: Colors.red),
+                            ),
+                      formatter: [
+                        ValidatorInputFormatter(
+                            editingValidator:
+                                DecimalNumberEditingRegexValidator(10)),
+                      ],
+                    ),
                     inputAction: TextInputAction.next,
                     onNextPress: () {
                       FocusScope.of(context).requestFocus(passwordFocus);
@@ -287,11 +293,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       }
                     }),
                 SizedBox(
-                  height: getSize(20),
+                  height: getSize(20),  
                 ),
                 CommonTextfield(
                     focusNode: passwordFocus,
                     textOption: TextFieldOption(
+                      isSecureTextField: true,                      
                       hintText: "Password",
                       maxLine: 1,
                       keyboardType: TextInputType.text,
@@ -400,15 +407,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
             context,
             isProgress: true)
         .then(
-          (signUpResp) async {
-            // AppNavigation().movetoLogin();
+      (signUpResp) async {
+        // AppNavigation().movetoLogin();
 
-            Map<String,dynamic> arguments = {};
-            arguments["mobile"] = mobileController.text;
-            arguments["moduleType"] = OtpPage.SignUP;
+        Map<String, dynamic> arguments = {};
+        arguments["mobile"] = mobileController.text;
+        arguments["moduleType"] = OtpPage.SignUP;
 
-            NavigationUtilities.pushRoute(OtpVerifyScreen.route,args: arguments);
-          },
-        );
+        NavigationUtilities.pushRoute(OtpVerifyScreen.route, args: arguments);
+      },
+    ).catchError((onError) {
+      app.resolve<CustomDialogs>().confirmDialog(
+            context,
+            title: "Email is not exists",
+            desc: onError.message,
+            positiveBtnTitle: R.string().commonString.btnTryAgain,
+          );
+      setState(() {});
+    });
   }
 }

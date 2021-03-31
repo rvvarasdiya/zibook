@@ -92,6 +92,7 @@ class _BusinessViewState extends State<BusinessView> {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(35), topRight: Radius.circular(35))),
       child: ListView.builder(
+        cacheExtent: 999999999999999,
         padding: EdgeInsets.symmetric(
             vertical: getSize(10), horizontal: getSize(15)),
         shrinkWrap: true,

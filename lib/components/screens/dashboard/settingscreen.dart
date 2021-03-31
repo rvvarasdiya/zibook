@@ -33,9 +33,10 @@ class _SettingScreenState extends State<SettingScreen> {
               elevation: 0,
               // toolbarHeight: getSize(160),
               title: Padding(
-                padding:  EdgeInsets.only(left:getSize(30),),
-                child: 
-                Text(
+                padding: EdgeInsets.only(
+                  left: getSize(30),
+                ),
+                child: Text(
                   "Setting",
                   style: appTheme.white18RegularTextStyle,
                 ),
@@ -72,7 +73,9 @@ class _SettingScreenState extends State<SettingScreen> {
                     Padding(
                       padding: EdgeInsets.only(top: getSize(5)),
                       child: Text(
-                        app.resolve<PrefUtils>().getUserDetails().firstName + " "+ app.resolve<PrefUtils>().getUserDetails().lastName,
+                        app.resolve<PrefUtils>().getUserDetails().firstName +
+                            " " +
+                            app.resolve<PrefUtils>().getUserDetails().lastName,
                         textAlign: TextAlign.center,
                         style: appTheme.black22BoldTextStyle,
                       ),
@@ -131,36 +134,36 @@ class _SettingScreenState extends State<SettingScreen> {
                             NavigationUtilities.pushRoute(BusinessView.route);
                           },
                           child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  business,
-                                  width: getSize(25),
-                                  height: getSize(25),
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                business,
+                                width: getSize(25),
+                                height: getSize(25),
+                              ),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Expanded(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text("My Business",
+                                        style: appTheme.black16BoldTextStyle),
+                                    IconButton(
+                                        icon: Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: Colors.black,
+                                        ),
+                                        iconSize: getSize(18),
+                                        onPressed: null)
+                                  ],
                                 ),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                Expanded(
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("My Business",
-                                          style: appTheme.black16BoldTextStyle),
-                                      IconButton(
-                                          icon: Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: Colors.black,
-                                          ),
-                                          iconSize: getSize(18),
-                                          onPressed: null)
-                                    ],
-                                  ),
-                                )
-                              ]),
+                              )
+                            ],
+                          ),
                         ),
                         // SizedBox(
                         //   height: getSize(10),
@@ -339,7 +342,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Padding(
                       padding: EdgeInsets.only(bottom: getSize(20)),
                       child: GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           logoutFromApp(context);
                         },
                         child: Row(
@@ -417,8 +420,4 @@ class _SettingScreenState extends State<SettingScreen> {
     //   ),
     // )
   }
-
-
-
 }
-

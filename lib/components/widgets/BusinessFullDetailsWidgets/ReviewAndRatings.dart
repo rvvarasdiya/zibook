@@ -75,7 +75,7 @@ class _ReviewAndRatingsState extends State<ReviewAndRatings> {
   getItemWidget(ReviewAndRatingsModel reviewAndRatingsModel) {
     return InkWell(
       onTap: () {
-        NavigationUtilities.pushRoute(HelpScreen.route);
+        // NavigationUtilities.pushRoute(HelpScreen.route);
       },
       child: Container(
         padding: EdgeInsets.all(getSize(10)),
