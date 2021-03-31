@@ -9,6 +9,8 @@ const DEFAULT_LIMIT = 100;
 const SUCCESS = 1;
 const FAIL = 2;
 
+const IMAGE_FILE_SIZE = 10.0;
+
 
 const APPNAME = "Campaign Hero";
 

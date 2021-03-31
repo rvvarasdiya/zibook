@@ -1,9 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
 import 'package:zaviato/app/constant/ImageConstant.dart';
+import 'package:zaviato/app/constant/constants.dart';
+import 'package:zaviato/app/network/Uploadmanager.dart';
 import 'package:zaviato/app/utils/CommonTextfield.dart';
+import 'package:zaviato/app/utils/ImagePicker.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
+import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/widgets/shared/buttons.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -13,6 +19,10 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  bool isProfileImageUpload = false;
+  File profileImage;
+  String image;
+
   TextEditingController firstNameController =
       TextEditingController(text: "Tome");
   TextEditingController lastNameController =
@@ -39,6 +49,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   bool _isEmailValid = true;
   bool _isMobileValid = true;
   bool _autoValidate = false;
+
+  String imgPath = "";
 
   @override
   Widget build(BuildContext context) {
@@ -111,17 +123,29 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           bottom: 0,
                           left: 0,
                           right: 0,
-                          child: Container(
-                              alignment: Alignment.center,
-                              width: getSize(100),
-                              height: getSize(20),
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(editImage))),
-                              child: Text(
-                                "Edit",
-                                style: appTheme.white14RegularTextStyle,
-                              )),
+                          child: InkWell(
+                            onTap: () {
+                              FocusScope.of(context).unfocus();
+                              openImagePickerDocuments((img) async {
+                                setState(() {
+                                  isProfileImageUpload = true;
+                                  profileImage = img;
+                                });
+                                await uploadDocument();
+                              });
+                            },
+                            child: Container(
+                                alignment: Alignment.center,
+                                width: getSize(100),
+                                height: getSize(20),
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: AssetImage(editImage))),
+                                child: Text(
+                                  "Edit",
+                                  style: appTheme.white14RegularTextStyle,
+                                )),
+                          ),
                         )
                       ],
                     ),
@@ -157,7 +181,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 onTap: () {
                                   setState(() {
                                     editFirstName = true;
-                                     FocusScope.of(context).requestFocus(firstNameFocus);
+                                    FocusScope.of(context)
+                                        .requestFocus(firstNameFocus);
                                   });
                                 },
                                 child: Container(
@@ -200,7 +225,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 onTap: () {
                                   setState(() {
                                     editLastName = true;
-                                     FocusScope.of(context).requestFocus(lastNameFocus);
+                                    FocusScope.of(context)
+                                        .requestFocus(lastNameFocus);
                                   });
                                 },
                                 child: Container(
@@ -324,5 +350,46 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         ),
       ),
     );
+  }
+
+  openImagePickerDocuments(Function imgFile) {
+//    getImage();
+    openImagePicker(context, (image) {
+      if (image == null) {
+        return;
+      }
+      imgFile(image);
+      setState(() {});
+      return;
+    });
+  }
+
+    uploadDocument() async {
+    var imgProfile = profileImage.path;
+    if (isProfileImageUpload) {
+      await uploadProfileImage(profileImage, (imagePath) {
+        imgProfile = imagePath;
+      });
+    }
+  }
+
+    uploadProfileImage(File imgFile, Function imagePath) async {
+    uploadFile(
+      context,
+      "",
+      file: imgFile,
+    ).then((result) {
+      if (result.code == CODE_OK) {
+        String imgPath =
+            result.detail.files != null && result.detail.files.length > 0
+                ? result.detail.files.first.absolutePath
+                : "";
+        if (isNullEmptyOrFalse(imgPath) == false) {
+          imagePath(imgPath);
+          // callPersonalInformationApi(imagePath: imgPath);
+        }
+      }
+      return;
+    });
   }
 }

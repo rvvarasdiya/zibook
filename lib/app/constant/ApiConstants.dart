@@ -11,7 +11,7 @@ class ApiConstants {
   static const String imageBaseURL = baseURL;
   static const String apiUrl = baseURL;
 
-  static const String documentUpload = "/api/v1/upload-file";
+  static const String documentUpload = "/api/v1/common/file/file-upload";
 
   static const String masterSync = customerCommonUrl + "/user/sync";
 
