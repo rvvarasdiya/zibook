@@ -9,6 +9,7 @@ import 'package:rxbus/rxbus.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
 import 'package:zaviato/app/constant/ColorConstant.dart';
 import 'package:zaviato/app/constant/ImageConstant.dart';
+import 'package:zaviato/app/localization/app_locales.dart';
 import 'package:zaviato/app/theme/app_theme.dart';
 import 'package:zaviato/app/utils/BaseDialog.dart';
 import 'package:zaviato/app/utils/CommonWidgets.dart';
@@ -16,6 +17,7 @@ import 'package:zaviato/app/utils/dialogs.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/pref_utils.dart';
+import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/screens/contactus/contactusScreen.dart';
 import 'package:zaviato/components/screens/dashboard/homescreen.dart';
 import 'package:zaviato/components/screens/dashboard/BottomNavModel.dart';
@@ -62,30 +64,32 @@ class _DashboardState extends State<Dashboard> {
   }
 
   Future<bool> _onWillPop(BuildContext context) {
-    if (!Navigator.of(context).canPop()) {
+    // if (!Navigator.of(context).canPop()) {
+
       return showModalBottomSheet(
         context: context,
         builder: (context) => CustomAlertDialog(
-          // message: R.string().commonString.reallyExit,
+          message: R.string().commonString.reallyExit,
           actions: [
             DialogAction<bool>(
               dense: false,
               isWhite: true,
               result: false,
-              // text: R.string().commonString.no,
+              text: R.string().commonString.no,
             ),
             DialogAction<bool>(
               dense: false,
               isWhite: false,
               result: true,
-              // text: R.string().commonString.yes,
+              text: R.string().commonString.yes,
             )
           ],
         ),
       ).then((result) => result == true);
-    } else {
-      return Future.value(true);
-    }
+    // } 
+    // else {
+    //   return Future.value(true);
+    // }
   }
 
   Color darken(Color color, [double amount = .1]) {
@@ -96,7 +100,15 @@ class _DashboardState extends State<Dashboard> {
 
     return hslDark.toColor();
   }
-
+List<String> emails = [];
+String email = "";
+getEmail(){
+  for(var i in app.resolve<PrefUtils>().getUserDetails().emails){
+      emails.add(i.email);
+    }
+    if(!isNullEmptyOrFalse(emails))
+      email = emails.first;
+}
   @override
   void initState() {
     super.initState();
@@ -104,16 +116,18 @@ class _DashboardState extends State<Dashboard> {
     changeStatusColor(darken(
       ColorConstants.colorPrimary,
     ));
-
-    for (var j = 0; j < model.length; j++) {
-      if (model[j].type == widget.type) {
-        model[j].isSelected = true;
-        _currentIndex = j;
-      } else {
-        model[j].isSelected = false;
-      }
-    }
-
+    getEmail();
+  
+    // for (var j = 0; j < model.length; j++) {
+    //   if (model[j].type == widget.type) {
+    //     model[j].isSelected = true;
+    //     _currentIndex = j;
+    //   } else {
+    //     model[j].isSelected = false;
+    //   }
+    // }
+    _currentIndex = 0;
+    model[0].isSelected =true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       print('dashboard context');
       //  _afterLayout;
@@ -122,7 +136,7 @@ class _DashboardState extends State<Dashboard> {
     _children = [
       HomeScreen(_drawerKey),
       NotificationScreen(_drawerKey),
-      ContactUsScreen(),
+      ChatScreen(_drawerKey),
       // RegisterBusinessScreen(),
       // SettingScreen(),
       // SettingScreen(),
@@ -215,7 +229,7 @@ class _DashboardState extends State<Dashboard> {
             SizedBox(
               height: getSize(20),
             ),
-            Text("Marcin Kohut",
+            Text(app.resolve<PrefUtils>().getUserDetails().firstName + " "+ app.resolve<PrefUtils>().getUserDetails().lastName,
                 style: appTheme.black22BoldTextStyle.copyWith(
                     fontSize: getFontSize(28),
                     color: ColorConstants.getDrawerText)),
@@ -223,7 +237,7 @@ class _DashboardState extends State<Dashboard> {
               height: getSize(5),
             ),
             Text(
-              "marcinkohut26@gmail.com",
+              email,
               style: appTheme.black14RegularTextStyle
                   .copyWith(color: Color(0xff6E7073)),
             ),
@@ -263,7 +277,7 @@ class _DashboardState extends State<Dashboard> {
               height: getSize(30),
             ),
             GestureDetector(
-               onTap: (){
+              onTap: () {
                 Navigator.pop(context);
                 NavigationUtilities.pushRoute(RegisterBusinessScreen.route);
               },
@@ -357,25 +371,32 @@ class _DashboardState extends State<Dashboard> {
         ),
         Padding(
           padding: EdgeInsets.only(bottom: getSize(40)),
-          child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            Image.asset(
-              logoutIcon,
-              width: getSize(26),
-              height: getSize(26),
-            ),
-            SizedBox(
-              width: 15,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Logout",
-                    style: appTheme.black18BoldTextStyle
-                        .copyWith(color: ColorConstants.getDrawerText)),
-              ],
-            )
-          ]),
+          child: GestureDetector(
+            onTap: (){
+              Navigator.pop(context);
+                logoutFromApp(context);
+            },
+            child:
+                Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              Image.asset(
+                logoutIcon,
+                width: getSize(26),
+                height: getSize(26),
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Logout",
+                      style: appTheme.black18BoldTextStyle
+                          .copyWith(color: ColorConstants.getDrawerText)),
+                ],
+              )
+            ]),
+          ),
         ),
       ],
     );

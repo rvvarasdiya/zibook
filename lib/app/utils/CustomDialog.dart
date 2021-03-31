@@ -404,6 +404,7 @@ Future OpenConfirmationPopUp(BuildContext context,
                               : SizedBox(),
                           Expanded(
                             child: AppButton.flat(
+                              backgroundColor: appTheme.colorPrimary,
                               onTap: () {
                                 if (dismissPopup) {
                                   Navigator.pop(context);

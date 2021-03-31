@@ -4,6 +4,8 @@ import 'package:zaviato/app/base/BaseList.dart';
 import 'package:zaviato/app/constant/ColorConstant.dart';
 import 'package:zaviato/app/constant/ImageConstant.dart';
 import 'package:zaviato/app/constant/constants.dart';
+import 'package:zaviato/app/network/NetworkCall.dart';
+import 'package:zaviato/app/network/ServiceModule.dart';
 import 'package:zaviato/app/utils/CommonWidgets.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
@@ -12,7 +14,9 @@ import 'package:zaviato/components/widgets/shared/buttons.dart';
 import 'package:zaviato/components/widgets/shared/start_rating.dart';
 import 'package:zaviato/models/categoryListModel.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
+import 'package:zaviato/models/mybusiness/MyBusinessRes.dart';
 
+import '../../../main.dart';
 
 class BusinessView extends StatefulWidget {
   static const route = "BusinessView";
@@ -23,7 +27,7 @@ class BusinessView extends StatefulWidget {
 class _BusinessViewState extends State<BusinessView> {
   BaseList fashionBaseList;
   int page = DEFAULT_PAGE;
-  List<CategoryListModel> arrList = [];
+  List<Business> arrList = [];
 
   TextEditingController searchController = new TextEditingController();
 
@@ -31,17 +35,6 @@ class _BusinessViewState extends State<BusinessView> {
 
   @override
   void initState() {
-    for (int i = 0; i < 10; i++) {
-      CategoryListModel categoryListModel = CategoryListModel(
-          "Bhavani Fashion",
-          "Harshil Soni",
-          "9999999999",
-          "305, krishna texttiles, surat, Gujarat",
-          false
-          );
-      arrList.add(categoryListModel);
-    }
-
     super.initState();
     fashionBaseList = BaseList(BaseListState(
 //      imagePath: noRideHistoryFound,
@@ -67,13 +60,26 @@ class _BusinessViewState extends State<BusinessView> {
   }
 
   callApi(bool isRefress, {bool isLoading = false}) {
-    fashionBaseList.state.listCount = arrList.length;
-    fashionBaseList.state.totalCount = arrList.length;
-    // arrList.addAll(savedSearchResp.data.list);
-    fillArrayList();
-    page = page + 1;
-    fashionBaseList.state.setApiCalling(false);
-    setState(() {});
+    NetworkCall<MyBusinessRes>()
+        .makeCall(
+      () => app.resolve<ServiceModule>().networkService().getMyBusinesses(),
+      context,
+      isProgress: true,
+    )
+        .then((myBusinessRes) async {
+      arrList.clear();
+      arrList.addAll(myBusinessRes.data.list);
+      // print("data scusedddd");
+
+      fashionBaseList.state.listCount = myBusinessRes.data.list.length;
+      fashionBaseList.state.totalCount = myBusinessRes.data.count;
+      page = page + 1;
+      fashionBaseList.state.setApiCalling(false);
+      fillArrayList();
+      setState(() {});
+    }).catchError((onError) {
+      fashionBaseList.state.setApiCalling(false);
+    });
   }
 
   fillArrayList() {
@@ -91,15 +97,15 @@ class _BusinessViewState extends State<BusinessView> {
         shrinkWrap: true,
         itemCount: fashionBaseList.state.listCount,
         itemBuilder: (BuildContext context, int index) {
-          CategoryListModel savedSearchModel = arrList[index];
-          return getItemWidget(savedSearchModel,index);
+          Business business = arrList[index];
+          return getItemWidget(business, index);
           // return Text("hello");
         },
       ),
     );
   }
 
-  getItemWidget(CategoryListModel categoryListModel,int index) {
+  getItemWidget(Business businessModel, int index) {
     return Padding(
       padding: EdgeInsets.all(getSize(10)),
       child: Container(
@@ -151,7 +157,7 @@ class _BusinessViewState extends State<BusinessView> {
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           Text(
-                            categoryListModel.shopeName,
+                            businessModel.name,
                             style: appTheme.black16BoldTextStyle,
                           ),
                           SizedBox(
@@ -187,27 +193,33 @@ class _BusinessViewState extends State<BusinessView> {
                         ],
                       ),
                       GestureDetector(
-                        onTap: (){
-                          print("----index $index");
-                          print(categoryListModel.isFavorite);
-                          print("favorite pressed ||| ");
-                          setState(() {
-                            for(int i =0 ;i<10; i++){
-                              if(i==index){
-                                arrList[i].isFavorite =true;
-                              }
-                              // else{
-                              //   arrList[i].isFavorite =false;
-                              // }
-                            }
-                          // arrList[index].isFavorite = ! categoryListModel.isFavorite;
-                          });
+                        onTap: () {
+                          // print("----index $index");
+                          // print(categoryListModel.isFavorite);
+                          // print("favorite pressed ||| ");
+                          // setState(() {
+                          //   for (int i = 0; i < 10; i++) {
+                          //     if (i == index) {
+                          //       arrList[i].isFavorite = true;
+                          //     }
+                          //     // else{
+                          //     //   arrList[i].isFavorite =false;
+                          //     // }
+                          //   }
+                          //   // arrList[index].isFavorite = ! categoryListModel.isFavorite;
+                          // });
                         },
-                        child: Icon(
-                         (arrList[index].isFavorite) ? Icons.favorite : Icons.favorite_border,
-                          size: getSize(20),
-                          color: (arrList[index].isFavorite) ? appTheme.colorPrimary : null ,
-                      ),)
+                        // child: Icon(
+                        //   (arrList[index].isFavorite)
+                        //       ? Icons.favorite
+                        //       : Icons.favorite_border,
+                        //   size: getSize(20),
+                        //   color: (arrList[index].isFavorite)
+                        //       ? appTheme.colorPrimary
+                        //       : null,
+                        // ),
+                        child: Icon(Icons.favorite),
+                      )
                     ],
                   ),
                 ),
@@ -225,7 +237,7 @@ class _BusinessViewState extends State<BusinessView> {
                     width: getSize(10),
                   ),
                   Text(
-                    categoryListModel.ownerName,
+                    businessModel.getOwnerName(businessModel),
                     style: appTheme.black14RegularTextStyle,
                   )
                 ],
@@ -243,7 +255,7 @@ class _BusinessViewState extends State<BusinessView> {
                     width: getSize(10),
                   ),
                   Text(
-                    categoryListModel.phoneNumber,
+                    businessModel.getMobileName(businessModel),
                     style: appTheme.black14RegularTextStyle,
                   )
                 ],
@@ -262,7 +274,7 @@ class _BusinessViewState extends State<BusinessView> {
                   ),
                   Expanded(
                     child: Text(
-                      categoryListModel.address,
+                      "hello it's a dummy address...",
                       style: appTheme.black14RegularTextStyle,
                     ),
                   )
@@ -291,7 +303,7 @@ class _BusinessViewState extends State<BusinessView> {
                     ),
                   ),
                   Container(
-                     padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                    padding: EdgeInsets.symmetric(horizontal: getSize(10)),
                     height: getSize(35),
                     width: getSize(130),
                     child: AppButton.flat(
@@ -311,7 +323,6 @@ class _BusinessViewState extends State<BusinessView> {
       ),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {

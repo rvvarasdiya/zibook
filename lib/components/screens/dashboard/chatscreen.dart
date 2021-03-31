@@ -14,6 +14,7 @@ import 'package:zaviato/components/widgets/shared/buttons.dart';
 import 'package:zaviato/components/widgets/shared/start_rating.dart';
 import 'package:zaviato/models/categoryListModel.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
+import 'package:zaviato/models/mybusiness/MyBusinessRes.dart';
 
 import '../../../main.dart';
 
@@ -21,7 +22,6 @@ class ChatScreen extends StatefulWidget {
   static const route = "BusinessView";
   final _drawerKey;
   ChatScreen(this._drawerKey);
-
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
