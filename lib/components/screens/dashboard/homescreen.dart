@@ -66,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
       isProgress: true,
     )
         .then((homeScreenResponse) async {
+          cateName.clear();
       cateName.addAll(homeScreenResponse.data.list);
       print("data scusedddd");
 
