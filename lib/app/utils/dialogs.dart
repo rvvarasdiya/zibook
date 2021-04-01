@@ -1,3 +1,4 @@
+import 'package:zaviato/app/Helper/Themehelper.dart';
 import 'package:zaviato/components/widgets/shared/animations.dart';
 import 'package:zaviato/components/widgets/shared/app_background.dart';
 import 'package:zaviato/components/widgets/shared/buttons.dart';
@@ -234,12 +235,16 @@ class DialogAction<T> extends StatelessWidget {
     final Function callback = onTap ?? () => Navigator.of(context).pop(result);
 
     if (text != null) {
-      return AppButton.flat(
-        text: text,
-        onTap: callback,
-        dense: dense,
-        backgroundColor: Colors.transparent,
-        textColor: isWhite ? Colors.white : Colors.black,
+      return Padding(
+        padding: EdgeInsets.all(getSize(8.0)),
+        child: AppButton.flat(
+          text: text,
+          onTap: callback,
+          dense: dense,
+          // backgroundColor: Colors.transparent,
+          backgroundColor: appTheme.colorPrimary,
+          textColor: isWhite ? Colors.white : Colors.black,
+        ),
       );
     } else if (icon != null) {
       return AppButton.flat(

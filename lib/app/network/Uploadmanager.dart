@@ -16,12 +16,12 @@ Future<FileUploadResp> uploadFile(BuildContext context, String folderName,
     {List<File> files,
     File file,
     List<int> bytes,
-    bool pdfUpload = false}) async {    
+    bool pdfUpload = false}) async {
   var dio = Dio();
   dio.options.baseUrl = ApiConstants.documentUpload;
 
   /*if (kDebugMode) {
-    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =  
         (client) {
       // config the http client
       client.findProxy = (uri) {
@@ -71,10 +71,13 @@ Future<FileUploadResp> uploadFile(BuildContext context, String folderName,
           // print(received);
         }
       },
-    );
+    ).catchError((error){
+      print(error);
+    });
     if (uploadProgressWidget._isDialogShown) {
       uploadProgressWidget.state.updateProgress(1);
     }
+    print(response);
     if (response.statusMessage == CODE_OK)
       return response.data != null
           ? new FileUploadResp.fromJson(response.data)
@@ -94,7 +97,7 @@ Future<FileUploadResp> uploadFile(BuildContext context, String folderName,
     }
   }
 }
-
+  
 Future<FormData> formdata(String folderName,
     {List<File> files,
     File file,

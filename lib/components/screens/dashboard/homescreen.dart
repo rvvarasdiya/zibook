@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int page = DEFAULT_PAGE;
   int currentIndex = 1;
   List<ListData> cateName = List<ListData>();
+  String greetingMessage = "";
 
   @override
   void initState() {
@@ -54,7 +55,21 @@ class _HomeScreenState extends State<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       callApi(false);
     });
+
+    greetingMessage = getGreetingMessage();
     // fetchProducts();
+  }
+
+  getGreetingMessage() {
+    var time = DateTime.now();
+    if (time.hour >= 1 && time.hour <= 11)
+      return "Good morning, what are you up to?";
+    else if (time.hour >= 12 && time.hour <= 16)
+      return "Good afternoon, what are you up to?";
+    else if (time.hour >= 17 && time.hour <= 19)
+      return "Good evening, what are you up to?";
+    else
+      return "Good night, what are you up to?";
   }
 
   callApi(bool isRefress, {bool isLoading = false}) {
@@ -66,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
       isProgress: true,
     )
         .then((homeScreenResponse) async {
-          cateName.clear();
+      cateName.clear();
       cateName.addAll(homeScreenResponse.data.list);
       print("data scusedddd");
 
@@ -134,9 +149,9 @@ class _HomeScreenState extends State<HomeScreen> {
   getItemWidget(ListData listDataModel) {
     return GestureDetector(
       onTap: () {
-            // NavigationUtilities.pushRoute(BusinessView.route);
+        // NavigationUtilities.pushRoute(BusinessView.route);
         // NavigationUtilities.push(BusinessFullDetail());
-        NavigationUtilities.push(BusinessFullDetail());
+        NavigationUtilities.pushRoute(BusinessFullDetail.route);
       },
       child: Container(
         alignment: Alignment.center,
@@ -183,92 +198,98 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: appTheme.colorPrimary,
-        // endDrawer: ClipRRect(
-        //   borderRadius: BorderRadius.only(
-        //     topLeft: Radius.circular(40),
-        //     bottomLeft: Radius.circular(40),
-        //   ),
-        //   child: Drawer(
-        //     child: Container(
-        //       decoration: BoxDecoration(
-        //           color: Colors.amber,
-        //           borderRadius: BorderRadius.only(
-        //             topLeft: Radius.circular(40),
-        //             bottomLeft: Radius.circular(40),
-        //           )),
-        //     ),
-        //   ),
-        // ),
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(200.0),
-          child: Container(
-            // height: 100,
+      child: InkWell(
+        onTap: () {
+          FocusScope.of(context).requestFocus(FocusNode());
+        },
+        child: Scaffold(
+          backgroundColor: appTheme.colorPrimary,
+          // endDrawer: ClipRRect(
+          //   borderRadius: BorderRadius.only(
+          //     topLeft: Radius.circular(40),
+          //     bottomLeft: Radius.circular(40),
+          //   ),
+          //   child: Drawer(
+          //     child: Container(
+          //       decoration: BoxDecoration(
+          //           color: Colors.amber,
+          //           borderRadius: BorderRadius.only(
+          //             topLeft: Radius.circular(40),
+          //             bottomLeft: Radius.circular(40),
+          //           )),
+          //     ),
+          //   ),
+          // ),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(200.0),
+            child: Container(
+              // height: 100,
 
-            // alignment: Alignment.topCenter,
-            // color: Colors.red,
-            padding: EdgeInsets.symmetric(
-                horizontal: getSize(30), vertical: getSize(30)),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Suratmart",
-                      style: appTheme.white16BoldTextStyle,
-                    ),
-                    GestureDetector(
-                      onTap: (){
-                         widget._drawerKey.currentState.openEndDrawer();
-                      },
-                      child: Container(
-                        width: getSize(40),
-                        height: getSize(40),
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(userIcon),
-                              fit: BoxFit.fill,
-                            ),
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              new BoxShadow(
-                                color: ColorConstants.getShadowColor,
-                                offset: Offset(0, 5),
-                                blurRadius: 5.0,
-                              ),
-                            ]),
-
-                        // NetworkImage('https://via.placeholder.com/150'),
+              // alignment: Alignment.topCenter,
+              // color: Colors.red,
+              padding: EdgeInsets.symmetric(
+                  horizontal: getSize(30), vertical: getSize(30)),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Suratmart",
+                        style: appTheme.white16BoldTextStyle,
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: getSize(22),
-                ),
-                Text(
-                  "Hello, "+app.resolve<PrefUtils>().getUserDetails().firstName,
-                  style: appTheme.white22BoldTextStyle,
-                ),
-                SizedBox(
-                  height: getSize(5),
-                ),
-                Text(
-                  "Good evening, what are you up to?",
-                  style: appTheme.white14RegularTextStyle
-                      .copyWith(color: Color(0xffCFE4FF)),
-                ),
-              ],
+                      GestureDetector(
+                        onTap: () {
+                          widget._drawerKey.currentState.openEndDrawer();
+                        },
+                        child: Container(
+                          width: getSize(40),
+                          height: getSize(40),
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(userIcon),
+                                fit: BoxFit.fill,
+                              ),
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                new BoxShadow(
+                                  color: ColorConstants.getShadowColor,
+                                  offset: Offset(0, 5),
+                                  blurRadius: 5.0,
+                                ),
+                              ]),
+
+                          // NetworkImage('https://via.placeholder.com/150'),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: getSize(22),
+                  ),
+                  Text(
+                    "Hello, " +
+                        app.resolve<PrefUtils>().getUserDetails().firstName,
+                    style: appTheme.white22BoldTextStyle,
+                  ),
+                  SizedBox(
+                    height: getSize(5),
+                  ),
+                  Text(
+                    greetingMessage,
+                    style: appTheme.white14RegularTextStyle
+                        .copyWith(color: Color(0xffCFE4FF)),
+                  ),
+                ],
+              ),
             ),
           ),
+          // backgroundColor: Color(0xffFAFAFA),
+          // bottomNavigationBar: bottomNavigator(),
+          body: fashionBaseList,
         ),
-        // backgroundColor: Color(0xffFAFAFA),
-        // bottomNavigationBar: bottomNavigator(),
-        body: fashionBaseList,
       ),
     );
   }

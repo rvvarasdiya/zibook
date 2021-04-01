@@ -2,12 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
 import 'package:zaviato/app/constant/ImageConstant.dart';
 import 'package:zaviato/app/constant/constants.dart';
 import 'package:zaviato/app/network/Uploadmanager.dart';
 import 'package:zaviato/app/utils/CommonTextfield.dart';
-import 'package:zaviato/app/utils/ImagePicker.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/widgets/shared/buttons.dart';
@@ -36,6 +37,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   bool editLastName = false;
   bool editEmail = false;
   bool editMobile = false;
+  bool autovalidate = false;
   FocusNode emailFocus = new FocusNode();
   FocusNode mobileFocus = new FocusNode();
   FocusNode firstNameFocus = new FocusNode();
@@ -51,6 +53,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   bool _autoValidate = false;
 
   String imgPath = "";
+  File profile;
 
   @override
   Widget build(BuildContext context) {
@@ -112,13 +115,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ),
                             backgroundColor: Colors.white,
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(getSize(100)),
-                              child: Image.asset(
-                                userIcon,
-                                height: getSize(100),
-                                width: getSize(100),
-                              ),
-                            )),
+                                borderRadius:
+                                    BorderRadius.circular(getSize(100)),
+                                child: isNullEmptyOrFalse(profile)
+                                    ? Image.asset(userIcon)
+                                    :
+                                    // isProfileImageUpload ?
+                                    Image.file(
+                                        profile,
+                                        width: getSize(120),
+                                        height: getSize(120),
+                                        fit: BoxFit.cover,
+                                      )
+                                // : getImageView(
+                                //     image ?? "",
+                                //     width: getSize(120),
+                                //     height: getSize(120),
+                                //     placeHolderImage: placeHolder,
+                                //     fit: BoxFit.cover,
+                                //   ),
+                                )),
                         Positioned(
                           bottom: 0,
                           left: 0,
@@ -126,12 +142,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           child: InkWell(
                             onTap: () {
                               FocusScope.of(context).unfocus();
-                              openImagePickerDocuments((img) async {
-                                setState(() {
-                                  isProfileImageUpload = true;
-                                  profileImage = img;
-                                });
-                                await uploadDocument();
+                              showprofileImageBottomSheet(context, (img) async {
+                                await uploadDocument(img);
                               });
                             },
                             child: Container(
@@ -166,13 +178,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 hintText: "First Name",
                                 hintStyleText: appTheme.black16BoldTextStyle
                                     .copyWith(fontWeight: FontWeight.bold),
-                                // postfixWidOnFocus: Image.asset(
-                                //   editName,
-                                //   width: getSize(15),
-                                //   height: getSize(15),
-                                // ),
+                                errorBorder: _isFirstNameValid
+                                    ? null
+                                    : OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(11)),
+                                        borderSide: BorderSide(
+                                            width: 1, color: Colors.red),
+                                      ),
                               ),
-                              textCallback: (Value) {},
+                              textCallback: (text) {
+                                if (_autoValidate) {
+                                  if (text.isEmpty) {
+                                    setState(() {
+                                      _isFirstNameValid = false;
+                                    });
+                                  }
+                                }
+                              },
+                              validation: (text) {
+                                if (text.isEmpty) {
+                                  _isFirstNameValid = false;
+                                  return "Enter FirstName";
+                                }
+                              },
                             ),
                             Positioned(
                               bottom: 8,
@@ -215,8 +244,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 hintText: "Last Name",
                                 hintStyleText: appTheme.black16BoldTextStyle
                                     .copyWith(fontWeight: FontWeight.bold),
+                                errorBorder: _isLastNameValid
+                                    ? null
+                                    : OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(11)),
+                                        borderSide: BorderSide(
+                                            width: 1, color: Colors.red),
+                                      ),
                               ),
-                              textCallback: (Value) {},
+                              textCallback: (text) {
+                                if (_autoValidate) {
+                                  if (text.isEmpty) {
+                                    setState(() {
+                                      _isLastNameValid = false;
+                                    });
+                                  }
+                                }
+                              },
+                              validation: (text) {
+                                if (text.isEmpty) {
+                                  _isLastNameValid = false;
+                                  return "Enter LastName";
+                                }
+                              },
                             ),
                             Positioned(
                               bottom: 8,
@@ -260,8 +311,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           hintText: "Email",
                           hintStyleText: appTheme.black16BoldTextStyle
                               .copyWith(fontWeight: FontWeight.bold),
+                          errorBorder: _isEmailValid
+                              ? null
+                              : OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(11)),
+                                  borderSide:
+                                      BorderSide(width: 1, color: Colors.red),
+                                ),
                         ),
-                        textCallback: (Value) {},
+                        textCallback: (text) {
+                          if (_autoValidate) {
+                            if (text.isEmpty) {
+                              setState(() {
+                                _isEmailValid = false;
+                              });
+                            }
+                          }
+                        },
+                        validation: (text) {
+                          if (text.isEmpty) {
+                            _isEmailValid = false;
+                            return "Enter Email Address";
+                          }
+                        },
                       ),
                       Positioned(
                         bottom: 8,
@@ -303,8 +376,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           hintText: "Mobile Number",
                           hintStyleText: appTheme.black16BoldTextStyle
                               .copyWith(fontWeight: FontWeight.bold),
+                          errorBorder: _isMobileValid
+                              ? null
+                              : OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(11)),
+                                  borderSide:
+                                      BorderSide(width: 1, color: Colors.red),
+                                ),
                         ),
-                        textCallback: (Value) {},
+                        textCallback: (text) {
+                          if (_autoValidate) {
+                            if (text.isEmpty) {
+                              setState(() {
+                                _isMobileValid = false;
+                              });
+                            }
+                          }
+                        },
+                        validation: (text) {
+                          if (text.isEmpty) {
+                            _isMobileValid = false;
+                            return "Enter Mobile Number";
+                          }
+                        },
                       ),
                       Positioned(
                         bottom: 8,
@@ -336,7 +431,17 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     height: getSize(100),
                   ),
                   AppButton.flat(
-                    onTap: () {},
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
+                      if (_formKey.currentState.validate()) {
+                        _formKey.currentState.save();
+                        // callLoginApi(context);
+                      } else {
+                        setState(() {
+                          _autoValidate = true;
+                        });
+                      }
+                    },
                     backgroundColor: appTheme.colorPrimary,
                     text: "Save",
                     textSize: 18,
@@ -352,33 +457,135 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
-  openImagePickerDocuments(Function imgFile) {
-//    getImage();
-    openImagePicker(context, (image) {
-      if (image == null) {
-        return;
-      }
-      imgFile(image);
-      setState(() {});
-      return;
-    });
+  void showprofileImageBottomSheet(context, Function getImgFile) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20.0))),
+      builder: (BuildContext bc) {
+        return Container(
+          height: height * 0.1,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(20.0),
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              FlatButton.icon(
+                onPressed: () async {
+                  Navigator.pop(context, true);
+                  var image = await ImagePicker.pickImage(
+                      source: ImageSource.camera,
+                      imageQuality: 50,
+                      maxHeight: 2080,
+                      maxWidth: 2080);
+
+                  File cropImage = await ImageCropper.cropImage(
+                    sourcePath: image.path,
+                    maxHeight: 2080,
+                    maxWidth: 2080,
+                    aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+                    androidUiSettings: AndroidUiSettings(
+                        statusBarColor: appTheme.colorPrimary,
+                        backgroundColor: Colors.white,
+//                                              toolbarTitle: 'Crop Image',
+                        toolbarColor: appTheme.colorPrimary,
+                        toolbarWidgetColor: Colors.white),
+                  );
+//
+
+                  setState(() {
+                    profile = cropImage;
+                    getImgFile(cropImage);
+                  });
+                },
+                icon: Icon(
+                  Icons.camera_alt,
+                  color: appTheme.colorPrimary.withOpacity(0.5),
+                ),
+                label: Text(
+                  'Camera',
+                  style: TextStyle(
+                    fontFamily: "Segoe",
+                    color: appTheme.colorPrimary,
+                    fontWeight: FontWeight.w500,
+                    fontSize: getSize(14),
+                  ),
+                ),
+              ),
+              FlatButton.icon(
+                onPressed: () async {
+                  Navigator.pop(context, true);
+                  var image = await ImagePicker.pickImage(
+                      source: ImageSource.gallery,
+                      imageQuality: 50,
+                      maxHeight: 2080,
+                      maxWidth: 2080);
+
+                  File cropImage = await ImageCropper.cropImage(
+                    sourcePath: image.path,
+                    maxHeight: 2080,
+                    maxWidth: 2080,
+                    aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+                    androidUiSettings: AndroidUiSettings(
+                        statusBarColor: appTheme.colorPrimary,
+                        backgroundColor: Colors.white,
+//                                              toolbarTitle: 'Crop Image',
+                        toolbarColor: appTheme.colorPrimary,
+                        toolbarWidgetColor: Colors.white),
+                  );
+//
+
+                  setState(() {
+                    profile = cropImage;
+                  });
+                },
+                icon: Icon(
+                  Icons.photo_library,
+                  color: appTheme.colorPrimary.withOpacity(0.5),
+                ),
+                label: Text(
+                  'Gallery',
+                  style: TextStyle(
+                    fontFamily: "Segoe",
+                    color: appTheme.colorPrimary,
+                    fontWeight: FontWeight.w500,
+                    fontSize: getSize(14),
+                  ),
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
   }
 
-    uploadDocument() async {
-    var imgProfile = profileImage.path;
-    if (isProfileImageUpload) {
-      await uploadProfileImage(profileImage, (imagePath) {
+  uploadDocument(File profileImg) async {
+    var imgProfile;
+    if (!isProfileImageUpload) {
+      await uploadProfileImage(profileImg, (imagePath) {
         imgProfile = imagePath;
       });
     }
   }
 
-    uploadProfileImage(File imgFile, Function imagePath) async {
+  uploadProfileImage(File imgFile, Function imagePath) async {
     uploadFile(
       context,
-      "",
+      "/",
       file: imgFile,
     ).then((result) {
+      String imgPathdummy =
+          result.detail.files != null && result.detail.files.length > 0
+              ? result.detail.files.first.absolutePath
+              : "";
+      print(imgPathdummy +
+          "--------------------------------------------------------");
       if (result.code == CODE_OK) {
         String imgPath =
             result.detail.files != null && result.detail.files.length > 0

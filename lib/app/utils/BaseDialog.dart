@@ -247,8 +247,8 @@ class _CustomAlertDialogState extends State<CustomAlertDialog>
         Container(
           decoration: new BoxDecoration(
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
             ),
             color: appTheme.whiteColor,
             shape: BoxShape.rectangle,

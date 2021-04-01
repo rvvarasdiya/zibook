@@ -191,16 +191,18 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                           confirmPasswordController.text)
                         callCreateNewPasswordApi(context);
                       else {
-                        setState(() {
-                          _autoValidate = true;
-                          app.resolve<CustomDialogs>().confirmDialog(
-                                context,
-                                title: "Both password should be same...",
-                                desc: "",
-                                positiveBtnTitle:
-                                    R.string().commonString.btnTryAgain,
-                              );
-                        });
+                        setState(
+                          () {
+                            _autoValidate = true;
+                            app.resolve<CustomDialogs>().confirmDialog(
+                                  context,
+                                  title: "Both password should be same...",
+                                  desc: "Both password should be same...",
+                                  positiveBtnTitle:
+                                      R.string().commonString.btnTryAgain,
+                                );
+                          },
+                        );
                       }
                     } else {
                       setState(() {

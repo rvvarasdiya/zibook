@@ -68,6 +68,7 @@ class _DashboardState extends State<Dashboard> {
     // if (!Navigator.of(context).canPop()) {
 
     return showModalBottomSheet(
+      backgroundColor: ColorConstants.getShadowColor,
       context: context,
       builder: (context) => CustomAlertDialog(
         message: R.string().commonString.reallyExit,
@@ -80,10 +81,10 @@ class _DashboardState extends State<Dashboard> {
           ),
           DialogAction<bool>(
             dense: false,
-            isWhite: false,
+            isWhite: true,
             result: true,
             text: R.string().commonString.yes,
-          )
+          ),
         ],
       ),
     ).then((result) => result == true);
