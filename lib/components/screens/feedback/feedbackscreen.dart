@@ -26,6 +26,9 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
         elevation: 0,
         backgroundColor: appTheme.colorPrimary,
         leading: IconButton(
+          onPressed: (){
+            Navigator.pop(context);
+          },
           icon: Icon(
             Icons.arrow_back,
             color: Colors.white,
@@ -33,7 +36,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
         ),
         titleSpacing: 0,
         title: Text(
-          "Profile Edit",
+          "Feedbak",
           style: appTheme.white18RegularTextStyle,
         ),
       ),

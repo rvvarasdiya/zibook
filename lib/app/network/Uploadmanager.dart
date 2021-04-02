@@ -21,7 +21,7 @@ Future<FileUploadResp> uploadFile(BuildContext context, String folderName,
   dio.options.baseUrl = ApiConstants.documentUpload;
 
   /*if (kDebugMode) {
-    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =  
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
         (client) {
       // config the http client
       client.findProxy = (uri) {
@@ -97,7 +97,7 @@ Future<FileUploadResp> uploadFile(BuildContext context, String folderName,
     }
   }
 }
-  
+
 Future<FormData> formdata(String folderName,
     {List<File> files,
     File file,

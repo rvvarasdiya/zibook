@@ -22,6 +22,10 @@ KiwiContainer app;
 TextDirection deviceTextDirection = TextDirection.ltr;
 
 main() {
+   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    systemNavigationBarColor: appTheme.colorPrimary, // navigation bar color
+    statusBarColor:  appTheme.colorPrimary, // status bar color
+  ));
   WidgetsFlutterBinding.ensureInitialized();
 //  R.changeLocale(English.languageCode);
 //  if (kDebugMode) {
@@ -84,7 +88,7 @@ class _BaseState extends State<Base> {
 
   @override
   Widget build(BuildContext context) {
-    // app.resolve<PrefUtils>().saveDeviceId();
+    // app.resolve<PrefUtils>().saveDeviceId(); 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: APPNAME,

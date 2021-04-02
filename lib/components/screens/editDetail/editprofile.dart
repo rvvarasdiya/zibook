@@ -542,6 +542,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
                   setState(() {
                     profile = cropImage;
+                    getImgFile(cropImage);
                   });
                 },
                 icon: Icon(
@@ -577,15 +578,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   uploadProfileImage(File imgFile, Function imagePath) async {
     uploadFile(
       context,
-      "/",
+      "upload-image",
       file: imgFile,
     ).then((result) {
-      String imgPathdummy =
-          result.detail.files != null && result.detail.files.length > 0
-              ? result.detail.files.first.absolutePath
-              : "";
-      print(imgPathdummy +
-          "--------------------------------------------------------");
+      // String imgPathdummy =
+      //     result.detail.files != null && result.detail.files.length > 0
+      //         ? result.detail.files.first.absolutePath
+      //         : "";
+      // print(imgPathdummy +
+      //     "--------------------------------------------------------");
       if (result.code == CODE_OK) {
         String imgPath =
             result.detail.files != null && result.detail.files.length > 0
