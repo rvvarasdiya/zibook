@@ -49,17 +49,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       width: getSize(40),
                       height: getSize(40),
                       decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(userIcon),
+                        image: DecorationImage(
+                          image: AssetImage(userIcon),
+                        ),
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          new BoxShadow(
+                            color: ColorConstants.getShadowColor,
+                            offset: Offset(0, 5),
+                            blurRadius: 5.0,
                           ),
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            new BoxShadow(
-                              color: ColorConstants.getShadowColor,
-                              offset: Offset(0, 5),
-                              blurRadius: 5.0,
-                            ),
-                          ]),
+                        ],
+                      ),
 
                       // NetworkImage('https://via.placeholder.com/150'),
                     ),

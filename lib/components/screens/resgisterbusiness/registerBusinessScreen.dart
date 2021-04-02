@@ -73,6 +73,7 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: true,
         backgroundColor: ColorConstants.backGroundColor,
         appBar: AppBar(
           backgroundColor: ColorConstants.backGroundColor,
@@ -449,7 +450,6 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
                     inputController: businessCityController,
                   ),
                   textCallback: null,
-
                 ),
               ),
               SizedBox(

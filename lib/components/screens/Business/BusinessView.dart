@@ -92,7 +92,7 @@ class _BusinessViewState extends State<BusinessView> {
       itemBuilder: (BuildContext context, int index) {
         Business business = arrList[index];
         return getItemWidget(business, index);
-      },
+    },
     );
   }
 
