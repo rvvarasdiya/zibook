@@ -49,6 +49,15 @@ class _SignInScreenState extends State<SignInScreen> {
     passwordController.text = "soni";
   }
 
+@override
+void dispose(){
+  emailController.dispose();
+  passwordController.dispose();
+  emailFocus.dispose();
+  passwordFocus.dispose();
+  super.dispose();
+  // dispose
+}
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

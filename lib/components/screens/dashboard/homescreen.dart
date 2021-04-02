@@ -105,44 +105,21 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   fillArrayList() {
-    fashionBaseList.state.listItems = Container(
-      height: double.infinity,
+    fashionBaseList.state.listItems = GridView.count(
+      // physics: ,
       padding: EdgeInsets.only(
-        top: getSize(20),
+        bottom: 10,
+        right: 30,
+        left: 30,
+        top: 10,
       ),
-      // padding: EdgeInsets.all(30),
-      width: double.infinity,
-      // height: getSize(200),
-      decoration: BoxDecoration(
-          color: ColorConstants.backGroundColor,
-          boxShadow: [
-            new BoxShadow(
-              // color: Colors.white,
-              color: Color(0xff0000001A),
-              offset: Offset(0, -6),
-              blurRadius: 10.0,
-            ),
-          ],
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(35),
-            topRight: Radius.circular(35),
-          )),
-      child: GridView.count(
-        // physics: ,
-        padding: EdgeInsets.only(
-          bottom: 10,
-          right: 30,
-          left: 30,
-          top: 10,
-        ),
-        shrinkWrap: true,
-        crossAxisCount: 3,
-        mainAxisSpacing: 25,
-        crossAxisSpacing: 23,
-        children: List.generate(cateName.length, (index) {
-          return getItemWidget(cateName[index]);
-        }),
-      ),
+      shrinkWrap: true,
+      crossAxisCount: 3,
+      mainAxisSpacing: 25,
+      crossAxisSpacing: 23,
+      children: List.generate(cateName.length, (index) {
+        return getItemWidget(cateName[index]);
+      }),
     );
   }
 
@@ -288,7 +265,30 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           // backgroundColor: Color(0xffFAFAFA),
           // bottomNavigationBar: bottomNavigator(),
-          body: fashionBaseList,
+          body : Container(
+      height: double.infinity,
+      padding: EdgeInsets.only(
+        top: getSize(20),
+      ),
+      // padding: EdgeInsets.all(30),
+      width: double.infinity,
+      // height: getSize(200),
+      decoration: BoxDecoration(
+          color: ColorConstants.backGroundColor,
+          boxShadow: [
+            new BoxShadow(
+              // color: Colors.white,
+              color: Color(0xff0000001A),
+              offset: Offset(0, -6),
+              blurRadius: 10.0,
+            ),
+          ],
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(35),
+            topRight: Radius.circular(35),
+          )),
+      child: fashionBaseList,
+    ),
         ),
       ),
     );

@@ -50,6 +50,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
   //   super.initState();
   //   FocusScope.of(context).requestFocus(firstNameFocus);
   // }
+@override
+void dispose(){
+  emailController.dispose();
+  passwordController.dispose();
+  mobileController.dispose();
+  firstNameController.dispose();
+  lastNameController.dispose();
+  firstNameFocus.dispose();
+  lastNameFocus.dispose();
+  emailFocus.dispose();
+  passwordFocus.dispose();
+  FocusScope.of(context).dispose();
+  super.dispose();
+}
 
   @override
   Widget build(BuildContext context) {
