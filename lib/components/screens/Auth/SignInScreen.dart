@@ -53,7 +53,7 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).requestFocus(emailFocus);
+        FocusScope.of(context).unfocus();
       },
       child: SafeArea(
         child: Scaffold(

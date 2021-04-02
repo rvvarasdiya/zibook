@@ -70,7 +70,7 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).requestFocus(new FocusNode());
+        FocusScope.of(context).unfocus();
       },
       child: Scaffold(
         backgroundColor: ColorConstants.backGroundColor,

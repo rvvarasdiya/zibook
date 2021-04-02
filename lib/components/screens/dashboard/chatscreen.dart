@@ -85,25 +85,16 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   fillArrayList() {
-    businessEnquiryBaseList.state.listItems = Container(
-      height: double.infinity,
-      margin: EdgeInsets.only(top: getSize(10)),
-      padding: EdgeInsets.only(top: getSize(10)),
-      decoration: BoxDecoration(
-          color: ColorConstants.backGroundColor,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(35), topRight: Radius.circular(35))),
-      child: ListView.builder(
-        padding: EdgeInsets.symmetric(
-            vertical: getSize(10), horizontal: getSize(15)),
-        shrinkWrap: true,
-        itemCount: businessEnquiryBaseList.state.listCount,
-        itemBuilder: (BuildContext context, int index) {
-          Business business = arrList[index];
-          return getItemWidget(business, index);
-          // return Text("hello");
-        },
-      ),
+    businessEnquiryBaseList.state.listItems = ListView.builder(
+      padding:
+          EdgeInsets.symmetric(vertical: getSize(10), horizontal: getSize(15)),
+      shrinkWrap: true,
+      itemCount: businessEnquiryBaseList.state.listCount,
+      itemBuilder: (BuildContext context, int index) {
+        Business business = arrList[index];
+        return getItemWidget(business, index);
+        // return Text("hello");
+      },
     );
   }
 
@@ -217,17 +208,18 @@ class _ChatScreenState extends State<ChatScreen> {
                       width: getSize(40),
                       height: getSize(40),
                       decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(userIcon),
+                        image: DecorationImage(
+                          image: AssetImage(userIcon),
+                        ),
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          new BoxShadow(
+                            color: ColorConstants.getShadowColor,
+                            offset: Offset(0, 5),
+                            blurRadius: 5.0,
                           ),
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            new BoxShadow(
-                              color: ColorConstants.getShadowColor,
-                              offset: Offset(0, 5),
-                              blurRadius: 5.0,
-                            ),
-                          ]),
+                        ],
+                      ),
 
                       // NetworkImage('https://via.placeholder.com/150'),
                     ),
@@ -238,7 +230,19 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ),
       ),
-      body: businessEnquiryBaseList,
+      body: Container(
+        height: double.infinity,
+        margin: EdgeInsets.only(top: getSize(10)),
+        padding: EdgeInsets.only(top: getSize(10)),
+        decoration: BoxDecoration(
+          color: ColorConstants.backGroundColor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(35),
+            topRight: Radius.circular(35),
+          ),
+        ),
+        child: businessEnquiryBaseList,
+      ),
     );
   }
 }

@@ -42,9 +42,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     style: appTheme.white16BoldTextStyle,
                   ),
                   GestureDetector(
-                    onTap: (){
-                     widget._drawerKey.currentState.openEndDrawer();
-                    } ,
+                    onTap: () {
+                      widget._drawerKey.currentState.openEndDrawer();
+                    },
                     child: Container(
                       width: getSize(40),
                       height: getSize(40),
@@ -71,123 +71,122 @@ class _NotificationScreenState extends State<NotificationScreen> {
         ),
       ),
       body: Container(
-          height: double.infinity,
-          decoration: BoxDecoration(
-              // color: Color(0xffFAFAFA),
-              color: Colors.white,
-              boxShadow: [
-                new BoxShadow(
-                  // color: appTheme.colorPrimary
-                  color: Color(0xff0000001A),
-                  offset: Offset(0, -6),
-                  blurRadius: 10.0,
-                ),
-              ],
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(35),
-                topRight: Radius.circular(35),
-              )),
-          child:
+        height: double.infinity,
+        decoration: BoxDecoration(
+          // color: Color(0xffFAFAFA),
+          color: Colors.white,
+          boxShadow: [
+            new BoxShadow(
+              // color: appTheme.colorPrimary
+              color: Color(0xff0000001A),
+              offset: Offset(0, -6),
+              blurRadius: 10.0,
+            ),
+          ],
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(35),
+            topRight: Radius.circular(35),
+          ),
+        ),
+        child:
 
-              ///------ Empty Screen
-              //  Center(
-              //   child: Image.asset(
-              //     emptyNotification,
-              //     width: getSize(315),
-              //     height: getSize(274),
-              //   ),
-              // ),
+            ///------ Empty Screen
+            //  Center(
+            //   child: Image.asset(
+            //     emptyNotification,
+            //     width: getSize(315),
+            //     height: getSize(274),
+            //   ),
+            // ),
 
-              ListView.builder(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: getSize(30),
-                    vertical: getSize(25),
+            ListView.builder(
+          cacheExtent: 1000,
+          padding: EdgeInsets.symmetric(
+            horizontal: getSize(30),
+            vertical: getSize(25),
+          ),
+          itemCount: 4,
+          itemBuilder: (context, index) {
+            return Container(
+              margin: EdgeInsets.symmetric(vertical: getSize(15)),
+              padding: EdgeInsets.all(getSize(10)),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xff6E6E6E33),
+                    // spreadRadius: 5,
+                    blurRadius: 5,
+                    // offset: Offset(0, 3), // changes position of shadow
                   ),
-                  itemCount: 4,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: EdgeInsets.symmetric(vertical: getSize(15)),
-                      padding: EdgeInsets.all(getSize(10)),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0xff6E6E6E33),
-                            // spreadRadius: 5,
-                            blurRadius: 5,
-                            // offset: Offset(0, 3), // changes position of shadow
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: getSize(70),
-                            height: getSize(70),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0xff6E6E6E33),
-                                  // spreadRadius: 5,
-                                  blurRadius: 1,
-                                  // offset: Offset(0, 3), // changes position of shadow
-                                ),
-                              ],
+                ],
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: getSize(70),
+                    height: getSize(70),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0xff6E6E6E33),
+                          // spreadRadius: 5,
+                          blurRadius: 1,
+                          // offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: Image.asset(userIcon),
+                  ),
+                  SizedBox(
+                    height: getSize(20),
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 5, left: 10),
+                              child: Text(
+                                "Business Name",
+                                style: appTheme.black16BoldTextStyle,
+                              ),
                             ),
-                            child: Image.asset(userIcon),
+                            Text(
+                              "Show",
+                              style: TextStyle(
+                                  color: appTheme.colorPrimary,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Karla',
+                                  fontSize: 12),
+                            )
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, top: 5),
+                          child: Text(
+                            "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                            style: appTheme.black14RegularTextStyle.copyWith(
+                                fontSize: 12, color: Color(0xff6E7073)),
                           ),
-                          SizedBox(
-                            height: getSize(20),
-                          ),
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 5, left: 10),
-                                      child: Text(
-                                        "Business Name",
-                                        style: appTheme.black16BoldTextStyle,
-                                      ),
-                                    ),
-                                    Text(
-                                      "Show",
-                                      style: TextStyle(
-                                          color: appTheme.colorPrimary,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Karla',
-                                          fontSize: 12),
-                                    )
-                                  ],
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 10, top: 5),
-                                  child: Text(
-                                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-                                    style: appTheme.black14RegularTextStyle
-                                        .copyWith(
-                                            fontSize: 12,
-                                            color: Color(0xff6E7073)),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    );
-                  })),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }

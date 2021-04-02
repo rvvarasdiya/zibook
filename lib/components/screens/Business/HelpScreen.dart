@@ -73,6 +73,7 @@ class _HelpScreenState extends State<HelpScreen> {
               topRight: Radius.circular(35)
             ), color: Colors.white),
         child: ListView.builder(
+          cacheExtent: 1000,
           padding: EdgeInsets.symmetric(
               horizontal: getSize(30), vertical: getSize(30)),
           itemCount: helpScreenModelList.length,

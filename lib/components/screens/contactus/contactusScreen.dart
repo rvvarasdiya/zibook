@@ -86,6 +86,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                     topRight: Radius.circular(35),
                   )),
               child: ListView(
+                cacheExtent: 1000,
                 shrinkWrap: true,
                 children: [
                   SizedBox(

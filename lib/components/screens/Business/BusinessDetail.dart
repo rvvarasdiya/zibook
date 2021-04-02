@@ -81,6 +81,7 @@ class _BusinessDetailScreenState extends State<BusinessDetailScreen> {
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(35), topRight: Radius.circular(35))),
       child: ListView.builder(
+        cacheExtent: 1000,
         padding: EdgeInsets.symmetric(
             vertical: getSize(15), horizontal: getSize(15)),
         shrinkWrap: true,

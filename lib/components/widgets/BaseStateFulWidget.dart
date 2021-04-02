@@ -47,7 +47,7 @@ abstract class StatefulScreenWidgetState extends State<StatefulScreenWidget> {
     } else {
       // if (Platform.isIOS) {
       changeStatusColor(
-        appTheme.colorPrimary,
+        BaseTheme().colorPrimary,
       );
       // } else {
       //   changeStatusColor(

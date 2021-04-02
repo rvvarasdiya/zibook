@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:zaviato/app/Helper/Themehelper.dart';
 import 'package:zaviato/app/constant/ColorConstant.dart';
 import 'package:zaviato/app/utils/pref_utils.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
@@ -54,11 +55,12 @@ class ThemeSettingsModel extends ChangeNotifier {
     if (isLogin) {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
           systemNavigationBarColor: ColorConstants.black,
-          statusBarColor: ColorConstants.introgrey));
+          statusBarColor:  darken(BaseTheme().colorPrimary)));
     } else {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
           systemNavigationBarColor: ColorConstants.black,
-          statusBarColor: darken(appTheme.accentColor, 0.2)));
+          statusBarColor: darken(BaseTheme().colorPrimary)));
+      
     }
   }
 
