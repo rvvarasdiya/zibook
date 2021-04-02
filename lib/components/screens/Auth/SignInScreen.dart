@@ -56,6 +56,7 @@ void dispose(){
   emailFocus.dispose();
   passwordFocus.dispose();
   super.dispose();
+  // dispose
 }
   @override
   Widget build(BuildContext context) {
