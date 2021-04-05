@@ -81,5 +81,8 @@ class ApiConstants {
   
   //logout
   static const String logoutApi = commonUrl + "common/user/logout";
+  
+  //delete business
+  static const String deleteBusinessApi = customerCommonUrl + "/business/remove/{id}";
 
 }
