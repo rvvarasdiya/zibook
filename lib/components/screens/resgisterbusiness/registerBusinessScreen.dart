@@ -31,6 +31,8 @@ class RegisterBusinessScreen extends StatefulWidget {
 
 class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
   TextEditingController businessNameController = TextEditingController();
+  TextEditingController businessAddressController = TextEditingController();
+  TextEditingController businessPostcodeController = TextEditingController();
   TextEditingController businessEmailController = TextEditingController();
   TextEditingController businessMobileController = TextEditingController();
   TextEditingController businessDescController = TextEditingController();
@@ -39,6 +41,8 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
   TextEditingController businessCityController = TextEditingController();
 
   FocusNode businessNameFocus = FocusNode();
+  FocusNode businessAddressFocus = FocusNode();
+  FocusNode businessPostcodeFocus = FocusNode();
   FocusNode businessEmailFocus = FocusNode();
   FocusNode businessMobileFocus = FocusNode();
   FocusNode businessDescFocus = FocusNode();
@@ -46,6 +50,8 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
   final _formKey = GlobalKey<FormState>();
 
   bool _isBusinessNameValid = true;
+  bool _isBusinessAddressValid = true;
+  bool _isBusinessPostcodeValid = true;
   bool _isBusinessEmailValid = false;
   bool _isBusinessMobileNumberValid = true;
   bool _isbusinessDescriptionValid = true;
@@ -452,6 +458,102 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
 
                 ),
               ),
+               SizedBox(
+                height: getSize(20),
+              ),
+              CommonTextfield(
+                  onNextPress: () {
+                    FocusScope.of(context).requestFocus(businessAddressFocus);
+                  },
+                  focusNode: businessAddressFocus,
+                  inputAction: TextInputAction.next,
+                  textOption: TextFieldOption(
+                    hintText: "Business Address",
+                    hintStyleText: appTheme.black16BoldTextStyle,
+                    inputController: businessAddressController,
+                    keyboardType: TextInputType.text,
+                    errorBorder: _isBusinessAddressValid
+                        ? null
+                        : OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(11)),
+                            borderSide: BorderSide(width: 1, color: Colors.red),
+                          ),
+                  ),
+                  textCallback: (text) {
+                    if (_autoValidate) {
+                      if (text.isEmpty) {
+                        setState(() {
+                          _isBusinessAddressValid = false;
+                        });
+                      } else {
+                        setState(() {
+                          _isBusinessAddressValid = true;
+                        });
+                      }
+                    }
+                  },
+                  validation: (text) {
+                    if (text.isEmpty) {
+                      _isBusinessAddressValid = false;
+                      return "Enter business address";
+                    } else {
+                      return null;
+                    }
+                  }),
+              SizedBox(
+                height: getSize(20),
+              ),
+               
+              CommonTextfield(
+                  focusNode: businessPostcodeFocus,
+                  inputAction: TextInputAction.next,
+                  onNextPress: () =>
+                      FocusScope.of(context).requestFocus(businessPostcodeFocus),
+                  textOption: TextFieldOption(
+                      keyboardType: TextInputType.number,
+                      hintText: "Business Postal Code",
+                      formatter: [
+                        ValidatorInputFormatter(
+                            editingValidator:
+                                DecimalNumberEditingRegexValidator(6)),
+                      ],
+                      hintStyleText: appTheme.black16BoldTextStyle,
+                      errorBorder: _isBusinessPostcodeValid
+                          ? null
+                          : OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(11)),
+                              borderSide:
+                                  BorderSide(width: 1, color: Colors.red),
+                            ),
+                      inputController: businessPostcodeController),
+                  textCallback: (text) {
+                    if (_autoValidate) {
+                      if (text.isEmpty) {
+                        setState(() {
+                          _isBusinessPostcodeValid = false;
+                        });
+                      } else if (!validateMobile(text)) {
+                        print("mobile lenghth  --");
+                        setState(() {
+                          _isBusinessPostcodeValid = false;
+                        });
+                      } else {
+                        setState(() {
+                          _isBusinessPostcodeValid = true;
+                        });
+                      }
+                    }
+                  },
+                  validation: (text) {
+                    if (text.isEmpty) {
+                      _isBusinessPostcodeValid = false;
+                      return "Enter business Postal code";
+                    } else {
+                      return null;
+                    }
+                  }),
+              
               SizedBox(
                 height: getSize(50),
               ),
@@ -546,8 +648,8 @@ class _RegisterBusinessScreenState extends State<RegisterBusinessScreen> {
       }
     }
 
-    contactUsReq.address = "c1/405 vrajbhumi";
-    contactUsReq.postalCode = "395006";
+    contactUsReq.address = businessAddressController.text;
+    contactUsReq.postalCode = businessPostcodeController.text;
 
     NetworkCall<BaseApiResp>()
         .makeCall(

@@ -18,9 +18,8 @@ import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/screens/Auth/SignInScreen.dart';
-import 'package:zaviato/components/widgets/pinView_textFields/decoration/pin_decoration.dart';
-import 'package:zaviato/components/widgets/pinView_textFields/pin_widget.dart';
-import 'package:zaviato/components/widgets/pinView_textFields/style/obscure.dart';
+import 'package:zaviato/components/widgets/models/pin_theme.dart';
+import 'package:zaviato/components/widgets/pin_code_fields.dart';
 import 'package:zaviato/components/widgets/shared/buttons.dart';
 
 import '../../../main.dart';
@@ -69,7 +68,7 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
   bool isResend = false;
   bool autoFocus = true;
   bool isApiCall = false;
-
+static const defaultcolor = Color(0xff4A89DC);
   @override
   void initState() {
    if(this.mounted){
@@ -121,7 +120,57 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
               SizedBox(
                 height: getSize(40),
               ),
-              getPinViewOTP(),
+              // getPinViewOTP(),
+
+              Padding(
+                    padding:  EdgeInsets.only(left: getSize(33), top: getSize(20,),
+                      right: getSize(33),
+                    ),
+                    child: PinCodeTextField(
+                      controller: _pinEditingController,
+                      appContext: context,
+                      length: 6,
+                      animationType: AnimationType.fade,
+                      keyboardType: TextInputType.number,
+                      textStyle:
+                      TextStyle(fontSize: getSize(20)),
+                      pinTheme: PinTheme(
+                        activeColor: defaultcolor.withOpacity(0.7),
+                        inactiveColor:  defaultcolor.withOpacity(0.7),
+                        selectedColor:  defaultcolor.withOpacity(0.7),
+                        shape: PinCodeFieldShape.underline,
+                        // borderRadius: BorderRadius.circular(5),
+                        fieldHeight: 30,
+                        fieldWidth: 35,
+                        borderWidth: 1,
+                        activeFillColor: Colors.white,
+                      ),
+                      animationDuration: Duration(milliseconds: 300),
+
+//                              enableActiveFill: true,
+
+                      // controller: pinCodeController,
+                      onCompleted: (v) {
+                        print("Completed");
+                      _pinEditingController.text = v;
+                        // otp = v;
+                      },
+                      onChanged: (value) {
+                        print(value);
+                        // otp = value;
+                        setState(() {
+                          print(value);
+                        });
+                      },
+                      beforeTextPaste: (text) {
+                        print("Allowing to paste $text");
+                        //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
+                        //but you can show anything you want here, like your pop up saying wrong paste format or etc
+                        return true;
+                      },
+                    ),
+                  ),
+                
               _start > 0
                   ? Align(
                       alignment: Alignment.bottomRight,
@@ -452,96 +501,97 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
     );
   }
 
-  Widget getPinViewOTP() {
-    return PinInputTextFormField(
-        key: pinFormKey,
-        pinLength: 6,
-        decoration: BoxLooseDecoration(
-    strokeColor: isOtpCheck
-        ? appTheme.grayColor
-        : isOtpTrue
-            ? appTheme.colorPrimary.withOpacity(0.7)
-            : appTheme.redColor.withOpacity(0.7),
-    gapSpace: getSize(10),
-    strokeWidth: getSize(1.5),
-    radius: Radius.circular(
-      getSize(10),
-    ),
+  // Widget getPinViewOTP() {
+  //   return PinInputTextFormField(
+  //       key: pinFormKey,
+  //       pinLength: 6,
+  //       decoration: BoxLooseDecoration(
+  //   strokeColor: isOtpCheck
+  //       ? appTheme.grayColor
+  //       : isOtpTrue
+  //           ? appTheme.colorPrimary.withOpacity(0.7)
+  //           : appTheme.redColor.withOpacity(0.7),
+  //   gapSpace: getSize(10),
+  //   strokeWidth: getSize(1.5),
+  //   radius: Radius.circular(
+  //     getSize(10),
+  //   ),
     
-    solidColor: isOtpCheck
-        ? appTheme.colorPrimary.withOpacity(0.1)
-        : isOtpTrue
-            ? appTheme.colorPrimary.withOpacity(0.7)
-            : appTheme.redColor.withOpacity(0.7),
-    textStyle: appTheme.getLabelStyle.copyWith(fontSize: getSize(20)),
-    errorTextStyle: appTheme.errorLabelStyle.copyWith(
-      color: isOtpCheck
-          ? appTheme.grayColor
-          : isOtpTrue
-              ? appTheme.colorPrimary.withOpacity(0.7)
-              : appTheme.redColor.withOpacity(0.7),
-    ),
+  //   solidColor: isOtpCheck
+  //       ? appTheme.colorPrimary.withOpacity(0.1)
+  //       : isOtpTrue
+  //           ? appTheme.colorPrimary.withOpacity(0.7)
+  //           : appTheme.redColor.withOpacity(0.7),
+  //   textStyle: appTheme.getLabelStyle.copyWith(fontSize: getSize(20)),
+  //   errorTextStyle: appTheme.errorLabelStyle.copyWith(
+  //     color: isOtpCheck
+  //         ? appTheme.grayColor
+  //         : isOtpTrue
+  //             ? appTheme.colorPrimary.withOpacity(0.7)
+  //             : appTheme.redColor.withOpacity(0.7),
+  //   ),
 
-    obscureStyle: ObscureStyle(
-      isTextObscure: false,
-    ),
-    hintText: '000000',
-    // hintTextStyle: appTheme.black16RegularTextStyle
-        ),
-        controller: _pinEditingController,
-        textInputAction: TextInputAction.done,
-        enabled: true,
-        inputFormatter: [
-    BlacklistingTextInputFormatter(RegExp(RegexForEmoji)),
-    ValidatorInputFormatter(
-      editingValidator: DecimalNumberEditingRegexValidator(6),
-    ),
-        ],
-        keyboardType: TextInputType.number,
-        autovalidate: true,
-        onSubmit: (pin) {
-    // setState(() {});
-    // if (_formKey.currentState.validate()) {
-    //   _formKey.currentState.save();
-    //   if (pin.trim().length != 4) {
-    //     isOtpTrue = false;
-    //     isOtpCheck = false;
-    //     showOTPMsg = "Please enter OTP";
-    //   } else if (pin.trim().length == 4) {
-    //     FocusScope.of(context).unfocus();
-    //     callApiForVerifyingOtp();
-    //   }
-    // } else {
-    //   setState(() {
-    //     isOtpCheck = false;
-    //     isOtpTrue = false;
-    //   });
-    // }
-        },
-        validator: (text) {
-    // if (text.isEmpty) {
-    //   isOtpValid = false;
-    //   return "Enter Otp";
-    // }
-    // /* else if(!validateStructure(text)) {
-    //       return R.string().errorString.wrongPassword;
-    //     } */
-    // else {
-    //   return null;
-    // }
-        },
-        onChanged: (pin) {
-    setState(() {
-      isOtpCheck = true;
-    });
-    // if (pin.trim().length < 4) {
-    //   showOTPMsg = null;
-    //   isOtpTrue = false;
-    // } else if (pin.trim().length == 4) {
-    //   callApiForVerifyingOtp();
-    // }
-    // setState(() {});
-        },
-      );
-  }
+  //   obscureStyle: ObscureStyle(
+  //     isTextObscure: false,
+  //   ),
+  //   hintText: '000000',
+  //   // hintTextStyle: appTheme.black16RegularTextStyle
+  //       ),
+  //       controller: _pinEditingController,
+  //       textInputAction: TextInputAction.done,
+  //       enabled: true,
+  //       inputFormatter: [
+  //   BlacklistingTextInputFormatter(RegExp(RegexForEmoji)),
+  //   ValidatorInputFormatter(
+  //     editingValidator: DecimalNumberEditingRegexValidator(6),
+  //   ),
+  //       ],
+  //       keyboardType: TextInputType.number,
+  //       autovalidate: true,
+  //       onSubmit: (pin) {
+  //   // setState(() {});
+  //   // if (_formKey.currentState.validate()) {
+  //   //   _formKey.currentState.save();
+  //   //   if (pin.trim().length != 4) {
+  //   //     isOtpTrue = false;
+  //   //     isOtpCheck = false;
+  //   //     showOTPMsg = "Please enter OTP";
+  //   //   } else if (pin.trim().length == 4) {
+  //   //     FocusScope.of(context).unfocus();
+  //   //     callApiForVerifyingOtp();
+  //   //   }
+  //   // } else {
+  //   //   setState(() {
+  //   //     isOtpCheck = false;
+  //   //     isOtpTrue = false;
+  //   //   });
+  //   // }
+  //       },
+  //       validator: (text) {
+  //   // if (text.isEmpty) {
+  //   //   isOtpValid = false;
+  //   //   return "Enter Otp";
+  //   // }
+  //   // /* else if(!validateStructure(text)) {
+  //   //       return R.string().errorString.wrongPassword;
+  //   //     } */
+  //   // else {
+  //   //   return null;
+  //   // }
+  //       },
+  //       onChanged: (pin) {
+  //   setState(() {
+  //     isOtpCheck = true;
+  //   });
+  //   // if (pin.trim().length < 4) {
+  //   //   showOTPMsg = null;
+  //   //   isOtpTrue = false;
+  //   // } else if (pin.trim().length == 4) {
+  //   //   callApiForVerifyingOtp();
+  //   // }
+  //   // setState(() {});
+  //       },
+  //     );
+  // }
+
 }

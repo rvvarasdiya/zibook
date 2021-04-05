@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
+import 'package:zaviato/app/constant/ColorConstant.dart';
 import 'package:zaviato/app/constant/ImageConstant.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
@@ -169,46 +170,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         //   height: getSize(10),
                         // ),
 
-                        //------------------ help
-                        GestureDetector(
-                          onTap: () {
-                            NavigationUtilities.pushRoute(HelpScreen.route);
-                          },
-                          child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  helpIcon,
-                                  width: getSize(23),
-                                  height: getSize(23),
-                                ),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                Expanded(
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("Help",
-                                          style: appTheme.black16BoldTextStyle),
-                                      IconButton(
-                                          icon: Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: Colors.black,
-                                          ),
-                                          iconSize: getSize(18),
-                                          onPressed: null)
-                                    ],
-                                  ),
-                                )
-                              ]),
-                        ),
-                        // SizedBox(
-                        //   height: getSize(10),
-                        // ),
+                       
 
                         // ------------ Share App
                         InkWell(
@@ -302,11 +264,12 @@ class _SettingScreenState extends State<SettingScreen> {
                           child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  helpIcon,
-                                  width: getSize(23),
-                                  height: getSize(23),
-                                ),
+                                Icon(Icons.favorite_border,size: getSize(25),color: Colors.black87,),
+                                // Image.asset(
+                                //   helpIcon,
+                                //   width: getSize(23),
+                                //   height: getSize(23),
+                                // ),
                                 SizedBox(
                                   width: 15,
                                 ),

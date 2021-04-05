@@ -190,6 +190,20 @@ class Business {
     }
     return mobileNumber;
   }
+
+  getEmailName(Business businessModel) {
+    String emailAdd = "";
+
+    for (var email in businessModel.emails) {
+      if (email.isPrimary) {
+        if (!isNullEmptyOrFalse(email.email)) {
+          emailAdd = email.email;
+          break;
+        }
+      }
+    }
+    return emailAdd;
+  }
 }
 
 class Mobiles {

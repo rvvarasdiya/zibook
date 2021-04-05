@@ -294,7 +294,9 @@ class _BusinessViewState extends State<BusinessView> {
                     width: getSize(130),
                     child: AppButton.flat(
                       onTap: () {
-                        NavigationUtilities.pushRoute(BusinessEdit.route);
+                        Map<String,dynamic> args = {};
+                        args["model"] = businessModel;
+                        NavigationUtilities.pushRoute(BusinessEdit.route,args : args);
                       },
                       text: "Edit",
                       textSize: 12,

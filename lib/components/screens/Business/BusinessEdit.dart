@@ -8,8 +8,20 @@ import 'package:zaviato/app/utils/CommonWidgets.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/widgets/shared/buttons.dart';
+import 'package:zaviato/models/mybusiness/MyBusinessRes.dart';
 
 class BusinessEdit extends StatefulWidget {
+  Business model;
+  BusinessEdit({Map<String, dynamic> arguments}) {
+    if (!isNullEmptyOrFalse(arguments)) {
+      // if (!isNullEmptyOrFalse(arguments["moduleType"])) {
+      //   moduleType = arguments["moduleType"];
+      // }
+      if (!isNullEmptyOrFalse(arguments["model"])) {
+        model = arguments["model"];
+      }
+    }
+  }
   static const route = "BusinessEdit";
   @override
   _BusinessEditState createState() => _BusinessEditState();
@@ -27,11 +39,11 @@ class _BusinessEditState extends State<BusinessEdit> {
   FocusNode businessEmailNode = new FocusNode();
   FocusNode businessMobileNumberNode = new FocusNode();
   FocusNode businessDescriptionNode = new FocusNode();
-  
-  bool editBusinessName =false;
-  bool editBusinessEmail =false;
-  bool editBusinessMobile =false;
-  bool editBusinessDesc =false;
+
+  bool editBusinessName = false;
+  bool editBusinessEmail = false;
+  bool editBusinessMobile = false;
+  bool editBusinessDesc = false;
 
   final _formKey = GlobalKey<FormState>();
   bool _isBusinessNameValid = true;
@@ -41,29 +53,36 @@ class _BusinessEditState extends State<BusinessEdit> {
   bool _autoValidate = false;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    businessNameController.text = widget.model.name;
+    businessEmailController.text = widget.model.getEmailName(widget.model);
+    businessMobileNumberController.text =
+        widget.model.getMobileName(widget.model);
+    businessDescriptionController.text = "It is dummy description";
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
-          child: Scaffold(
-            // resizeToAvoidBottomPadding: false,
-            resizeToAvoidBottomInset: true,
-            backgroundColor: appTheme.colorPrimary,
+      child: Scaffold(
+        // resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: true,
+        backgroundColor: appTheme.colorPrimary,
         body: Stack(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only(top : getSize(20),left: 30,right:30),
+              padding: EdgeInsets.only(top: getSize(20), left: 10, right: 30),
               height: getSize(100),
               width: double.infinity,
-              decoration: BoxDecoration(
-               color: appTheme.colorPrimary
-              ),
+              decoration: BoxDecoration(color: appTheme.colorPrimary),
               child: Column(
                 children: <Widget>[
                   Row(
                     // crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      getBackButton(context,
-                      isWhite: true
-                      ),
+                      getBackButton(context, isWhite: true),
                       SizedBox(
                         width: getSize(10),
                       ),
@@ -134,22 +153,22 @@ class _BusinessEditState extends State<BusinessEdit> {
                               enable: editBusinessName,
                               focusNode: businessNameNode,
                               textOption: TextFieldOption(
-                                  hintText: "Business Name",
-                                  maxLine: 1,
-                                  keyboardType: TextInputType.text,
-                                  inputController: businessNameController,
-                                  errorBorder: _isBusinessNameValid
-                                      ? null
-                                      : OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.all(Radius.circular(11)),
-                                          borderSide: BorderSide(
-                                              width: 1, color: Colors.red),
-                                        ),
-                                
-                                  //   formatter: [ValidatorInputFormatter(
-                                  // editingValidator: DecimalNumberEditingRegexValidator(10)),]
-                                  ),
+                                hintText: "Business Name",
+                                maxLine: 1,
+                                keyboardType: TextInputType.text,
+                                inputController: businessNameController,
+                                errorBorder: _isBusinessNameValid
+                                    ? null
+                                    : OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(11)),
+                                        borderSide: BorderSide(
+                                            width: 1, color: Colors.red),
+                                      ),
+
+                                //   formatter: [ValidatorInputFormatter(
+                                // editingValidator: DecimalNumberEditingRegexValidator(10)),]
+                              ),
                               inputAction: TextInputAction.next,
                               // onNextPress: () {
                               //   FocusScope.of(context)
@@ -178,14 +197,15 @@ class _BusinessEditState extends State<BusinessEdit> {
                                 }
                               },
                             ),
-                           Positioned(
+                            Positioned(
                               bottom: 8,
                               right: 0,
                               child: GestureDetector(
                                 onTap: () {
                                   setState(() {
                                     editBusinessName = true;
-                                     FocusScope.of(context).requestFocus(businessNameNode);
+                                    FocusScope.of(context)
+                                        .requestFocus(businessNameNode);
                                   });
                                 },
                                 child: Container(
@@ -201,7 +221,6 @@ class _BusinessEditState extends State<BusinessEdit> {
                                 ),
                               ),
                             ),
-                         
                           ],
                         ),
                       ),
@@ -213,22 +232,22 @@ class _BusinessEditState extends State<BusinessEdit> {
                               enable: editBusinessEmail,
                               focusNode: businessEmailNode,
                               textOption: TextFieldOption(
-                                  hintText: "Business Email",
-                                  maxLine: 1,
-                                  keyboardType: TextInputType.text,
-                                  inputController: businessEmailController,
-                                  errorBorder: _isBusinessEmailValid
-                                      ? null
-                                      : OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.all(Radius.circular(11)),
-                                          borderSide: BorderSide(
-                                              width: 1, color: Colors.red),
-                                        ),
-                                  // postfixWid: Icon(Icons.edit)
-                                  //   formatter: [ValidatorInputFormatter(
-                                  // editingValidator: DecimalNumberEditingRegexValidator(10)),]
-                                  ),
+                                hintText: "Business Email",
+                                maxLine: 1,
+                                keyboardType: TextInputType.text,
+                                inputController: businessEmailController,
+                                errorBorder: _isBusinessEmailValid
+                                    ? null
+                                    : OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(11)),
+                                        borderSide: BorderSide(
+                                            width: 1, color: Colors.red),
+                                      ),
+                                // postfixWid: Icon(Icons.edit)
+                                //   formatter: [ValidatorInputFormatter(
+                                // editingValidator: DecimalNumberEditingRegexValidator(10)),]
+                              ),
                               inputAction: TextInputAction.next,
                               // onNextPress: () {
                               //   FocusScope.of(context)
@@ -257,14 +276,15 @@ class _BusinessEditState extends State<BusinessEdit> {
                                 }
                               },
                             ),
-                           Positioned(
+                            Positioned(
                               bottom: 8,
                               right: 0,
                               child: GestureDetector(
                                 onTap: () {
                                   setState(() {
                                     editBusinessEmail = true;
-                                     FocusScope.of(context).requestFocus(businessEmailNode);
+                                    FocusScope.of(context)
+                                        .requestFocus(businessEmailNode);
                                   });
                                 },
                                 child: Container(
@@ -280,7 +300,6 @@ class _BusinessEditState extends State<BusinessEdit> {
                                 ),
                               ),
                             ),
-                         
                           ],
                         ),
                       ),
@@ -299,15 +318,16 @@ class _BusinessEditState extends State<BusinessEdit> {
                                 errorBorder: _isBusinessMobileNumberValid
                                     ? null
                                     : OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.all(Radius.circular(11)),
-                                        borderSide:
-                                            BorderSide(width: 1, color: Colors.red),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(11)),
+                                        borderSide: BorderSide(
+                                            width: 1, color: Colors.red),
                                       ),
                                 formatter: [
                                   ValidatorInputFormatter(
                                       editingValidator:
-                                          DecimalNumberEditingRegexValidator(10)),
+                                          DecimalNumberEditingRegexValidator(
+                                              10)),
                                 ],
                                 // postfixWid: Icon(Icons.edit),
                               ),
@@ -339,14 +359,15 @@ class _BusinessEditState extends State<BusinessEdit> {
                                 }
                               },
                             ),
-                           Positioned(
+                            Positioned(
                               bottom: 8,
                               right: 0,
                               child: GestureDetector(
                                 onTap: () {
                                   setState(() {
                                     editBusinessMobile = true;
-                                     FocusScope.of(context).requestFocus(businessMobileNumberNode);
+                                    FocusScope.of(context)
+                                        .requestFocus(businessMobileNumberNode);
                                   });
                                 },
                                 child: Container(
@@ -362,7 +383,6 @@ class _BusinessEditState extends State<BusinessEdit> {
                                 ),
                               ),
                             ),
-                         
                           ],
                         ),
                       ),
@@ -381,17 +401,17 @@ class _BusinessEditState extends State<BusinessEdit> {
                                 errorBorder: _isbusinessDescriptionValid
                                     ? null
                                     : OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.all(Radius.circular(11)),
-                                        borderSide:
-                                            BorderSide(width: 1, color: Colors.red),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(11)),
+                                        borderSide: BorderSide(
+                                            width: 1, color: Colors.red),
                                       ),
                                 // postfixWid: Icon(Icons.edit),
                                 //   formatter: [ValidatorInputFormatter(
                                 // editingValidator: DecimalNumberEditingRegexValidator(10)),]
                               ),
                               inputAction: TextInputAction.next,
-                            
+
                               // validation: Validator("Please enter a valid email").email,
                               textCallback: (text) {
                                 if (_autoValidate) {
@@ -415,14 +435,15 @@ class _BusinessEditState extends State<BusinessEdit> {
                                 }
                               },
                             ),
-                          Positioned(
+                            Positioned(
                               bottom: 8,
                               right: 0,
                               child: GestureDetector(
                                 onTap: () {
                                   setState(() {
                                     editBusinessDesc = true;
-                                     FocusScope.of(context).requestFocus(businessDescriptionNode);
+                                    FocusScope.of(context)
+                                        .requestFocus(businessDescriptionNode);
                                   });
                                 },
                                 child: Container(
@@ -438,7 +459,6 @@ class _BusinessEditState extends State<BusinessEdit> {
                                 ),
                               ),
                             ),
-                         
                           ],
                         ),
                       ),

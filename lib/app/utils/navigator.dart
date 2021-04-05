@@ -138,7 +138,7 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       screen = BusinessView();
       break;
     case BusinessEdit.route:
-      screen = BusinessEdit();
+      screen = BusinessEdit(arguments: arguments,);
       break;
     case EditProfileScreen.route:
       screen = EditProfileScreen();
