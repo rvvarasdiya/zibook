@@ -316,7 +316,7 @@ class _NetworkService implements NetworkService {
     final _data = <String, dynamic>{};
     _data.addAll(req?.toJson() ?? <String, dynamic>{});
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        'http://13.234.240.252:5700/api/v1/customer/business/update/{id}',
+        'http://13.234.240.252:5700/api/v1/customer/business/update',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',

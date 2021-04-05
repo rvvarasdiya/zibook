@@ -518,7 +518,7 @@ class _BusinessEditState extends State<BusinessEdit> {
         )
         .then((myBusinessRes) async {})
         .catchError((onError) {
-          print("Error in updte business screen");
+          print("<=====================Error in updte business screen===================>");
 
     });
   }
