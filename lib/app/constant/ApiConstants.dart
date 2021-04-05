@@ -72,6 +72,9 @@ class ApiConstants {
 
   //contact us
   static const String contactUsApi = commonUrl + "common/user/contact-us";
+
+  //Update business
+  static const String updateBusinessApi = customerCommonUrl + "/business/update/{id}";
     
   //city
   static const String getCityApi = customerCommonUrl + "/common/cities-by-state/{id}";
