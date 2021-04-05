@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
+import 'package:zaviato/app/base/BaseApiResp.dart';
 import 'package:zaviato/app/constant/ColorConstant.dart';
 import 'package:zaviato/app/constant/ImageConstant.dart';
+import 'package:zaviato/app/network/NetworkCall.dart';
+import 'package:zaviato/app/network/ServiceModule.dart';
 import 'package:zaviato/app/utils/CommonTextfield.dart';
 import 'package:zaviato/app/utils/CommonWidgets.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/widgets/shared/buttons.dart';
 import 'package:zaviato/models/mybusiness/MyBusinessRes.dart';
+import 'package:zaviato/models/mybusiness/UpdateBusiness.dart';
+
+import '../../../main.dart';
 
 class BusinessEdit extends StatefulWidget {
   Business model;
@@ -56,7 +62,7 @@ class _BusinessEditState extends State<BusinessEdit> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    businessNameController.text = widget.model.name;
+    businessNameController.text = widget.model.name ?? "";
     businessEmailController.text = widget.model.getEmailName(widget.model);
     businessMobileNumberController.text =
         widget.model.getMobileName(widget.model);
@@ -464,12 +470,12 @@ class _BusinessEditState extends State<BusinessEdit> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: getSize(20)),
+                        padding: EdgeInsets.only(top: getSize(40)),
                         child: AppButton.flat(
                           onTap: () {
                             if (_formKey.currentState.validate()) {
                               _formKey.currentState.save();
-                              // callLoginApi(context);
+                              callUpdateBusinesApi(context);
                             } else {
                               setState(() {
                                 _autoValidate = true;
@@ -491,6 +497,30 @@ class _BusinessEditState extends State<BusinessEdit> {
         ),
       ),
     );
+  }
+
+  callUpdateBusinesApi(BuildContext context) {
+
+    UpdateBusinessReq updateBusinessReq = UpdateBusinessReq();
+    updateBusinessReq.name = businessNameController.text ?? "";
+    updateBusinessReq.countryCode = "+91";
+    updateBusinessReq.mobile = businessMobileNumberController.text ?? "";
+
+
+    NetworkCall<BaseApiResp>()
+        .makeCall(
+          () => app
+              .resolve<ServiceModule>()
+              .networkService()
+              .updteBusiness(updateBusinessReq),
+          context,
+          isProgress: true,
+        )
+        .then((myBusinessRes) async {})
+        .catchError((onError) {
+          print("Error in updte business screen");
+
+    });
   }
 
   getProfilePhoto() {

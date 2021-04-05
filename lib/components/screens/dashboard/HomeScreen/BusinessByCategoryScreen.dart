@@ -292,44 +292,7 @@ class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                  top: getSize(15), left: getSize(28), right: getSize(15)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: getSize(10)),
-                    height: getSize(35),
-                    width: getSize(130),
-                    child: AppButton.flat(
-                      onTap: () {
-                        NavigationUtilities.pushRoute(BusinessEdit.route);
-                      },
-                      text: "Edit",
-                      textSize: 12,
-                      icon: OMIcons.edit,
-                      iconSize: getSize(15),
-                      backgroundColor: appTheme.colorPrimary,
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: getSize(10)),
-                    height: getSize(35),
-                    width: getSize(130),
-                    child: AppButton.flat(
-                      onTap: () {},
-                      text: "Delete",
-                      textSize: 12,
-                      icon: Icons.delete_outline,
-                      iconSize: getSize(15),
-                      backgroundColor: appTheme.colorPrimary,
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ],
+                      ],
         ),
       ),
     );

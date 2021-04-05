@@ -13,6 +13,7 @@ import 'package:zaviato/models/RegisterBusiness/RegisterBusiness.dart';
 import 'package:zaviato/models/cities/citiesModel.dart';
 import 'package:zaviato/models/mybusiness/MyBusinessByCategoryRes.dart';
 import 'package:zaviato/models/mybusiness/MyBusinessRes.dart';
+import 'package:zaviato/models/mybusiness/UpdateBusiness.dart';
 import '../app.export.dart';
 part 'NetworkService.g.dart';
 
@@ -57,11 +58,15 @@ abstract class NetworkService {
   Future<MyBusinessRes> getMyBusinesses();
 
   @POST(ApiConstants.businessViewByCategory)
-  Future<MyBusinessByCategoryRes> getBusinessListByCategory(@Path("id") String id);
+  Future<MyBusinessByCategoryRes> getBusinessListByCategory(
+      @Path("id") String id);
 
   @POST(ApiConstants.getCityApi)
   Future<Cities> getAllCity(@Path("id") String id);
 
   @POST(ApiConstants.logoutApi)
   Future<BaseApiResp> logout();
+
+  @POST(ApiConstants.updateBusinessApi)
+  Future<BaseApiResp> updteBusiness(@Body() UpdateBusinessReq req);
 }
