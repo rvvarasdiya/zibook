@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
+import 'package:zaviato/app/base/BaseApiResp.dart';
 import 'package:zaviato/app/base/BaseList.dart';
 import 'package:zaviato/app/constant/ColorConstant.dart';
 import 'package:zaviato/app/constant/EnumConstant.dart';
@@ -306,7 +307,9 @@ class _BusinessViewState extends State<BusinessView> {
                     height: getSize(35),
                     width: getSize(130),
                     child: AppButton.flat(
-                      onTap: () {},
+                      onTap: () {
+                        callDeleteApi(businessModel.sId);
+                      },
                       text: "Delete",
                       textSize: 12,
                       icon: Icons.delete_outline,
@@ -323,6 +326,20 @@ class _BusinessViewState extends State<BusinessView> {
     );
   }
 
+callDeleteApi( String id){
+  
+      NetworkCall<BaseApiResp>()
+          .makeCall(
+        () => app.resolve<ServiceModule>().networkService().removeBusiness(id),
+        context,
+        isProgress: true,
+      )
+          .then((myBusinessRes) async {
+            print("Deleted Successfully!!");
+      }).catchError((onError) {
+        print("Error on delete");
+      });
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(

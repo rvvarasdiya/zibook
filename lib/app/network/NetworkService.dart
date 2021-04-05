@@ -64,4 +64,7 @@ abstract class NetworkService {
 
   @POST(ApiConstants.logoutApi)
   Future<BaseApiResp> logout();
+
+  @POST(ApiConstants.deleteBusinessApi)
+  Future<BaseApiResp> removeBusiness(@Path("id") String id);
 }
