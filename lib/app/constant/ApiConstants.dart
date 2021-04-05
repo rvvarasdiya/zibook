@@ -65,13 +65,16 @@ class ApiConstants {
   static const String registerBusinessApi = customerCommonUrl + "/business/add";
 
   //register business
-  static const String mybusiness = customerCommonUrl + "/business/paginate-my-businesses";
+  static const String mybusiness = customerCommonUrl + "/business/paginate-my-businesses/";
+
+  //List of businesses by category
+  static const String businessViewByCategory = customerCommonUrl + "/business/paginate-by-category/{id}";
 
   //contact us
   static const String contactUsApi = commonUrl + "common/user/contact-us";
     
   //city
-  static const String getCityApi = customerCommonUrl + "/common/cities-by-state/";
+  static const String getCityApi = customerCommonUrl + "/common/cities-by-state/{id}";
   
   //logout
   static const String logoutApi = commonUrl + "common/user/logout";

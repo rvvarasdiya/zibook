@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:zaviato/app/AppConfiguration/AppNavigation.dart';
+import 'package:zaviato/app/Helper/SyncManager.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
 import 'package:zaviato/app/constant/EnumConstant.dart';
 import 'package:zaviato/app/localization/app_locales.dart';
 import 'package:zaviato/app/network/NetworkCall.dart';
 import 'package:zaviato/app/network/ServiceModule.dart';
 import 'package:zaviato/app/utils/CommonTextfield.dart';
+import 'package:zaviato/app/utils/CommonWidgets.dart';
 import 'package:zaviato/app/utils/CustomDialog.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
+import 'package:zaviato/app/utils/pref_utils.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/widgets/shared/buttons.dart';
 import 'package:zaviato/main.dart';
@@ -50,20 +53,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
   //   super.initState();
   //   FocusScope.of(context).requestFocus(firstNameFocus);
   // }
-@override
-void dispose(){
-  emailController.dispose();
-  passwordController.dispose();
-  mobileController.dispose();
-  firstNameController.dispose();
-  lastNameController.dispose();
-  firstNameFocus.dispose();
-  lastNameFocus.dispose();
-  emailFocus.dispose();
-  passwordFocus.dispose();
-  FocusScope.of(context).dispose();
-  super.dispose();
-}
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    mobileController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    firstNameFocus.dispose();
+    lastNameFocus.dispose();
+    emailFocus.dispose();
+    passwordFocus.dispose();
+    FocusScope.of(context).dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +78,14 @@ void dispose(){
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           resizeToAvoidBottomPadding: true,
+          appBar: getAppBar(
+            context,
+            "",
+            leadingButton: Padding(
+              padding: EdgeInsets.all(getSize(15)),
+              child: getBackButton(context),
+            ),
+          ),
           body: Form(
             key: _formKey,
             autovalidate: _autoValidate,
@@ -307,12 +318,12 @@ void dispose(){
                       }
                     }),
                 SizedBox(
-                  height: getSize(20),  
+                  height: getSize(20),
                 ),
                 CommonTextfield(
                     focusNode: passwordFocus,
                     textOption: TextFieldOption(
-                      isSecureTextField: true,                      
+                      isSecureTextField: true,
                       hintText: "Password",
                       maxLine: 1,
                       keyboardType: TextInputType.text,
@@ -423,6 +434,24 @@ void dispose(){
         .then(
       (signUpResp) async {
         // AppNavigation().movetoLogin();
+
+        await app.resolve<PrefUtils>().saveUserToken(
+              signUpResp.data.token.jwt,
+            );
+
+        // SyncManager.instance.callMasterSync(
+        //   context,
+        //   () async {
+        //     //success
+        //     // AppNavigation.shared.movetoHome(isPopAndSwitch: true);
+        //     Navigator.of(context).pop();
+        //     NavigationUtilities.push(Dashboard());
+        //   },
+        //   () {},
+        //   isNetworkError: false,
+        //   isProgress: true,
+        //   // id: loginResp.data.user.id,
+        // ).then((value) {});
 
         Map<String, dynamic> arguments = {};
         arguments["mobile"] = mobileController.text;

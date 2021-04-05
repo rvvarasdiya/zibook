@@ -21,7 +21,7 @@ import 'package:zaviato/app/utils/pref_utils.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/screens/Business/HelpScreen.dart';
 import 'package:zaviato/components/screens/contactus/contactusScreen.dart';
-import 'package:zaviato/components/screens/dashboard/homescreen.dart';
+import 'package:zaviato/components/screens/dashboard/HomeScreen/homescreen.dart';
 import 'package:zaviato/components/screens/dashboard/BottomNavModel.dart';
 import 'package:zaviato/components/screens/resgisterbusiness/registerBusinessScreen.dart';
 import 'package:zaviato/components/widgets/shared/app_background.dart';
@@ -33,15 +33,15 @@ import 'notificationscreen.dart';
 import 'settingscreen.dart';
 
 class Dashboard extends StatefulWidget {
-  int type;
-  // static const route = "Dashboard";
-  Dashboard() {
-//    if (arguments !=  null){
-    // this.type = arguments[Constants.tabType];
-//    this.type = arguments[Constants.tabType];
+//   int type;
+//   // static const route = "Dashboard";
+//   Dashboard() {
+// //    if (arguments !=  null){
+//     // this.type = arguments[Constants.tabType];
+// //    this.type = arguments[Constants.tabType];
 
-//    }
-  }
+// //    }
+//   }
 
   static const route = "Dashboard";
 

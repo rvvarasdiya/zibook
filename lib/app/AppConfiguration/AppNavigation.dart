@@ -5,7 +5,7 @@ import 'dart:collection';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/components/screens/Auth/SignInScreen.dart';
 import 'package:zaviato/components/screens/dashboard/dashboard.dart';
-import 'package:zaviato/components/screens/dashboard/homescreen.dart';
+import 'package:zaviato/components/screens/dashboard/HomeScreen/homescreen.dart';
 
 import '../app.export.dart';
 

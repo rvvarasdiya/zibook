@@ -1,18 +1,18 @@
 import 'package:zaviato/app/base/BaseApiResp.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
 
-class MyBusinessRes extends BaseApiResp {
+class MyBusinessByCategoryRes extends BaseApiResp {
   Data data;
 
-  MyBusinessRes({this.data});
+  MyBusinessByCategoryRes({this.data});
 
-  MyBusinessRes.fromJson(Map<String, dynamic> json) : super.fromJson(json) {
+  MyBusinessByCategoryRes.fromJson(Map<String, dynamic> json)
+      : super.fromJson(json) {
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-
     if (this.data != null) {
       data['data'] = this.data.toJson();
     }
@@ -47,7 +47,8 @@ class Data {
 }
 
 class Business {
-  List<String> categories;
+  List<Categories> categories;
+
   bool isActive;
   bool isDeleted;
   String sId;
@@ -55,12 +56,13 @@ class Business {
   String category;
   String addedBy;
   int addedByType;
-  String owner;
+  Categories owner;
   List<Mobiles> mobiles;
   List<Emails> emails;
   List<Addresses> addresses;
   String code;
   int status;
+
   String createdAt;
   String updatedAt;
   int iV;
@@ -80,13 +82,17 @@ class Business {
       this.addresses,
       this.code,
       this.status,
-
       this.createdAt,
       this.updatedAt,
       this.iV});
 
   Business.fromJson(Map<String, dynamic> json) {
-    categories = json['categories'].cast<String>(); 
+    if (json['categories'] != null) {
+      categories = new List<Categories>();
+      json['categories'].forEach((v) {
+        categories.add(new Categories.fromJson(v));
+      });
+    }
 
     isActive = json['isActive'];
     isDeleted = json['isDeleted'];
@@ -95,7 +101,8 @@ class Business {
     category = json['category'];
     addedBy = json['addedBy'];
     addedByType = json['addedByType'];
-    owner = json['owner'];
+    owner =
+        json['owner'] != null ? new Categories.fromJson(json['owner']) : null;
     if (json['mobiles'] != null) {
       mobiles = new List<Mobiles>();
       json['mobiles'].forEach((v) {
@@ -124,7 +131,9 @@ class Business {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['categories'] = this.categories;
+    if (this.categories != null) {
+      data['categories'] = this.categories.map((v) => v.toJson()).toList();
+    }
 
     data['isActive'] = this.isActive;
     data['isDeleted'] = this.isDeleted;
@@ -133,7 +142,9 @@ class Business {
     data['category'] = this.category;
     data['addedBy'] = this.addedBy;
     data['addedByType'] = this.addedByType;
-    data['owner'] = this.owner;
+    if (this.owner != null) {
+      data['owner'] = this.owner.toJson();
+    }
     if (this.mobiles != null) {
       data['mobiles'] = this.mobiles.map((v) => v.toJson()).toList();
     }
@@ -152,30 +163,6 @@ class Business {
     return data;
   }
 
-  getOwnerName(Business businessModel) {
-    String ownerName = "";
-    for (var mobile in businessModel.mobiles) {
-      if (mobile.isPrimary) {
-        if (!isNullEmptyOrFalse(mobile.ownerName)) {
-          ownerName = mobile.ownerName;
-          break;
-        }
-      }
-    }
-
-    if (isNullEmptyOrFalse(ownerName)) {
-      for (var email in businessModel.emails) {
-        if (email.isPrimary) {
-          if (!isNullEmptyOrFalse(email.ownerName)) {
-            ownerName = email.ownerName;
-            break;
-          }
-        }
-      }
-    }
-    return ownerName;
-  }
-
   getMobileName(Business businessModel) {
     String mobileNumber = "";
 
@@ -188,6 +175,25 @@ class Business {
       }
     }
     return mobileNumber;
+  }
+}
+
+class Categories {
+  String sId;
+  String name;
+
+  Categories({this.sId, this.name});
+
+  Categories.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['name'] = this.name;
+    return data;
   }
 }
 

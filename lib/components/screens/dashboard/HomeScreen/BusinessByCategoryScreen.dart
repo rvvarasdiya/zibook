@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
 import 'package:zaviato/app/base/BaseList.dart';
 import 'package:zaviato/app/constant/ColorConstant.dart';
-import 'package:zaviato/app/constant/EnumConstant.dart';
 import 'package:zaviato/app/constant/ImageConstant.dart';
 import 'package:zaviato/app/constant/constants.dart';
 import 'package:zaviato/app/network/NetworkCall.dart';
@@ -14,24 +14,34 @@ import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/screens/Business/BusinessEdit.dart';
 import 'package:zaviato/components/widgets/shared/buttons.dart';
 import 'package:zaviato/components/widgets/shared/start_rating.dart';
-import 'package:zaviato/models/categoryListModel.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
-import 'package:zaviato/models/mybusiness/MyBusinessRes.dart';
+import 'package:zaviato/models/mybusiness/MyBusinessByCategoryRes.dart';
 
-import '../../../main.dart';
+import '../../../../main.dart';
 
-class BusinessView extends StatefulWidget {
-  static const route = "BusinessView";
- 
- 
+class BusinessViewByCategory extends StatefulWidget {
+  static const route = "BusinessViewByCategory";
+  // BusinessViewScree moduleType;
+  String categoryId;
+
+  BusinessViewByCategory({Map<String, dynamic> arguments}) {
+    if (!isNullEmptyOrFalse(arguments)) {
+      // if (!isNullEmptyOrFalse(arguments["moduleType"])) {
+      //   moduleType = arguments["moduleType"];
+      // }
+      if (!isNullEmptyOrFalse(arguments["categoryId"])) {
+        categoryId = arguments["categoryId"];
+      }
+    }
+  }
   @override
-  _BusinessViewState createState() => _BusinessViewState();
+  _BusinessViewByCategoryState createState() => _BusinessViewByCategoryState();
 }
 
-class _BusinessViewState extends State<BusinessView> {
+class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
   BaseList fashionBaseList;
   int page = DEFAULT_PAGE;
   List<Business> arrList = [];
+  String appBarName = "";
 
   TextEditingController searchController = new TextEditingController();
 
@@ -64,16 +74,20 @@ class _BusinessViewState extends State<BusinessView> {
   }
 
   callApi(bool isRefress, {bool isLoading = false}) {
-
-      NetworkCall<MyBusinessRes>()
+    if (!isNullEmptyOrFalse(widget.categoryId)) {
+      NetworkCall<MyBusinessByCategoryRes>()
           .makeCall(
-        () => app.resolve<ServiceModule>().networkService().getMyBusinesses(),
+        () => app
+            .resolve<ServiceModule>()
+            .networkService()
+            .getBusinessListByCategory(widget.categoryId),
         context,
         isProgress: true,
       )
           .then((myBusinessRes) async {
         arrList.clear();
         arrList.addAll(myBusinessRes.data.list);
+        appBarName = myBusinessRes.data.list.first.categories.first.name;
         // print("data scusedddd");
 
         fashionBaseList.state.listCount = myBusinessRes.data.list.length;
@@ -85,7 +99,7 @@ class _BusinessViewState extends State<BusinessView> {
       }).catchError((onError) {
         fashionBaseList.state.setApiCalling(false);
       });
-    
+    }
   }
 
   fillArrayList() {
@@ -234,7 +248,7 @@ class _BusinessViewState extends State<BusinessView> {
                     width: getSize(10),
                   ),
                   Text(
-                    businessModel.getOwnerName(businessModel),
+                    businessModel.owner.name,
                     style: appTheme.black14RegularTextStyle,
                   )
                 ],
@@ -342,7 +356,7 @@ class _BusinessViewState extends State<BusinessView> {
   getLocalAppBar() {
     return getAppBar(
       context,
-      "My Business",
+     appBarName,
       textalign: TextAlign.left,
       centerTitle: false,
       leadingButton: IconButton(

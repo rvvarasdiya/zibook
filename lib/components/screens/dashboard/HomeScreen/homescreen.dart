@@ -3,6 +3,7 @@ import 'package:zaviato/app/Helper/Themehelper.dart';
 import 'package:zaviato/app/base/BaseApiResp.dart';
 import 'package:zaviato/app/base/BaseList.dart';
 import 'package:zaviato/app/constant/ColorConstant.dart';
+import 'package:zaviato/app/constant/EnumConstant.dart';
 import 'package:zaviato/app/constant/ImageConstant.dart';
 import 'package:zaviato/app/constant/constants.dart';
 import 'package:zaviato/app/network/NetworkCall.dart';
@@ -12,10 +13,11 @@ import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/pref_utils.dart';
 import 'package:zaviato/components/screens/Business/BusinessFullDetail.dart';
 import 'package:zaviato/components/screens/Business/BusinessView.dart';
+import 'package:zaviato/components/screens/dashboard/HomeScreen/BusinessByCategoryScreen.dart';
 import 'package:zaviato/models/Home/HomeScreenResponse.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../main.dart';
+import '../../../../main.dart';
 
 class HomeScreen extends StatefulWidget {
   final _drawerKey;
@@ -128,7 +130,11 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: () {
         // NavigationUtilities.pushRoute(BusinessView.route);
         // NavigationUtilities.push(BusinessFullDetail());
-        NavigationUtilities.pushRoute(BusinessFullDetail.route);
+        // NavigationUtilities.pushRoute(BusinessFullDetail.route);
+        Map<String,dynamic> arguments = {};
+        // arguments["moduleType"] = BusinessViewScree.HomeScreen;
+        arguments["categoryId"] = listDataModel.sId;
+        NavigationUtilities.pushRoute(BusinessViewByCategory.route,args: arguments);
       },
       child: Container(
         alignment: Alignment.center,

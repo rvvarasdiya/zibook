@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
+import 'package:zaviato/app/constant/EnumConstant.dart';
 import 'package:zaviato/app/constant/ImageConstant.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
@@ -131,7 +132,9 @@ class _SettingScreenState extends State<SettingScreen> {
                         //-------- my business
                         GestureDetector(
                           onTap: () {
-                            NavigationUtilities.pushRoute(BusinessView.route);
+                            Map<String,dynamic> args = {};
+                            args["moduleType"] = BusinessViewScree.MyBusiness;
+                            NavigationUtilities.pushRoute(BusinessView.route,args: args);
                           },
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,

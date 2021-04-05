@@ -15,7 +15,7 @@ import 'app/theme/app_theme.dart';
 import 'app/theme/global_models_provider.dart';
 import 'app/utils/navigator.dart';
 import 'app/utils/route_observer.dart';
-import 'components/screens/dashboard/homescreen.dart';
+import 'components/screens/dashboard/HomeScreen/homescreen.dart';
 
 KiwiContainer app;
 
