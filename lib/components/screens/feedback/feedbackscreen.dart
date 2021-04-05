@@ -26,7 +26,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
         elevation: 0,
         backgroundColor: appTheme.colorPrimary,
         leading: IconButton(
-          onPressed: (){
+          onPressed: () {
             Navigator.pop(context);
           },
           icon: Icon(
@@ -65,6 +65,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   topRight: Radius.circular(35),
                 )),
             child: ListView(
+              cacheExtent: 1000,
               shrinkWrap: true,
               children: [
                 SizedBox(
@@ -112,10 +113,10 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                       .copyWith(color: Color(0xff6E7073)),
                 ),
                 Padding(
-                  padding:  EdgeInsets.symmetric(vertical: getSize(30)),
+                  padding: EdgeInsets.symmetric(vertical: getSize(30)),
                   child: Align(
                     alignment: Alignment.center,
-                                    child: SmoothStarRating(
+                    child: SmoothStarRating(
                         onRatingChanged: (value) {
                           // print("------------$rating   --------- $value");
                           setState(() {
@@ -131,45 +132,44 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                         spacing: 0.0),
                   ),
                 ),
-               
-               Text("Write a Comment",
-               style: appTheme.black14BoldTextStyle,),
-               SizedBox(
-                 height: getSize(10),
-               ),
-               Container(
-                            padding: EdgeInsets.all(getSize(14)),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(5.0),
-                                border: Border.all(
-                                  color: Color(0xffCBCBCB),
-                                  width: 2,
-                                )),
-                            child: Center(
-                              child: TextFormField(
-                                textAlignVertical: TextAlignVertical.center,
-                                controller: feedbackController,
-                                style:appTheme.black14RegularTextStyle.copyWith(color: Color(0xff6E7073)),
-                                maxLines: 6,
-                                maxLength: 750,
-                                decoration: InputDecoration(
-                                  fillColor: Colors.transparent,
-                                  border: InputBorder.none,
-                                  isDense: true,
-                                  contentPadding: const EdgeInsets.only(
-                                    left: 0,
-                                  ),
-                                  
-                                ),
-                              ),
-                            ),
-                          ),
-                
+                Text(
+                  "Write a Comment",
+                  style: appTheme.black14BoldTextStyle,
+                ),
+                SizedBox(
+                  height: getSize(10),
+                ),
+                Container(
+                  padding: EdgeInsets.all(getSize(14)),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5.0),
+                      border: Border.all(
+                        color: Color(0xffCBCBCB),
+                        width: 2,
+                      )),
+                  child: Center(
+                    child: TextFormField(
+                      textAlignVertical: TextAlignVertical.center,
+                      controller: feedbackController,
+                      style: appTheme.black14RegularTextStyle
+                          .copyWith(color: Color(0xff6E7073)),
+                      maxLines: 6,
+                      maxLength: 750,
+                      decoration: InputDecoration(
+                        fillColor: Colors.transparent,
+                        border: InputBorder.none,
+                        isDense: true,
+                        contentPadding: const EdgeInsets.only(
+                          left: 0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 SizedBox(
                   height: getSize(40),
                 ),
-
                 AppButton.flat(
                   onTap: () {},
                   backgroundColor: appTheme.colorPrimary,
@@ -177,7 +177,6 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   textSize: 18,
                   textColor: Colors.white,
                   fitWidth: true,
-                
                 )
               ],
             ),

@@ -11,6 +11,7 @@ import 'package:zaviato/app/constant/ColorConstant.dart';
 import 'package:zaviato/app/constant/ImageConstant.dart';
 import 'package:zaviato/app/localization/app_locales.dart';
 import 'package:zaviato/app/theme/app_theme.dart';
+import 'package:zaviato/app/theme/theme_settings_model.dart';
 import 'package:zaviato/app/utils/BaseDialog.dart';
 import 'package:zaviato/app/utils/CommonWidgets.dart';
 import 'package:zaviato/app/utils/dialogs.dart';
@@ -20,7 +21,7 @@ import 'package:zaviato/app/utils/pref_utils.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/screens/Business/HelpScreen.dart';
 import 'package:zaviato/components/screens/contactus/contactusScreen.dart';
-import 'package:zaviato/components/screens/dashboard/homescreen.dart';
+import 'package:zaviato/components/screens/dashboard/HomeScreen/homescreen.dart';
 import 'package:zaviato/components/screens/dashboard/BottomNavModel.dart';
 import 'package:zaviato/components/screens/resgisterbusiness/registerBusinessScreen.dart';
 import 'package:zaviato/components/widgets/shared/app_background.dart';
@@ -32,15 +33,15 @@ import 'notificationscreen.dart';
 import 'settingscreen.dart';
 
 class Dashboard extends StatefulWidget {
-  int type;
-  // static const route = "Dashboard";
-  Dashboard() {
-//    if (arguments !=  null){
-    // this.type = arguments[Constants.tabType];
-//    this.type = arguments[Constants.tabType];
+//   int type;
+//   // static const route = "Dashboard";
+//   Dashboard() {
+// //    if (arguments !=  null){
+//     // this.type = arguments[Constants.tabType];
+// //    this.type = arguments[Constants.tabType];
 
-//    }
-  }
+// //    }
+//   }
 
   static const route = "Dashboard";
 
@@ -117,7 +118,7 @@ class _DashboardState extends State<Dashboard> {
     super.initState();
     model = BottomNavModel.getBottomBar();
     changeStatusColor(darken(
-      ColorConstants.colorPrimary,
+      BaseTheme().colorPrimary,
     ));
     getEmail();
 
@@ -418,7 +419,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
-//    ThemeSettingsModel.of(context).updateSystemUi(isLogin: false);
+   ThemeSettingsModel.of(context).updateSystemUi(isLogin: true);
     return SafeArea(
       child: WillPopScope(
         onWillPop: () => _onWillPop(context),

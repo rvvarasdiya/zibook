@@ -28,7 +28,7 @@ class ServiceModule {
      if (app.resolve<PrefUtils>().isUserLogin()) {
        dio.options.headers["Authorization"] =
            "JWT " + app.resolve<PrefUtils>().getUserToken();
-        print(app.resolve<PrefUtils>().getUserToken());
+        // print(app.resolve<PrefUtils>().getUserToken());
      }
     // if (playerId != null) {
     //   dio.options.headers["playerId"] = playerId;

@@ -4,7 +4,7 @@ import 'package:zaviato/app/constant/ColorConstant.dart';
 import 'package:zaviato/app/constant/ImageConstant.dart';
 import 'package:zaviato/app/utils/CommonWidgets.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
-import 'package:zaviato/components/screens/dashboard/homescreen.dart';
+import 'package:zaviato/components/screens/dashboard/HomeScreen/homescreen.dart';
 
 class mainScreen extends StatefulWidget {
   @override

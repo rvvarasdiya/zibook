@@ -490,7 +490,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     maxWidth: 2080,
                     aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
                     androidUiSettings: AndroidUiSettings(
-                        statusBarColor: appTheme.colorPrimary,
+                        statusBarColor: BaseTheme().colorPrimary,
                         backgroundColor: Colors.white,
 //                                              toolbarTitle: 'Crop Image',
                         toolbarColor: appTheme.colorPrimary,
@@ -532,7 +532,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     maxWidth: 2080,
                     aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
                     androidUiSettings: AndroidUiSettings(
-                        statusBarColor: appTheme.colorPrimary,
+                        statusBarColor: BaseTheme().colorPrimary,
                         backgroundColor: Colors.white,
 //                                              toolbarTitle: 'Crop Image',
                         toolbarColor: appTheme.colorPrimary,

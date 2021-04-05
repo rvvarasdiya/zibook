@@ -3,7 +3,7 @@ import 'package:zaviato/app/constant/constants.dart';
 import '../app.export.dart';
 
 class ApiConstants {
-  static const String PROXY_URL = "PROXY 192.168.1.14:8888";
+  static const String PROXY_URL = "PROXY 192.168.1.10:8888";
 
   static const String   commonUrl = apiUrl + "api/v1/";
   static const String customerCommonUrl = commonUrl + "customer";
@@ -65,13 +65,16 @@ class ApiConstants {
   static const String registerBusinessApi = customerCommonUrl + "/business/add";
 
   //register business
-  static const String mybusiness = customerCommonUrl + "/business/paginate-my-businesses";
+  static const String mybusiness = customerCommonUrl + "/business/paginate-my-businesses/";
+
+  //List of businesses by category
+  static const String businessViewByCategory = customerCommonUrl + "/business/paginate-by-category/{id}";
 
   //contact us
   static const String contactUsApi = commonUrl + "common/user/contact-us";
     
   //city
-  static const String getCityApi = customerCommonUrl + "/common/cities-by-state/";
+  static const String getCityApi = customerCommonUrl + "/common/cities-by-state/{id}";
   
   //logout
   static const String logoutApi = commonUrl + "common/user/logout";

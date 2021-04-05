@@ -17,19 +17,10 @@ class WelcomeScreen extends StatefulWidget {
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-@override
-void initState() { 
-  // super.initState();
-  // Timer(
-  //     Duration(seconds: 1),
-  //     () => (callMasterSync() /*callHandler()*/),
-  //   );
-}
-
 class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
-    FocusScope.of(context).unfocus();
+    // FocusScope.of(context).requestFocus(new FocusNode());
     return Scaffold(
       body: Stack(
         alignment: Alignment.bottomCenter,
@@ -73,7 +64,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   onTap: () {
                     NavigationUtilities.pushReplacementNamed(
                       SignInScreen.route,
-            
                     );
                   },
                   text: "Get started",
@@ -85,18 +75,23 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 SizedBox(
                   height: getSize(30),
                 ),
-                RichText(
-                  text: new TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'Already have an account ?',
-                        style: appTheme.white14RegularTextStyle,
-                      ),
-                      TextSpan(
-                        text: ' Sign In',
-                        style: appTheme.white16BoldTextStyle,
-                      ),
-                    ],
+                InkWell(
+                  onTap: () {
+                    NavigationUtilities.pushRoute(SignInScreen.route);
+                  },
+                  child: RichText(
+                    text: new TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Already have an account ?',
+                          style: appTheme.white14RegularTextStyle,
+                        ),
+                        TextSpan(
+                          text: ' Sign In',
+                          style: appTheme.white16BoldTextStyle,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(

@@ -12,19 +12,19 @@ import 'package:zaviato/modules/ThemeSetting.dart';
 import 'app/Helper/Themehelper.dart';
 import 'app/constant/constants.dart';
 import 'app/theme/app_theme.dart';
-import 'app/theme/global_models_provider.dart'; 
+import 'app/theme/global_models_provider.dart';
 import 'app/utils/navigator.dart';
 import 'app/utils/route_observer.dart';
-import 'components/screens/dashboard/homescreen.dart';
+import 'components/screens/dashboard/HomeScreen/homescreen.dart';
 
 KiwiContainer app;
 
 TextDirection deviceTextDirection = TextDirection.ltr;
 
 main() {
-   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    systemNavigationBarColor: appTheme.colorPrimary, // navigation bar color
-    statusBarColor:  appTheme.colorPrimary, // status bar color
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    // systemNavigationBarColor: appTheme.colorPrimary, // navigation bar color
+    statusBarColor: BaseTheme().colorPrimary, // status bar color
   ));
   WidgetsFlutterBinding.ensureInitialized();
 //  R.changeLocale(English.languageCode);
@@ -88,7 +88,7 @@ class _BaseState extends State<Base> {
 
   @override
   Widget build(BuildContext context) {
-    // app.resolve<PrefUtils>().saveDeviceId(); 
+    // app.resolve<PrefUtils>().saveDeviceId();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: APPNAME,

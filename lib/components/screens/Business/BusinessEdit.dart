@@ -141,6 +141,7 @@ class _BusinessEditState extends State<BusinessEdit> {
                   key: _formKey,
                   autovalidate: _autoValidate,
                   child: ListView(
+                    cacheExtent: 1000,
                     padding: EdgeInsets.symmetric(
                         vertical: getSize(25), horizontal: getSize(25)),
                     children: <Widget>[

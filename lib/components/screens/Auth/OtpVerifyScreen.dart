@@ -4,6 +4,7 @@ import 'dart:collection';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:zaviato/app/Helper/SyncManager.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
 import 'package:zaviato/app/base/BaseApiResp.dart';
 import 'package:zaviato/app/constant/EnumConstant.dart';
@@ -18,6 +19,7 @@ import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/screens/Auth/SignInScreen.dart';
+import 'package:zaviato/components/screens/dashboard/dashboard.dart';
 import 'package:zaviato/components/widgets/models/pin_theme.dart';
 import 'package:zaviato/components/widgets/pin_code_fields.dart';
 import 'package:zaviato/components/widgets/shared/buttons.dart';
@@ -25,7 +27,7 @@ import 'package:zaviato/components/widgets/shared/buttons.dart';
 import '../../../main.dart';
 import 'CreatePasswordScreen.dart';
 
-class OtpVerifyScreen extends StatefulWidget {
+class   OtpVerifyScreen extends StatefulWidget {
   static const route = "OtpVerifyScreen";
   String value = "";
   OtpPage moduleType;
@@ -363,7 +365,6 @@ static const defaultcolor = Color(0xff4A89DC);
       //       positiveBtnTitle: R.string().commonString.btnTryAgain,
       //     );
     });
-    ;
   }
 
   callApiForVerifyOTP(BuildContext context) async {
@@ -470,7 +471,21 @@ static const defaultcolor = Color(0xff4A89DC);
 
       FocusScope.of(context).unfocus();
 
-      NavigationUtilities.pushRoute(SignInScreen.route);
+       SyncManager.instance.callMasterSync(
+          context,
+          () async {
+            //success
+            // AppNavigation.shared.movetoHome(isPopAndSwitch: true);
+            // Navigator.of(context).pop();
+            NavigationUtilities.push(Dashboard());
+          },
+          () {},
+          isNetworkError: false,
+          isProgress: true,
+          // id: loginResp.data.user.id,
+        ).then((value) {});
+
+      // NavigationUtilities.pushRoute(SignInScreen.route);
     }).catchError((onError) {
       isOtpTrue = false;
       isOtpCheck = false;
