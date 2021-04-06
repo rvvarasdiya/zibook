@@ -36,8 +36,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           "Harshil Soni",
           "9999999999",
           "305, krishna texttiles, surat, Gujarat",
-          true
-          );
+          true);
       arrList.add(categoryListModel);
     }
 
@@ -76,25 +75,16 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   }
 
   fillArrayList() {
-    fashionBaseList.state.listItems = Container(
-      height: double.infinity,
-      margin: EdgeInsets.only(top: getSize(10)),
-      padding: EdgeInsets.only(top: getSize(10)),
-      decoration: BoxDecoration(
-          color: ColorConstants.backGroundColor,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(35), topRight: Radius.circular(35))),
-      child: ListView.builder(
-        padding: EdgeInsets.symmetric(
-            vertical: getSize(10), horizontal: getSize(15)),
-        shrinkWrap: true,
-        itemCount: fashionBaseList.state.listCount,
-        itemBuilder: (BuildContext context, int index) {
-          CategoryListModel savedSearchModel = arrList[index];
-          return getItemWidget(savedSearchModel);
-          // return Text("hello");
-        },
-      ),
+    fashionBaseList.state.listItems = ListView.builder(
+      padding:
+          EdgeInsets.symmetric(vertical: getSize(10), horizontal: getSize(15)),
+      shrinkWrap: true,
+      itemCount: fashionBaseList.state.listCount,
+      itemBuilder: (BuildContext context, int index) {
+        CategoryListModel savedSearchModel = arrList[index];
+        return getItemWidget(savedSearchModel);
+        // return Text("hello");
+      },
     );
   }
 
@@ -186,19 +176,24 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                         ],
                       ),
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           print(categoryListModel.isFavorite);
                           print("favorite pressed ||| ");
                           setState(() {
-                          categoryListModel.isFavorite = ! categoryListModel.isFavorite;
-                            
+                            categoryListModel.isFavorite =
+                                !categoryListModel.isFavorite;
                           });
                         },
                         child: Icon(
-                         (categoryListModel.isFavorite) ? OMIcons.favoriteBorder : OMIcons.favorite,
+                          (categoryListModel.isFavorite)
+                              ? OMIcons.favoriteBorder
+                              : OMIcons.favorite,
                           size: getSize(20),
-                          color: (categoryListModel.isFavorite) ? appTheme.colorPrimary : null ,
-                      ),)
+                          color: (categoryListModel.isFavorite)
+                              ? appTheme.colorPrimary
+                              : null,
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -282,7 +277,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                     ),
                   ),
                   Container(
-                     padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                    padding: EdgeInsets.symmetric(horizontal: getSize(10)),
                     height: getSize(35),
                     width: getSize(130),
                     child: AppButton.flat(
@@ -303,13 +298,20 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: appTheme.colorPrimary,
       appBar: getLocalAppBar(),
-      body: fashionBaseList,
+      body: Container(
+          height: double.infinity,
+          margin: EdgeInsets.only(top: getSize(10)),
+          padding: EdgeInsets.only(top: getSize(10)),
+          decoration: BoxDecoration(
+              color: ColorConstants.backGroundColor,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(35), topRight: Radius.circular(35))),
+          child: fashionBaseList),
     );
   }
 
@@ -326,106 +328,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           ),
           onPressed: () => Navigator.pop(context)),
       backgroundColor: appTheme.colorPrimary,
-      actionItems: [
-        Padding(
-          padding: EdgeInsets.all(getSize(8)),
-          child: Row(
-            children: <Widget>[
-              !_isShowSearchField
-                  ? InkWell(
-                      onTap: () {
-                        setState(() {
-                          _isShowSearchField = true;
-                        });
-                      },
-                      child: Icon(
-                        Icons.search,
-                        size: getSize(25),
-                      ),
-                    )
-                  : Container(
-                      width: getSize(300),
-                      height: getSize(50),
-                      // padding: EdgeInsets.all(getSize(8)),
-                      // margin: EdgeInsets.only(
-                      //     top: getSize(30),
-                      //     bottom: getSize(10),
-                      //     left: getSize(30)),
-                      // height: getSize(10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(25.0),
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 0.5,
-                        ),
-                      ),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(Icons.search),
-                          Expanded(
-                            child: TextFormField(
-                              textAlignVertical: TextAlignVertical.center,
-                              // controller: searchbarcontroller,
-                              style: TextStyle(
-                                fontSize: getFontSize(15),
-                                // fontFamily: 'Segoe'
-                                // hintSize(height),
-                              ),
-                              maxLines: 1,
-                              decoration: InputDecoration(
-                                fillColor: Colors.transparent,
-                                border: InputBorder.none,
-                                isDense: true,
-                                contentPadding: const EdgeInsets.only(
-                                  left: 10,
-                                ),
-                                hintText: "Search Here",
-                                hintStyle: TextStyle(
-                                  fontFamily: 'Segoe',
-                                  fontSize: getFontSize(15),
-                                  // hintSize(height),
-                                  // AppStrings.hintTextsize,
-                                  color: Colors.black.withOpacity(0.5),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Icon(Icons.clear),
-                        ],
-                      ),
-                    ),
-              SizedBox(
-                width: getSize(12),
-              ),
-              Container(
-                // alignment: Alignment.center,
-                // margin: EdgeInsets.only(top: getSize(30)),
-                width: getSize(40),
-                height: getSize(40),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  image: DecorationImage(
-                    image: AssetImage(userIcon),
-                    fit: BoxFit.fill,
-                  ),
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    new BoxShadow(
-                      color: ColorConstants.getShadowColor,
-                      offset: Offset(0, 5),
-                      blurRadius: 5.0,
-                    ),
-                  ],
-                ),
-
-                // NetworkImage('https://via.placeholder.com/150'),
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }
-

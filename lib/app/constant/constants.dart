@@ -12,7 +12,7 @@ const FAIL = 2;
 const IMAGE_FILE_SIZE = 10.0;
 
 
-const APPNAME = "Campaign Hero";
+const APPNAME = "Zibook";
 
 const CODE_OK = "OK";
 
