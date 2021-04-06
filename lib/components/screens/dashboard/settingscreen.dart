@@ -7,7 +7,7 @@ import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/pref_utils.dart';
 import 'package:zaviato/components/screens/Business/BusinessView.dart';
-import 'package:zaviato/components/screens/Business/HelpScreen.dart';
+import 'package:zaviato/components/screens/Business/FaqsScreen.dart';
 import 'package:zaviato/components/screens/editDetail/editprofile.dart';
 import 'package:zaviato/components/screens/editDetail/favoritescreen.dart';
 import 'package:zaviato/components/screens/feedback/feedbackscreen.dart';
@@ -175,47 +175,7 @@ class _SettingScreenState extends State<SettingScreen> {
 
                        
 
-                        // ------------ Share App
-                        InkWell(
-                          onTap: () {
-                            // NavigationUtilities.pushRoute(
-                            //     RegisterBusinessScreen.route);
-                          },
-                          child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Image.asset(
-                                  share,
-                                  width: getSize(23),
-                                  height: getSize(23),
-                                ),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                Expanded(
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text("Share App",
-                                          style: appTheme.black16BoldTextStyle),
-                                      IconButton(
-                                          icon: Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: Colors.black,
-                                          ),
-                                          iconSize: getSize(18),
-                                          onPressed: null)
-                                    ],
-                                  ),
-                                )
-                              ]),
-                        ),
-                        // SizedBox(
-                        //   height: getSize(10),
-                        // ),
+                       
 
                         //-------------- FeedBack
                         GestureDetector(
@@ -297,6 +257,49 @@ class _SettingScreenState extends State<SettingScreen> {
                                 )
                               ]),
                         ),
+                    
+                     // ------------ Share App
+                        InkWell(
+                          onTap: () {
+                            // NavigationUtilities.pushRoute(
+                            //     RegisterBusinessScreen.route);
+                          },
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  share,
+                                  width: getSize(23),
+                                  height: getSize(23),
+                                ),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                Expanded(
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text("Share App",
+                                          style: appTheme.black16BoldTextStyle),
+                                      IconButton(
+                                          icon: Icon(
+                                            Icons.arrow_forward_ios,
+                                            color: Colors.black,
+                                          ),
+                                          iconSize: getSize(18),
+                                          onPressed: null)
+                                    ],
+                                  ),
+                                )
+                              ]),
+                        ),
+                        // SizedBox(
+                        //   height: getSize(10),
+                        // ),
+                    
                       ],
                     ),
 

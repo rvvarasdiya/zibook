@@ -473,7 +473,7 @@ class _BusinessFullDetailState extends State<BusinessFullDetail> {
 
   launchWhatsApp() async {
     final link = WhatsAppUnilink(
-      phoneNumber: '7572996471',
+      phoneNumber: '+917572996471',
       text: "Hey! I'm inquiring about your business...",
     );
     await launch('$link');
