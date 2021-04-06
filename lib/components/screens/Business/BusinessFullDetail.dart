@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
 import 'package:zaviato/app/base/BaseList.dart';
 import 'package:zaviato/app/constant/ColorConstant.dart';
@@ -10,6 +11,7 @@ import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/screens/contactus/contactusScreen.dart';
 import 'package:zaviato/components/widgets/BusinessFullDetailsWidgets/ReviewAndRatings.dart';
+import 'package:zaviato/components/widgets/shared/start_rating.dart';
 import 'package:zaviato/models/ReviewAndRatingsModel.dart';
 import 'package:zaviato/models/TabModel.dart';
 import 'package:zaviato/models/categoryListModel.dart';
@@ -37,8 +39,9 @@ class BusinessFullDetail extends StatefulWidget {
 class _BusinessFullDetailState extends State<BusinessFullDetail> {
   BaseList businessFullDetailBaseList;
   int page = DEFAULT_PAGE;
-  List<CategoryListModel> arrList = [];
+  // List<CategoryListModel> arrList = [];
   bool _isShowSearchField = false;
+  List<ReviewAndRatingsModel> reviewAndRatingsModelList = [];
 
   // PageController controller = PageController();
   // List<TabModel> arrTab = [];
@@ -46,16 +49,26 @@ class _BusinessFullDetailState extends State<BusinessFullDetail> {
 
   @override
   void initState() {
+    super.initState();
+    // for (int i = 0; i < 10; i++) {
+    //   CategoryListModel categoryListModel = CategoryListModel(
+    //       "Bhavani Fashion",
+    //       "Harshil Soni",
+    //       "9999999999",
+    //       "305, krishna texttiles, surat, Gujarat",
+    //       false);
+    //   arrList.add(categoryListModel);
+    // }
     for (int i = 0; i < 10; i++) {
-      CategoryListModel categoryListModel = CategoryListModel(
-          "Bhavani Fashion",
-          "Harshil Soni",
-          "9999999999",
-          "305, krishna texttiles, surat, Gujarat",
-          false);
-      arrList.add(categoryListModel);
-    }
+      ReviewAndRatingsModel reviewAndRatingsModel = ReviewAndRatingsModel();
+      reviewAndRatingsModel.profilePhoto = splashBgImage;
+      reviewAndRatingsModel.name = "Virang Gandhi";
+      reviewAndRatingsModel.ratings = 4;
+      reviewAndRatingsModel.comment =
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 
+      reviewAndRatingsModelList.add(reviewAndRatingsModel);
+    }
     // setTabData();
 
     super.initState();
@@ -82,16 +95,11 @@ class _BusinessFullDetailState extends State<BusinessFullDetail> {
     });
   }
 
-  // setTabData() {
-  //   arrTab.add(TabModel(title: "Map"));
-  //   arrTab.add(TabModel(title: "SMS/Email"));
-  //   arrTab.add(TabModel(title: "Write a review"));
-  //   arrTab.add(TabModel(title: "Manage Campaign"));
-  // }
-
   callApi(bool isRefress, {bool isLoading = false}) {
-    businessFullDetailBaseList.state.listCount = arrList.length;
-    businessFullDetailBaseList.state.totalCount = arrList.length;
+    businessFullDetailBaseList.state.listCount =
+        reviewAndRatingsModelList.length;
+    businessFullDetailBaseList.state.totalCount =
+        reviewAndRatingsModelList.length;
     // arrList.addAll(savedSearchResp.data.list);
     fillArrayList();
     page = page + 1;
@@ -100,130 +108,149 @@ class _BusinessFullDetailState extends State<BusinessFullDetail> {
   }
 
   fillArrayList() {
-    businessFullDetailBaseList.state.listItems = Container(
-      // height: double.infinity,
-      // margin: EdgeInsets.only(top: getSize(250)),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(35), topRight: Radius.circular(35))),
-      // child: Column(
-      //   mainAxisSize: MainAxisSize.min,
-      //   children: [
-      //     // Padding(
-      //     //   padding: EdgeInsets.only(top: getSize(30)),
-      //     //   child: Container(
-      //     //     height: getSize(50),
-      //     //     // color: Colors.red,
-      //     //     child: ListView(
-      //     //       padding: EdgeInsets.only(left: getSize(20), right: getSize(20)),
-      //     //       scrollDirection: Axis.horizontal,
-      //     //       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //     //       children: [
-      //     //         for (int i = 0; i < arrTab.length; i++)
-      //     //           setTitleOfSegment(arrTab[i].title, i)
-      //     //       ],
-      //     //     ),
-      //     //   ),
-      //     // ),
-      //     // isNullEmptyOrFalse(arrTab)
-      //     //     ? SizedBox()
-      //     //     : SizedBox(height: getSize(16)),
-      //     // isNullEmptyOrFalse(arrTab) ? SizedBox() : _segmentedControl(),
-      //     // Expanded(
-      //     //   child: Container(
-      //     //     color: Colors.transparent,
-      //     //     child: isNullEmptyOrFalse(arrList) ? SizedBox() : getPageView(),
-      //     //   ),
-      //     // ),
-
-      //     // ListView.builder(
-      //     //   padding: EdgeInsets.symmetric(
-      //     //       vertical: getSize(15), horizontal: getSize(15)),
-      //     //   shrinkWrap: true,
-      //     //   itemCount: businessFullDetailBaseList.state.listCount,
-      //     //   itemBuilder: (BuildContext context, int index) {
-      //     //     CategoryListModel categoryListModel = arrList[index];
-      //     //     return getItemWidget(categoryListModel);
-      //     //     // return Text("hello");
-      //     //   },
-      //     // ),
-      //   ],
-      // ),
-      child: ReviewAndRatings(widget.businessModel),
+    businessFullDetailBaseList.state.listItems = ListView.builder(
+      padding: EdgeInsets.symmetric(
+        // vertical: getSize(30),
+        horizontal: getSize(30),
+      ),
+      shrinkWrap: true,
+      itemCount: reviewAndRatingsModelList.length,
+      itemBuilder: (BuildContext context, int index) {
+        ReviewAndRatingsModel reviewAndRatingsModel =
+            reviewAndRatingsModelList[index];
+        return getItemWidget(reviewAndRatingsModel);
+        // return Text("hello");
+      },
     );
   }
 
-  // getItemWidget(CategoryListModel categoryListModel) {
-  //   return Text(categoryListModel.ownerName);
-  // }
+  getItemWidget(ReviewAndRatingsModel reviewAndRatingsModel) {
+    return InkWell(
+      onTap: () {
+        // NavigationUtilities.pushRoute(HelpScreen.route);
+      },
+      child: Container(
+        padding: EdgeInsets.all(getSize(10)),
+        width: double.infinity,
+        // height: getSize(200),
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: appTheme.textGreyColor)),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Container(
+              // alignment: Alignment.center,
+              // margin: EdgeInsets.only(top: getSize(30)),
+              width: getSize(40),
+              height: getSize(40),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                image: DecorationImage(
+                  image: AssetImage(userIcon),
+                  fit: BoxFit.fill,
+                ),
+                shape: BoxShape.circle,
+                boxShadow: [
+                  new BoxShadow(
+                    color: ColorConstants.getShadowColor,
+                    offset: Offset(0, 5),
+                    blurRadius: 5.0,
+                  ),
+                ],
+              ),
 
-  // getPageView() {
-  //   return PageView.builder(
-  //     controller: controller,
-  //     itemCount: isNullEmptyOrFalse(arrTab) ? 1 : arrTab.length,
-  //     physics: NeverScrollableScrollPhysics(),
-  //     itemBuilder: (context, position) {
-  //       if (position == 0)
-  //         return ReviewAndRatings();
-  //       else if (position == 1)
-  //         return Text("show sms/email data");
-  //       else if (position == 2)
-  //         return Text("write a review");
-  //       else if (position == 3) return Text("Manage Campaign");
-
-  //       // if (isNullEmptyOrFalse(arrTab)) {
-  //       //   return FilterItem(arrList);
-  //       // }
-  //       // return FilterItem(arrList
-  //       //     .where((element) => element.tab == arrTab[position].tab)
-  //       //     .toList());
-  //     },
-  //   );
-  // }
-
-  // setTitleOfSegment(String title, int index) {
-  //   return InkWell(
-  //     onTap: () {
-  //       setState(() {
-  //         segmentedControlValue = index;
-  //         controller.animateToPage(segmentedControlValue,
-  //             duration: Duration(milliseconds: 500), curve: Curves.easeIn);
-  //       });
-  //     },
-  //     child: Padding(
-  //         padding: const EdgeInsets.all(8.0),
-  //         child: Container(
-  //           padding: const EdgeInsets.all(4.0),
-  //           decoration: BoxDecoration(
-  //               border: Border.all(color: Colors.black),
-  //               borderRadius: BorderRadius.circular(4)),
-  //           child: Text(title),
-  //         )
-
-  //         // Column(
-  //         //   children: [
-
-  //         //     Text(
-  //         //       title,
-  //         //       style: segmentedControlValue == index
-  //         //           ? appTheme.blackSemiBold18TitleColorblack
-  //         //           : appTheme.greySemibold18TitleColor,
-  //         //     ),
-  //         //     Padding(
-  //         //       padding: EdgeInsets.only(top: getSize(8)),
-  //         //       child: Container(
-  //         //           height: getSize(3),
-  //         //           width: getSize(50),
-  //         //           color: segmentedControlValue == index
-  //         //               ? appTheme.colorPrimary
-  //         //               : Colors.transparent),
-  //         //     ),
-  //         //   ],
-  //         // ),
-  //         ),
-  //   );
-  // }
+              // NetworkImage('https://via.placeholder.com/150'),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(left: getSize(10)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Text(reviewAndRatingsModel.name,
+                            style: appTheme.black16BoldTextStyle),
+                        SizedBox(
+                          width: getSize(8),
+                        ),
+                        SmoothStarRating(
+                            onRatingChanged: (value) {
+                              // print("------------$rating   --------- $value");
+                              // setState(() {
+                              //   rating = value;
+                              // });
+                            },
+                            rating: 4.2,
+                            allowHalfRating: false,
+                            starCount: 5,
+                            size: getSize(15),
+                            color: appTheme.colorPrimary,
+                            borderColor: appTheme.dividerColor,
+                            spacing: 0.0),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: getSize(5)),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                              child: Text(
+                            reviewAndRatingsModel.comment,
+                            style: appTheme.gray14RegularTextStyle,
+                          )),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: getSize(20)),
+                      child: Row(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Image.asset(
+                                chatIcon,
+                                height: getSize(14),
+                                width: getSize(14),
+                              ),
+                              SizedBox(
+                                width: getSize(7),
+                              ),
+                              Text(
+                                "Like",
+                                style: appTheme.gray14RegularTextStyle,
+                              )
+                            ],
+                          ),
+                          SizedBox(width: getSize(50)),
+                          Row(
+                            children: <Widget>[
+                              Icon(Icons.favorite_border,
+                                  size: getSize(15), color: appTheme.grayColor),
+                              SizedBox(
+                                width: getSize(7),
+                              ),
+                              Text(
+                                "Comment",
+                                style: appTheme.gray14RegularTextStyle,
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -288,7 +315,114 @@ class _BusinessFullDetailState extends State<BusinessFullDetail> {
                 ],
               ) /* add child content here */,
             ),
-            Expanded(child: businessFullDetailBaseList)
+            Expanded(
+              child: Container(
+                // height: double.infinity,
+                // margin: EdgeInsets.only(top: getSize(250)),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(35),
+                        topRight: Radius.circular(35))),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: getSize(30)),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: getSize(15)),
+                            child: Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.person,
+                                  size: getSize(18),
+                                ),
+                                SizedBox(
+                                  width: getSize(10),
+                                ),
+                                Text(
+                                  widget.businessModel.owner.name,
+                                  style: appTheme.black14RegularTextStyle,
+                                )
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: getSize(15)),
+                            child: Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.call,
+                                  size: getSize(18),
+                                ),
+                                SizedBox(
+                                  width: getSize(10),
+                                ),
+                                Text(
+                                  widget.businessModel
+                                      .getMobileName(widget.businessModel),
+                                  style: appTheme.black14RegularTextStyle,
+                                )
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: getSize(15)),
+                            child: Row(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.location_on,
+                                  size: getSize(18),
+                                ),
+                                SizedBox(
+                                  width: getSize(10),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    "hello it's a dummy address...",
+                                    style: appTheme.black14RegularTextStyle,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          left: getSize(30),
+                          top: getSize(20),
+                          bottom: getSize(10)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            "Reviews & Ratings",
+                            style: appTheme.black18BoldTextStyle,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: getSize(8),
+                    ),
+                    Expanded(
+                      child: Container(
+                        child: businessFullDetailBaseList,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Expanded(
+            //   child: Container(
+            //     child: businessFullDetailBaseList,
+            //   ),
+            // ),
           ],
         ),
         // businessFullDetailBaseList,

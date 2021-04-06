@@ -72,7 +72,7 @@ class PrefUtils {
   }
 
   /// Gets the String value for the [key] if it exists.
-  String getString(String key, {String defaultValue}) {
+  String getString(String key, {String defaultValue = ""}) {
     try {
       init();
       return preferences.getString(key) ?? defaultValue;

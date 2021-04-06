@@ -17,7 +17,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
    Widget openNextScreen()  {
     if (app.resolve<PrefUtils>().isUserLogin()) {
-      print(app.resolve<PrefUtils>().isUserLogin());
+      // print(app.resolve<PrefUtils>().isUserLogin());
       return Dashboard();
       // NavigationUtilities.pushRoute(Dashboard.route);
 //        NavigationUtilities.pushRoute(CompanyInformation.route);
