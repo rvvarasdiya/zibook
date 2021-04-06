@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
 import 'package:zaviato/app/base/BaseList.dart';
 import 'package:zaviato/app/constant/ColorConstant.dart';
@@ -11,10 +10,7 @@ import 'package:zaviato/app/utils/CommonWidgets.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
-import 'package:zaviato/components/screens/Business/BusinessEdit.dart';
 import 'package:zaviato/components/screens/Business/BusinessFullDetail.dart';
-import 'package:zaviato/components/widgets/BusinessFullDetailsWidgets/ReviewAndRatings.dart';
-import 'package:zaviato/components/widgets/shared/buttons.dart';
 import 'package:zaviato/components/widgets/shared/start_rating.dart';
 import 'package:zaviato/models/mybusiness/MyBusinessByCategoryRes.dart';
 
@@ -24,6 +20,7 @@ class BusinessViewByCategory extends StatefulWidget {
   static const route = "BusinessViewByCategory";
   // BusinessViewScree moduleType;
   String categoryId;
+  TextEditingController searchbarcontroller = TextEditingController();
 
   BusinessViewByCategory({Map<String, dynamic> arguments}) {
     if (!isNullEmptyOrFalse(arguments)) {
@@ -43,15 +40,18 @@ class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
   BaseList fashionBaseList;
   int page = DEFAULT_PAGE;
   List<Business> arrList = [];
+  List<Business> duplicateArrayList = [];
   String appBarName = "";
 
-  TextEditingController searchController = new TextEditingController();
+  TextEditingController searchController = TextEditingController();
 
   bool _isShowSearchField = false;
 
   @override
   void initState() {
     super.initState();
+    searchController.text = "";
+
     fashionBaseList = BaseList(BaseListState(
 //      imagePath: noRideHistoryFound,
       noDataMsg: APPNAME,
@@ -88,14 +88,14 @@ class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
       )
           .then((myBusinessRes) async {
         arrList.clear();
+        duplicateArrayList.clear();
         arrList.addAll(myBusinessRes.data.list);
+        duplicateArrayList.addAll(myBusinessRes.data.list);
         appBarName = myBusinessRes.data.list.first.categories.first.name;
-        // print("data scusedddd");
-
-        fashionBaseList.state.listCount = myBusinessRes.data.list.length;
-        fashionBaseList.state.totalCount = myBusinessRes.data.count;
+        searchController.clear();
         page = page + 1;
         fashionBaseList.state.setApiCalling(false);
+
         fillArrayList();
         setState(() {});
       }).catchError((onError) {
@@ -105,12 +105,15 @@ class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
   }
 
   fillArrayList() {
+    fashionBaseList.state.setApiCalling(false);
+    fashionBaseList.state.listCount = arrList.length;
+    fashionBaseList.state.totalCount = arrList.length;
     fashionBaseList.state.listItems = ListView.builder(
       cacheExtent: 1000,
       padding:
           EdgeInsets.symmetric(vertical: getSize(10), horizontal: getSize(15)),
       shrinkWrap: true,
-      itemCount: fashionBaseList.state.listCount,
+      itemCount: arrList.length,
       itemBuilder: (BuildContext context, int index) {
         Business business = arrList[index];
         return getItemWidget(business, index);
@@ -120,19 +123,27 @@ class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
 
   getItemWidget(Business businessModel, int index) {
     return InkWell(
-      onTap: (){
-        Map<String,dynamic> arguments = {};
+      onTap: () {
+        Map<String, dynamic> arguments = {};
         arguments["model"] = businessModel;
-        NavigationUtilities.pushRoute(BusinessFullDetail.route,args: arguments);
+        NavigationUtilities.pushRoute(BusinessFullDetail.route,
+            args: arguments);
       },
-          child: Padding(
+      child: Padding(
         padding: EdgeInsets.all(getSize(10)),
         child: Container(
           // color: Colors.red,
           padding: EdgeInsets.all(getSize(15)),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            boxShadow: getBoxShadow(context),
+            boxShadow: [
+              new BoxShadow(
+                  // color: ColorConstants.getShadowColor,
+                  color: Colors.grey.withOpacity(0.2),
+                  // offset: Offset(2, 6),
+                  blurRadius: 7.0,
+                  spreadRadius: 5.0),
+            ],
             color: Colors.white,
           ),
           child: Column(
@@ -187,7 +198,8 @@ class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
                                 Container(
                                     decoration: getBoxDecoration(
                                         ColorConstants.getGreenColor, 3),
-                                    padding: EdgeInsets.symmetric(horizontal: 5),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 5),
                                     child: Text(
                                       "4.2",
                                       style: appTheme.white14RegularTextStyle,
@@ -300,7 +312,7 @@ class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
                   ],
                 ),
               ),
-                        ],
+            ],
           ),
         ),
       ),
@@ -328,7 +340,7 @@ class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
   getLocalAppBar() {
     return getAppBar(
       context,
-     appBarName,
+      appBarName,
       textalign: TextAlign.left,
       centerTitle: false,
       leadingButton: IconButton(
@@ -340,7 +352,7 @@ class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
       backgroundColor: appTheme.colorPrimary,
       actionItems: [
         Padding(
-          padding: EdgeInsets.all(getSize(8)),
+          padding: EdgeInsets.only(right:getSize(15)),
           child: Row(
             children: <Widget>[
               !_isShowSearchField
@@ -356,87 +368,91 @@ class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
                       ),
                     )
                   : Container(
-                      width: getSize(300),
-                      height: getSize(50),
-                      // padding: EdgeInsets.all(getSize(8)),
-                      // margin: EdgeInsets.only(
-                      //     top: getSize(30),
-                      //     bottom: getSize(10),
-                      //     left: getSize(30)),
-                      // height: getSize(10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(25.0),
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 0.5,
+                        width: getSize(350),
+                        height: getSize(50),
+                        padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                        // padding: EdgeInsets.all(getSize(8)),
+                        // margin: EdgeInsets.only(
+                        //     top: getSize(30),
+                        //     bottom: getSize(10),
+                        //     left: getSize(30)),
+                        // height: getSize(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25.0),
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 0.5,
+                          ),
                         ),
-                      ),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(Icons.search),
-                          Expanded(
-                            child: TextFormField(
-                              textAlignVertical: TextAlignVertical.center,
-                              // controller: searchbarcontroller,
-                              style: TextStyle(
-                                fontSize: getFontSize(15),
-                                // fontFamily: 'Segoe'
-                                // hintSize(height),
-                              ),
-                              maxLines: 1,
-                              decoration: InputDecoration(
-                                fillColor: Colors.transparent,
-                                border: InputBorder.none,
-                                isDense: true,
-                                contentPadding: const EdgeInsets.only(
-                                  left: 10,
+                        child: Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.search_rounded,
+                              color: Colors.black54,
+                              size: getSize(20),
+                            ),
+                            Expanded(
+                              child: TextFormField(
+                                autofocus: true,
+                                textAlignVertical: TextAlignVertical.center,
+                                controller: searchController,
+                                style: appTheme.black16RegularTextStyle,
+                                maxLines: 1,
+                                decoration: InputDecoration(
+                                  fillColor: Colors.transparent,
+                                  border: InputBorder.none,
+                                  isDense: true,
+                                  contentPadding: const EdgeInsets.only(
+                                    left: 10,
+                                  ),
+                                  hintText: "Search Here",
+                                  hintStyle: appTheme.black16RegularTextStyle,
                                 ),
-                                hintText: "Search Here",
-                                hintStyle: TextStyle(
-                                  fontFamily: 'Segoe',
-                                  fontSize: getFontSize(15),
-                                  // hintSize(height),
-                                  // AppStrings.hintTextsize,
-                                  color: Colors.black.withOpacity(0.5),
-                                ),
+                                onChanged: (text) {
+                                  searchBusiness(context, text);
+                                },
                               ),
                             ),
-                          ),
-                          Icon(Icons.clear),
-                        ],
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  searchController.clear();
+                                  _isShowSearchField = false;
+                                });
+                              },
+                              child: Icon(
+                                Icons.clear,
+                                color: Colors.black54,
+                                size: getSize(20),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-              SizedBox(
-                width: getSize(12),
-              ),
-              Container(
-                // alignment: Alignment.center,
-                // margin: EdgeInsets.only(top: getSize(30)),
-                width: getSize(40),
-                height: getSize(40),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  image: DecorationImage(
-                    image: AssetImage(userIcon),
-                    fit: BoxFit.fill,
-                  ),
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    new BoxShadow(
-                      color: ColorConstants.getShadowColor,
-                      offset: Offset(0, 5),
-                      blurRadius: 5.0,
-                    ),
-                  ],
-                ),
-
-                // NetworkImage('https://via.placeholder.com/150'),
-              ),
             ],
           ),
         ),
       ],
     );
+  }
+
+  searchBusiness(BuildContext context, String text) {
+    arrList.clear();
+    if (text.length >= 0) {
+      for (int i = 0; i < duplicateArrayList.length; i++) {
+        if (duplicateArrayList[i]
+            .name
+            .toLowerCase()
+            .startsWith(text.toLowerCase())) {
+          arrList.add(duplicateArrayList[i]);
+        }
+      }
+    } else {
+      arrList = duplicateArrayList.map((element) => element).toList();
+    }
+    print(arrList.length);
+
+    fillArrayList();
   }
 }
