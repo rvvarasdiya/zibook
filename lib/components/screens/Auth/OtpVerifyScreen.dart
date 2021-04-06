@@ -28,7 +28,7 @@ import 'package:zaviato/components/widgets/shared/buttons.dart';
 import '../../../main.dart';
 import 'CreatePasswordScreen.dart';
 
-class   OtpVerifyScreen extends StatefulWidget {
+class OtpVerifyScreen extends StatefulWidget {
   static const route = "OtpVerifyScreen";
   String value = "";
   OtpPage moduleType;
@@ -71,14 +71,14 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
   bool isResend = false;
   bool autoFocus = true;
   bool isApiCall = false;
-static const defaultcolor = Color(0xff4A89DC);
+  static const defaultcolor = Color(0xff4A89DC);
   @override
   void initState() {
-   if(this.mounted){
-            setState(() {
-          startTimer();
-        });
-        }
+    if (this.mounted) {
+      setState(() {
+        startTimer();
+      });
+    }
     super.initState();
     if (widget.moduleType == OtpPage.SignUP) {
       callSendOTP();
@@ -93,7 +93,12 @@ static const defaultcolor = Color(0xff4A89DC);
           context,
           '',
           backgroundColor: appTheme.whiteColor,
-          leadingButton: IconButton(icon: Icon(Icons.arrow_back,color: Colors.black,), onPressed: ()=>Navigator.pop(context)),
+          leadingButton: IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
+              onPressed: () => Navigator.pop(context)),
           centerTitle: false,
         ),
         body: Form(
@@ -126,54 +131,57 @@ static const defaultcolor = Color(0xff4A89DC);
               // getPinViewOTP(),
 
               Padding(
-                    padding:  EdgeInsets.only(left: getSize(33), top: getSize(20,),
-                      right: getSize(33),
-                    ),
-                    child: PinCodeTextField(
-                      controller: _pinEditingController,
-                      appContext: context,
-                      length: 6,
-                      animationType: AnimationType.fade,
-                      keyboardType: TextInputType.number,
-                      textStyle:
-                      TextStyle(fontSize: getSize(20)),
-                      pinTheme: PinTheme(
-                        activeColor: defaultcolor.withOpacity(0.7),
-                        inactiveColor:  defaultcolor.withOpacity(0.7),
-                        selectedColor:  defaultcolor.withOpacity(0.7),
-                        shape: PinCodeFieldShape.underline,
-                        // borderRadius: BorderRadius.circular(5),
-                        fieldHeight: 30,
-                        fieldWidth: 35,
-                        borderWidth: 1,
-                        activeFillColor: Colors.white,
-                      ),
-                      animationDuration: Duration(milliseconds: 300),
+                padding: EdgeInsets.only(
+                  left: getSize(33),
+                  top: getSize(
+                    20,
+                  ),
+                  right: getSize(33),
+                ),
+                child: PinCodeTextField(
+                  controller: _pinEditingController,
+                  appContext: context,
+                  length: 6,
+                  animationType: AnimationType.fade,
+                  keyboardType: TextInputType.number,
+                  textStyle: TextStyle(fontSize: getSize(20)),
+                  pinTheme: PinTheme(
+                    activeColor: defaultcolor.withOpacity(0.7),
+                    inactiveColor: defaultcolor.withOpacity(0.7),
+                    selectedColor: defaultcolor.withOpacity(0.7),
+                    shape: PinCodeFieldShape.underline,
+                    // borderRadius: BorderRadius.circular(5),
+                    fieldHeight: 30,
+                    fieldWidth: 35,
+                    borderWidth: 1,
+                    activeFillColor: Colors.white,
+                  ),
+                  animationDuration: Duration(milliseconds: 300),
 
 //                              enableActiveFill: true,
 
-                      // controller: pinCodeController,
-                      onCompleted: (v) {
-                        print("Completed");
-                      _pinEditingController.text = v;
-                        // otp = v;
-                      },
-                      onChanged: (value) {
-                        print(value);
-                        // otp = value;
-                        setState(() {
-                          print(value);
-                        });
-                      },
-                      beforeTextPaste: (text) {
-                        print("Allowing to paste $text");
-                        //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-                        //but you can show anything you want here, like your pop up saying wrong paste format or etc
-                        return true;
-                      },
-                    ),
-                  ),
-                
+                  // controller: pinCodeController,
+                  onCompleted: (v) {
+                    print("Completed");
+                    _pinEditingController.text = v;
+                    // otp = v;
+                  },
+                  onChanged: (value) {
+                    print(value);
+                    // otp = value;
+                    setState(() {
+                      print(value);
+                    });
+                  },
+                  beforeTextPaste: (text) {
+                    print("Allowing to paste $text");
+                    //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
+                    //but you can show anything you want here, like your pop up saying wrong paste format or etc
+                    return true;
+                  },
+                ),
+              ),
+
               _start > 0
                   ? Align(
                       alignment: Alignment.bottomRight,
@@ -306,10 +314,10 @@ static const defaultcolor = Color(0xff4A89DC);
         isTimerCompleted = false;
         isApiCall = true;
         _start = 30;
-       if(this.mounted){
-            setState(() {
-          startTimer();
-        });
+        if (this.mounted) {
+          setState(() {
+            startTimer();
+          });
         }
       },
     ).catchError((onError) {
@@ -348,12 +356,11 @@ static const defaultcolor = Color(0xff4A89DC);
         isTimerCompleted = false;
         isApiCall = true;
         _start = 30;
-        if(this.mounted){
-            setState(() {
-          startTimer();
-        });
+        if (this.mounted) {
+          setState(() {
+            startTimer();
+          });
         }
-        
       },
     ).catchError((onError) {
       // isOtpTrue = false;
@@ -420,19 +427,17 @@ static const defaultcolor = Color(0xff4A89DC);
       isOtpTrue = false;
       isOtpCheck = false;
       setState(() {});
-      
-      app.resolve<CustomDialogs>().confirmDialog(
-            context,
-            title: R.string().commonString.error,
-            desc: onError.message,
-            positiveBtnTitle: R.string().commonString.btnTryAgain,
-            onClickCallback: (ButtonType tryagain){
-                // isOtpTrue = false;
-                isOtpCheck = true;
-                _pinEditingController.clear();
-                setState(() {});
-            }
-          );
+
+      app.resolve<CustomDialogs>().confirmDialog(context,
+          title: R.string().commonString.error,
+          desc: onError.message,
+          positiveBtnTitle: R.string().commonString.btnTryAgain,
+          onClickCallback: (ButtonType tryagain) {
+        // isOtpTrue = false;
+        isOtpCheck = true;
+        _pinEditingController.clear();
+        setState(() {});
+      });
     });
   }
 
@@ -472,34 +477,36 @@ static const defaultcolor = Color(0xff4A89DC);
 
       FocusScope.of(context).unfocus();
 
-       SyncManager.instance.callMasterSync(
-          context,
-          () async {
-            //success
-            // AppNavigation.shared.movetoHome(isPopAndSwitch: true);
-            // Navigator.of(context).pop();
-            NavigationUtilities.push(Dashboard());
-          },
-          () {},
-          isNetworkError: false,
-          isProgress: true,
-          // id: loginResp.data.user.id,
-        ).then((value) {
-          
-        });
+      SyncManager.instance.callMasterSync(
+        context,
+        () async {
+          //success
+          // AppNavigation.shared.movetoHome(isPopAndSwitch: true);
+          // Navigator.of(context).pop();
+          NavigationUtilities.push(Dashboard());
+        },
+        () {},
+        isNetworkError: false,
+        isProgress: true,
+        // id: loginResp.data.user.id,
+      ).then((value) {});
 
       // NavigationUtilities.pushRoute(SignInScreen.route);
     }).catchError((onError) {
       isOtpTrue = false;
       isOtpCheck = false;
       app.resolve<PrefUtils>().clearPreferenceAndDB();
+      _pinEditingController.clear();
       setState(() {});
-      app.resolve<CustomDialogs>().confirmDialog(
-            context,
-            title: R.string().commonString.error,
-            desc: onError.message,
-            positiveBtnTitle: R.string().commonString.btnTryAgain,
-          );
+      app.resolve<CustomDialogs>().confirmDialog(context,
+          title: R.string().commonString.error,
+          desc: onError.message,
+          positiveBtnTitle: R.string().commonString.btnTryAgain,
+          onClickCallback: (ButtonType tryagain) {
+        isOtpCheck = true;
+        _pinEditingController.clear();
+        setState(() {});
+      });
     });
   }
 
@@ -535,7 +542,7 @@ static const defaultcolor = Color(0xff4A89DC);
   //   radius: Radius.circular(
   //     getSize(10),
   //   ),
-    
+
   //   solidColor: isOtpCheck
   //       ? appTheme.colorPrimary.withOpacity(0.1)
   //       : isOtpTrue
