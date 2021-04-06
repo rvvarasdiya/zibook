@@ -115,11 +115,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
-                  BoxShadow(
-                    color: Color(0xff6E6E6E33),
-                    // spreadRadius: 5,
-                    blurRadius: 5,
-                    // offset: Offset(0, 3), // changes position of shadow
+                  new BoxShadow(
+                    // color: ColorConstants.getShadowColor,
+                    color: Colors.grey.withOpacity(0.2),
+                    // offset: Offset(2, 6),
+                    blurRadius: 7.0,
+                    spreadRadius: 5.0,
                   ),
                 ],
               ),
@@ -133,11 +134,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: [
-                        BoxShadow(
-                          color: Color(0xff6E6E6E33),
-                          // spreadRadius: 5,
-                          blurRadius: 1,
-                          // offset: Offset(0, 3), // changes position of shadow
+                        new BoxShadow(
+                          // color: ColorConstants.getShadowColor,
+                          color: Colors.grey.withOpacity(0.2),
+                          // offset: Offset(2, 6),
+                          blurRadius: 3.0,
+                          spreadRadius: 2.0,
                         ),
                       ],
                     ),

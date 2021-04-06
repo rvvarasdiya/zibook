@@ -131,10 +131,11 @@ class _HomeScreenState extends State<HomeScreen> {
         // NavigationUtilities.pushRoute(BusinessView.route);
         // NavigationUtilities.push(BusinessFullDetail());
         // NavigationUtilities.pushRoute(BusinessFullDetail.route);
-        Map<String,dynamic> arguments = {};
+        Map<String, dynamic> arguments = {};
         // arguments["moduleType"] = BusinessViewScree.HomeScreen;
         arguments["categoryId"] = listDataModel.sId;
-        NavigationUtilities.pushRoute(BusinessViewByCategory.route,args: arguments);
+        NavigationUtilities.pushRoute(BusinessViewByCategory.route,
+            args: arguments);
       },
       child: Container(
         alignment: Alignment.center,
@@ -164,16 +165,18 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(5),
-            boxShadow: [
-              new BoxShadow(
-                // color: ColorConstants.getShadowColor,
-                color: Colors.black12,
-                // offset: Offset(0, -15),
-                blurRadius: 5.0,
-              ),
-            ]),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(5),
+          boxShadow: [
+            new BoxShadow(
+              // color: ColorConstants.getShadowColor,
+              color: Colors.grey.withOpacity(0.2),
+              // offset: Offset(2, 6),
+              blurRadius: 7.0,
+              spreadRadius: 5.0,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -271,30 +274,30 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           // backgroundColor: Color(0xffFAFAFA),
           // bottomNavigationBar: bottomNavigator(),
-          body : Container(
-      height: double.infinity,
-      padding: EdgeInsets.only(
-        top: getSize(20),
-      ),
-      // padding: EdgeInsets.all(30),
-      width: double.infinity,
-      // height: getSize(200),
-      decoration: BoxDecoration(
-          color: ColorConstants.backGroundColor,
-          boxShadow: [
-            new BoxShadow(
-              // color: Colors.white,
-              color: Color(0xff0000001A),
-              offset: Offset(0, -6),
-              blurRadius: 10.0,
+          body: Container(
+            height: double.infinity,
+            padding: EdgeInsets.only(
+              top: getSize(20),
             ),
-          ],
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(35),
-            topRight: Radius.circular(35),
-          )),
-      child: fashionBaseList,
-    ),
+            // padding: EdgeInsets.all(30),
+            width: double.infinity,
+            // height: getSize(200),
+            decoration: BoxDecoration(
+                color: ColorConstants.backGroundColor,
+                boxShadow: [
+                  new BoxShadow(
+                    // color: Colors.white,
+                    color: Color(0xff0000001A),
+                    offset: Offset(0, -6),
+                    blurRadius: 10.0,
+                  ),
+                ],
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(35),
+                  topRight: Radius.circular(35),
+                )),
+            child: fashionBaseList,
+          ),
         ),
       ),
     );

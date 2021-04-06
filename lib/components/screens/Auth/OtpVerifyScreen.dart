@@ -331,7 +331,6 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
             positiveBtnTitle: R.string().commonString.btnTryAgain,
           );
     });
-    ;
   }
 
   callSendOTP() {
