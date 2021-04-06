@@ -1,20 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
+import 'package:zaviato/app/base/BaseApiResp.dart';
+import 'package:zaviato/app/base/ErrorResp.dart';
 import 'package:zaviato/app/constant/ImageConstant.dart';
+import 'package:zaviato/app/localization/app_locales.dart';
+import 'package:zaviato/app/network/NetworkCall.dart';
+import 'package:zaviato/app/network/ServiceModule.dart';
 import 'package:zaviato/app/utils/CommonTextfield.dart';
+import 'package:zaviato/app/utils/CustomDialog.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/components/widgets/shared/buttons.dart';
 import 'package:zaviato/components/widgets/shared/start_rating.dart';
 
+import '../../../main.dart';
+
 class FeedbackScreen extends StatefulWidget {
+  static const route = "FeedbackScreen";
   @override
   _FeedbackScreenState createState() => _FeedbackScreenState();
 }
 
 class _FeedbackScreenState extends State<FeedbackScreen> {
   TextEditingController feedbackController = TextEditingController();
+  double rating;
 
-  double rating = 1;
+  @override
+  void initState() {
+    super.initState();
+    rating = 0;
+    feedbackController.text = "";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -171,7 +187,9 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                   height: getSize(40),
                 ),
                 AppButton.flat(
-                  onTap: () {},
+                  onTap: () {
+                    callApiToAddReviewAndRatings(context);
+                  },
                   backgroundColor: appTheme.colorPrimary,
                   text: "Submit",
                   textSize: 18,
@@ -184,5 +202,33 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
         ],
       ),
     );
+  }
+
+  callApiToAddReviewAndRatings(BuildContext context) {
+    Map<String, dynamic> req = {};
+    req["id"] = "5f17ecd86a286f6a7f6c5b5b";
+    req["rating"] = rating;
+    req["review"] = feedbackController.text;
+
+    NetworkCall<BaseApiResp>()
+        .makeCall(
+            () => app
+                .resolve<ServiceModule>()
+                .networkService()
+                .addReviewRating(req),
+            context,
+            isProgress: true)
+        .then((baseApiResp) async {
+      print("Review added successfully");
+    }).catchError((onError) {
+      if (onError is ErrorResp) {
+        app.resolve<CustomDialogs>().confirmDialog(
+              context,
+              title: R.string().commonString.error,
+              desc: onError.message,
+              positiveBtnTitle: R.string().commonString.ok,
+            );
+      }
+    });
   }
 }

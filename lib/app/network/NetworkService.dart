@@ -69,7 +69,10 @@ abstract class NetworkService {
 
   @POST(ApiConstants.deleteBusinessApi)
   Future<BaseApiResp> removeBusiness(@Path("id") String id);
-  
+
   @POST(ApiConstants.updateBusinessApi)
   Future<BaseApiResp> updteBusiness(@Body() UpdateBusinessReq req);
+
+  @POST(ApiConstants.addreviewRatingApi)
+  Future<BaseApiResp> addReviewRating(@Body() Map<String, dynamic> req);
 }

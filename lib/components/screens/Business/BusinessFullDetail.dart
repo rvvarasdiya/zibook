@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
 import 'package:zaviato/app/base/BaseList.dart';
 import 'package:zaviato/app/constant/ColorConstant.dart';
@@ -10,6 +12,7 @@ import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/screens/contactus/contactusScreen.dart';
+import 'package:zaviato/components/screens/feedback/feedbackscreen.dart';
 import 'package:zaviato/components/widgets/BusinessFullDetailsWidgets/ReviewAndRatings.dart';
 import 'package:zaviato/components/widgets/shared/start_rating.dart';
 import 'package:zaviato/models/ReviewAndRatingsModel.dart';
@@ -260,10 +263,7 @@ class _BusinessFullDetailState extends State<BusinessFullDetail> {
         body: Column(
           children: <Widget>[
             Container(
-              // height: getSize(150),
               width: double.infinity,
-              // color: appTheme.colorPrimary,
-              // color: Colors.white,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -278,35 +278,76 @@ class _BusinessFullDetailState extends State<BusinessFullDetail> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        GestureDetector(
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                print("Enquiry pressed ........ ");
+                                NavigationUtilities.pushRoute(
+                                    ContactUsScreen.route);
+                              },
+                              child: Container(
+                                decoration: getBoxDecoration(
+                                    appTheme.whiteColor.withOpacity(0.2), 5),
+                                padding: EdgeInsets.all(5),
+                                child: Row(
+                                  children: [
+                                    Image.asset(chatIcon,
+                                        width: getSize(16),
+                                        height: getSize(16),
+                                        color: Colors.white),
+                                    Text(
+                                      "  Enquiry",
+                                      style: appTheme.white14RegularTextStyle,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: getSize(10),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                print("Rating pressed ........ ");
+                                NavigationUtilities.pushRoute(
+                                    FeedbackScreen.route);
+                              },
+                              child: Container(
+                                decoration: getBoxDecoration(
+                                    appTheme.whiteColor.withOpacity(0.2), 5),
+                                padding: EdgeInsets.all(5),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.star_half,
+                                        size: getSize(16),
+                                        color: appTheme.whiteColor),
+                                    // Image.asset(chatIcon,
+                                    //     width: getSize(16),
+                                    //     height: getSize(16),
+                                    //     color: Colors.white),
+                                    Text(
+                                      "  Add Rating",
+                                      style: appTheme.white14RegularTextStyle,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        InkWell(
                           onTap: () {
-                            print("Enquiry pressed ........ ");
-                            NavigationUtilities.push(ContactUsScreen());
+                            launchWhatsApp();
                           },
                           child: Container(
-                            decoration:
-                                getBoxDecoration(appTheme.colorPrimary, 5),
-                            padding: EdgeInsets.all(5),
-                            child: Row(
-                              children: [
-                                Image.asset(chatIcon,
-                                    width: getSize(16),
-                                    height: getSize(16),
-                                    color: Colors.white),
-                                Text(
-                                  "  Enquiry",
-                                  style: appTheme.white14RegularTextStyle,
-                                )
-                              ],
+                            width: getSize(25),
+                            height: getSize(25),
+                            child: Image.asset(
+                              whatsapp,
+                              fit: BoxFit.cover,
                             ),
-                          ),
-                        ),
-                        Container(
-                          width: getSize(25),
-                          height: getSize(25),
-                          child: Image.asset(
-                            whatsapp,
-                            fit: BoxFit.cover,
                           ),
                         ),
                       ],
@@ -428,6 +469,14 @@ class _BusinessFullDetailState extends State<BusinessFullDetail> {
         // businessFullDetailBaseList,
       ),
     );
+  }
+
+  launchWhatsApp() async {
+    final link = WhatsAppUnilink(
+      phoneNumber: '7572996471',
+      text: "Hey! I'm inquiring about your business...",
+    );
+    await launch('$link');
   }
 
   getLocalAppBar(BuildContext context) {
