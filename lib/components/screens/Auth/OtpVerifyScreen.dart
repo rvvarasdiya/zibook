@@ -17,6 +17,7 @@ import 'package:zaviato/app/utils/CommonWidgets.dart';
 import 'package:zaviato/app/utils/CustomDialog.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
+import 'package:zaviato/app/utils/pref_utils.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/screens/Auth/SignInScreen.dart';
 import 'package:zaviato/components/screens/dashboard/dashboard.dart';
@@ -483,12 +484,15 @@ static const defaultcolor = Color(0xff4A89DC);
           isNetworkError: false,
           isProgress: true,
           // id: loginResp.data.user.id,
-        ).then((value) {});
+        ).then((value) {
+          
+        });
 
       // NavigationUtilities.pushRoute(SignInScreen.route);
     }).catchError((onError) {
       isOtpTrue = false;
       isOtpCheck = false;
+      app.resolve<PrefUtils>().clearPreferenceAndDB();
       setState(() {});
       app.resolve<CustomDialogs>().confirmDialog(
             context,

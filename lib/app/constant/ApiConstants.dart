@@ -85,4 +85,7 @@ class ApiConstants {
   //delete business
   static const String deleteBusinessApi = customerCommonUrl + "/business/remove/{id}";
 
+  //add review and ratings
+  static const String addreviewRatingApi = customerCommonUrl + "/rating-review/add";
+
 }

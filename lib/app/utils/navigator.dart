@@ -18,6 +18,7 @@ import 'package:zaviato/components/screens/contactus/contactusScreen.dart';
 import 'package:zaviato/components/screens/dashboard/HomeScreen/BusinessByCategoryScreen.dart';
 import 'package:zaviato/components/screens/editDetail/editprofile.dart';
 import 'package:zaviato/components/screens/editDetail/favoritescreen.dart';
+import 'package:zaviato/components/screens/feedback/feedbackscreen.dart';
 import 'package:zaviato/components/screens/resgisterbusiness/registerBusinessScreen.dart';
 import 'fade_route.dart';
 
@@ -108,10 +109,14 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       screen = WelcomeScreen();
       break;
     case OtpVerifyScreen.route:
-      screen = OtpVerifyScreen(arguments: arguments,);
+      screen = OtpVerifyScreen(
+        arguments: arguments,
+      );
       break;
     case CreatePasswordScreen.route:
-      screen = CreatePasswordScreen(arguments: arguments,);
+      screen = CreatePasswordScreen(
+        arguments: arguments,
+      );
       break;
 
     case SignInScreen.route:
@@ -130,7 +135,9 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     //   screen = BusinessDetail1();
     //   break;
     case BusinessFullDetail.route:
-      screen = BusinessFullDetail();
+      screen = BusinessFullDetail(
+        arguments: arguments,
+      );
       break;
     case HelpScreen.route:
       screen = HelpScreen();
@@ -139,7 +146,9 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       screen = BusinessView();
       break;
     case BusinessEdit.route:
-      screen = BusinessEdit(arguments: arguments,);
+      screen = BusinessEdit(
+        arguments: arguments,
+      );
       break;
     case EditProfileScreen.route:
       screen = EditProfileScreen();
@@ -154,9 +163,11 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       screen = ContactUsScreen();
       break;
     case BusinessViewByCategory.route:
-      screen = BusinessViewByCategory(arguments:arguments);
+      screen = BusinessViewByCategory(arguments: arguments);
       break;
-    
+    case FeedbackScreen.route:
+      screen = FeedbackScreen();
+      break;
   }
 
   switch (routeType) {
