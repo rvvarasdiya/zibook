@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
-import 'package:zaviato/app/constant/ColorConstant.dart';
-import 'package:zaviato/app/constant/ImageConstant.dart';
 import 'package:zaviato/app/utils/CommonWidgets.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
-import 'package:zaviato/app/utils/navigator.dart';
-import 'package:zaviato/components/screens/Business/BusinessView.dart';
 import 'package:zaviato/models/HelpScreenModel.dart';
 
-class HelpScreen extends StatefulWidget {
+class FaqsScreen extends StatefulWidget {
   static const route = "HelpScreen";
   @override
-  _HelpScreenState createState() => _HelpScreenState();
+  _FaqsScreenState createState() => _FaqsScreenState();
 }
 
-class _HelpScreenState extends State<HelpScreen> {
+class _FaqsScreenState extends State<FaqsScreen> {
   List<HelpScreenModel> helpScreenModelList = [];
   // bool showMoreLess = false;
 
@@ -40,32 +36,8 @@ class _HelpScreenState extends State<HelpScreen> {
           centerTitle: false,
           backgroundColor: appTheme.colorPrimary,
           leadingButton: IconButton(icon: Icon(Icons.arrow_back,color: Colors.white,), onPressed: ()=>Navigator.pop(context)),
-          actionItems: [
-            Container(
-              // alignment: Alignment.center,
-              margin: EdgeInsets.only(
-                  top: getSize(15), bottom: getSize(8), right: getSize(10)),
-              width: getSize(40),
-              height: getSize(40),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                image: DecorationImage(
-                  image: AssetImage(userIcon),
-                  fit: BoxFit.fill,
-                ),
-                shape: BoxShape.circle,
-                boxShadow: [
-                  new BoxShadow(
-                    color: ColorConstants.getShadowColor,
-                    offset: Offset(0, 5),
-                    blurRadius: 5.0,
-                  ),
-                ],
-              ),
-
-              // NetworkImage('https://via.placeholder.com/150'),
-            ),
-          ]),
+        
+          ),
       body: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.only(

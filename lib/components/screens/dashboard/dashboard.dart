@@ -19,7 +19,7 @@ import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/pref_utils.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
-import 'package:zaviato/components/screens/Business/HelpScreen.dart';
+import 'package:zaviato/components/screens/Business/FaqsScreen.dart';
 import 'package:zaviato/components/screens/contactus/contactusScreen.dart';
 import 'package:zaviato/components/screens/dashboard/HomeScreen/homescreen.dart';
 import 'package:zaviato/components/screens/dashboard/BottomNavModel.dart';
@@ -51,6 +51,7 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+
   List<BottomNavModel> model;
   int _currentIndex = 0;
   List<Widget> _children;
@@ -340,8 +341,8 @@ class _DashboardState extends State<Dashboard> {
             ),
             InkWell(
               onTap: () {
-                Navigator.pop(context);
-                NavigationUtilities.pushRoute(HelpScreen.route);
+              
+                NavigationUtilities.pushRoute(FaqsScreen.route);
               },
               child:
                   Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
