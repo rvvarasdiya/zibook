@@ -3,12 +3,16 @@ import 'package:zaviato/app/Helper/Themehelper.dart';
 import 'package:zaviato/app/constant/ColorConstant.dart';
 import 'package:zaviato/app/constant/ImageConstant.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
-import 'package:zaviato/app/utils/navigator.dart';
-import 'package:zaviato/components/screens/Business/HelpScreen.dart';
 import 'package:zaviato/components/widgets/shared/start_rating.dart';
 import 'package:zaviato/models/ReviewAndRatingsModel.dart';
+import 'package:zaviato/models/mybusiness/MyBusinessByCategoryRes.dart';
 
 class ReviewAndRatings extends StatefulWidget {
+  static const route = "ReviewAndRatings";
+  Business businessModel;
+
+  ReviewAndRatings(this.businessModel);
+
   @override
   _ReviewAndRatingsState createState() => _ReviewAndRatingsState();
 }
@@ -37,6 +41,70 @@ class _ReviewAndRatingsState extends State<ReviewAndRatings> {
     return Column(
       children: <Widget>[
         Padding(
+          padding:  EdgeInsets.symmetric(horizontal:getSize(30)),
+          child: Column(
+            children: [
+              Padding(
+            padding: EdgeInsets.only(top: getSize(15)),
+            child: Row(
+              children: <Widget>[
+                Icon(
+                  Icons.person,
+                  size: getSize(18),
+                ),
+                SizedBox(
+                  width: getSize(10),
+                ),
+                Text(
+                  widget.businessModel.owner.name,
+                  style: appTheme.black14RegularTextStyle,
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: getSize(15)),
+            child: Row(
+              children: <Widget>[
+                Icon(
+                  Icons.call,
+                  size: getSize(18),
+                ),
+                SizedBox(
+                  width: getSize(10),
+                ),
+                Text(
+                  widget.businessModel.getMobileName(widget.businessModel),
+                  style: appTheme.black14RegularTextStyle,
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: getSize(15)),
+            child: Row(
+              children: <Widget>[
+                Icon(
+                  Icons.location_on,
+                  size: getSize(18),
+                ),
+                SizedBox(
+                  width: getSize(10),
+                ),
+                Expanded(
+                  child: Text(
+                    "hello it's a dummy address...",
+                    style: appTheme.black14RegularTextStyle,
+                  ),
+                )
+              ],
+            ),
+          ),
+
+            ],
+          ),
+        ),
+                Padding(
           padding: EdgeInsets.only(
               left: getSize(30), top: getSize(20), bottom: getSize(10)),
           child: Row(

@@ -130,7 +130,7 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
     //   screen = BusinessDetail1();
     //   break;
     case BusinessFullDetail.route:
-      screen = BusinessFullDetail();
+      screen = BusinessFullDetail(arguments: arguments,);
       break;
     case HelpScreen.route:
       screen = HelpScreen();

@@ -12,6 +12,8 @@ import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/screens/Business/BusinessEdit.dart';
+import 'package:zaviato/components/screens/Business/BusinessFullDetail.dart';
+import 'package:zaviato/components/widgets/BusinessFullDetailsWidgets/ReviewAndRatings.dart';
 import 'package:zaviato/components/widgets/shared/buttons.dart';
 import 'package:zaviato/components/widgets/shared/start_rating.dart';
 import 'package:zaviato/models/mybusiness/MyBusinessByCategoryRes.dart';
@@ -117,182 +119,189 @@ class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
   }
 
   getItemWidget(Business businessModel, int index) {
-    return Padding(
-      padding: EdgeInsets.all(getSize(10)),
-      child: Container(
-        // color: Colors.red,
-        padding: EdgeInsets.all(getSize(15)),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: getBoxShadow(context),
-          color: Colors.white,
-        ),
-        child: Column(
-          children: <Widget>[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  // alignment: Alignment.center,
-                  // margin: EdgeInsets.only(top: getSize(30)),
-                  width: getSize(40),
-                  height: getSize(40),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    image: DecorationImage(
-                      image: AssetImage(userIcon),
-                      fit: BoxFit.fill,
+    return InkWell(
+      onTap: (){
+        Map<String,dynamic> arguments = {};
+        arguments["model"] = businessModel;
+        NavigationUtilities.pushRoute(BusinessFullDetail.route,args: arguments);
+      },
+          child: Padding(
+        padding: EdgeInsets.all(getSize(10)),
+        child: Container(
+          // color: Colors.red,
+          padding: EdgeInsets.all(getSize(15)),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: getBoxShadow(context),
+            color: Colors.white,
+          ),
+          child: Column(
+            children: <Widget>[
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    // alignment: Alignment.center,
+                    // margin: EdgeInsets.only(top: getSize(30)),
+                    width: getSize(40),
+                    height: getSize(40),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      image: DecorationImage(
+                        image: AssetImage(userIcon),
+                        fit: BoxFit.fill,
+                      ),
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        new BoxShadow(
+                          color: ColorConstants.getShadowColor,
+                          offset: Offset(0, 5),
+                          blurRadius: 5.0,
+                        ),
+                      ],
                     ),
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      new BoxShadow(
-                        color: ColorConstants.getShadowColor,
-                        offset: Offset(0, 5),
-                        blurRadius: 5.0,
-                      ),
-                    ],
-                  ),
-                  // NetworkImage('https://via.placeholder.com/150'),
-                ),
-                SizedBox(
-                  width: getSize(10),
-                ),
-                Expanded(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Text(
-                            businessModel.name,
-                            style: appTheme.black16BoldTextStyle,
-                          ),
-                          SizedBox(
-                            height: getSize(5),
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Container(
-                                  decoration: getBoxDecoration(
-                                      ColorConstants.getGreenColor, 3),
-                                  padding: EdgeInsets.symmetric(horizontal: 5),
-                                  child: Text(
-                                    "4.2",
-                                    style: appTheme.white14RegularTextStyle,
-                                  )),
-                              SizedBox(width: getSize(4)),
-                              SmoothStarRating(
-                                  onRatingChanged: (value) {
-                                    // print("------------$rating   --------- $value");
-                                    // setState(() {
-                                    //   rating = value;
-                                    // });
-                                  },
-                                  rating: 4.2,
-                                  allowHalfRating: false,
-                                  starCount: 5,
-                                  size: getSize(15),
-                                  color: appTheme.colorPrimary,
-                                  borderColor: appTheme.dividerColor,
-                                  spacing: 0.0),
-                            ],
-                          ),
-                        ],
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          // print("----index $index");
-                          // print(categoryListModel.isFavorite);
-                          // print("favorite pressed ||| ");
-                          // setState(() {
-                          //   for (int i = 0; i < 10; i++) {
-                          //     if (i == index) {
-                          //       arrList[i].isFavorite = true;
-                          //     }
-                          //     // else{
-                          //     //   arrList[i].isFavorite =false;
-                          //     // }
-                          //   }
-                          //   // arrList[index].isFavorite = ! categoryListModel.isFavorite;
-                          // });
-                        },
-                        // child: Icon(
-                        //   (arrList[index].isFavorite)
-                        //       ? Icons.favorite
-                        //       : Icons.favorite_border,
-                        //   size: getSize(20),
-                        //   color: (arrList[index].isFavorite)
-                        //       ? appTheme.colorPrimary
-                        //       : null,
-                        // ),
-                        child: Icon(Icons.favorite),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: getSize(15)),
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.person,
-                    size: getSize(18),
-                  ),
-                  SizedBox(
-                    width: getSize(10),
-                  ),
-                  Text(
-                    businessModel.owner.name,
-                    style: appTheme.black14RegularTextStyle,
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: getSize(15)),
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.call,
-                    size: getSize(18),
-                  ),
-                  SizedBox(
-                    width: getSize(10),
-                  ),
-                  Text(
-                    businessModel.getMobileName(businessModel),
-                    style: appTheme.black14RegularTextStyle,
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: getSize(15)),
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.location_on,
-                    size: getSize(18),
+                    // NetworkImage('https://via.placeholder.com/150'),
                   ),
                   SizedBox(
                     width: getSize(10),
                   ),
                   Expanded(
-                    child: Text(
-                      "hello it's a dummy address...",
-                      style: appTheme.black14RegularTextStyle,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Text(
+                              businessModel.name,
+                              style: appTheme.black16BoldTextStyle,
+                            ),
+                            SizedBox(
+                              height: getSize(5),
+                            ),
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                    decoration: getBoxDecoration(
+                                        ColorConstants.getGreenColor, 3),
+                                    padding: EdgeInsets.symmetric(horizontal: 5),
+                                    child: Text(
+                                      "4.2",
+                                      style: appTheme.white14RegularTextStyle,
+                                    )),
+                                SizedBox(width: getSize(4)),
+                                SmoothStarRating(
+                                    onRatingChanged: (value) {
+                                      // print("------------$rating   --------- $value");
+                                      // setState(() {
+                                      //   rating = value;
+                                      // });
+                                    },
+                                    rating: 4.2,
+                                    allowHalfRating: false,
+                                    starCount: 5,
+                                    size: getSize(15),
+                                    color: appTheme.colorPrimary,
+                                    borderColor: appTheme.dividerColor,
+                                    spacing: 0.0),
+                              ],
+                            ),
+                          ],
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            // print("----index $index");
+                            // print(categoryListModel.isFavorite);
+                            // print("favorite pressed ||| ");
+                            // setState(() {
+                            //   for (int i = 0; i < 10; i++) {
+                            //     if (i == index) {
+                            //       arrList[i].isFavorite = true;
+                            //     }
+                            //     // else{
+                            //     //   arrList[i].isFavorite =false;
+                            //     // }
+                            //   }
+                            //   // arrList[index].isFavorite = ! categoryListModel.isFavorite;
+                            // });
+                          },
+                          // child: Icon(
+                          //   (arrList[index].isFavorite)
+                          //       ? Icons.favorite
+                          //       : Icons.favorite_border,
+                          //   size: getSize(20),
+                          //   color: (arrList[index].isFavorite)
+                          //       ? appTheme.colorPrimary
+                          //       : null,
+                          // ),
+                          child: Icon(Icons.favorite),
+                        )
+                      ],
                     ),
-                  )
+                  ),
                 ],
               ),
-            ),
-                      ],
+              Padding(
+                padding: EdgeInsets.only(top: getSize(15)),
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.person,
+                      size: getSize(18),
+                    ),
+                    SizedBox(
+                      width: getSize(10),
+                    ),
+                    Text(
+                      businessModel.owner.name,
+                      style: appTheme.black14RegularTextStyle,
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: getSize(15)),
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.call,
+                      size: getSize(18),
+                    ),
+                    SizedBox(
+                      width: getSize(10),
+                    ),
+                    Text(
+                      businessModel.getMobileName(businessModel),
+                      style: appTheme.black14RegularTextStyle,
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: getSize(15)),
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.location_on,
+                      size: getSize(18),
+                    ),
+                    SizedBox(
+                      width: getSize(10),
+                    ),
+                    Expanded(
+                      child: Text(
+                        "hello it's a dummy address...",
+                        style: appTheme.black14RegularTextStyle,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+                        ],
+          ),
         ),
       ),
     );

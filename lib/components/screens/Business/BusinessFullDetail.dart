@@ -13,9 +13,23 @@ import 'package:zaviato/components/widgets/BusinessFullDetailsWidgets/ReviewAndR
 import 'package:zaviato/models/ReviewAndRatingsModel.dart';
 import 'package:zaviato/models/TabModel.dart';
 import 'package:zaviato/models/categoryListModel.dart';
+import 'package:zaviato/models/mybusiness/MyBusinessByCategoryRes.dart';
 
 class BusinessFullDetail extends StatefulWidget {
   static const route = "BusinessFullDetail";
+  Business businessModel;
+
+  BusinessFullDetail({Map<String, dynamic> arguments}) {
+    if (!isNullEmptyOrFalse(arguments)) {
+      // if (!isNullEmptyOrFalse(arguments["moduleType"])) {
+      //   moduleType = arguments["moduleType"];
+      // }
+      if (!isNullEmptyOrFalse(arguments["model"])) {
+        businessModel = arguments["model"];
+      }
+    }
+  }
+
   @override
   _BusinessFullDetailState createState() => _BusinessFullDetailState();
 }
@@ -37,7 +51,8 @@ class _BusinessFullDetailState extends State<BusinessFullDetail> {
           "Bhavani Fashion",
           "Harshil Soni",
           "9999999999",
-          "305, krishna texttiles, surat, Gujarat",false);
+          "305, krishna texttiles, surat, Gujarat",
+          false);
       arrList.add(categoryListModel);
     }
 
@@ -86,57 +101,57 @@ class _BusinessFullDetailState extends State<BusinessFullDetail> {
 
   fillArrayList() {
     businessFullDetailBaseList.state.listItems = Container(
-        // height: double.infinity,
-        // margin: EdgeInsets.only(top: getSize(250)),
-        decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(35), topRight: Radius.circular(35))),
-        // child: Column(
-        //   mainAxisSize: MainAxisSize.min,
-        //   children: [
-        //     // Padding(
-        //     //   padding: EdgeInsets.only(top: getSize(30)),
-        //     //   child: Container(
-        //     //     height: getSize(50),
-        //     //     // color: Colors.red,
-        //     //     child: ListView(
-        //     //       padding: EdgeInsets.only(left: getSize(20), right: getSize(20)),
-        //     //       scrollDirection: Axis.horizontal,
-        //     //       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //     //       children: [
-        //     //         for (int i = 0; i < arrTab.length; i++)
-        //     //           setTitleOfSegment(arrTab[i].title, i)
-        //     //       ],
-        //     //     ),
-        //     //   ),
-        //     // ),
-        //     // isNullEmptyOrFalse(arrTab)
-        //     //     ? SizedBox()
-        //     //     : SizedBox(height: getSize(16)),
-        //     // isNullEmptyOrFalse(arrTab) ? SizedBox() : _segmentedControl(),
-        //     // Expanded(
-        //     //   child: Container(
-        //     //     color: Colors.transparent,
-        //     //     child: isNullEmptyOrFalse(arrList) ? SizedBox() : getPageView(),
-        //     //   ),
-        //     // ),
+      // height: double.infinity,
+      // margin: EdgeInsets.only(top: getSize(250)),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(35), topRight: Radius.circular(35))),
+      // child: Column(
+      //   mainAxisSize: MainAxisSize.min,
+      //   children: [
+      //     // Padding(
+      //     //   padding: EdgeInsets.only(top: getSize(30)),
+      //     //   child: Container(
+      //     //     height: getSize(50),
+      //     //     // color: Colors.red,
+      //     //     child: ListView(
+      //     //       padding: EdgeInsets.only(left: getSize(20), right: getSize(20)),
+      //     //       scrollDirection: Axis.horizontal,
+      //     //       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //     //       children: [
+      //     //         for (int i = 0; i < arrTab.length; i++)
+      //     //           setTitleOfSegment(arrTab[i].title, i)
+      //     //       ],
+      //     //     ),
+      //     //   ),
+      //     // ),
+      //     // isNullEmptyOrFalse(arrTab)
+      //     //     ? SizedBox()
+      //     //     : SizedBox(height: getSize(16)),
+      //     // isNullEmptyOrFalse(arrTab) ? SizedBox() : _segmentedControl(),
+      //     // Expanded(
+      //     //   child: Container(
+      //     //     color: Colors.transparent,
+      //     //     child: isNullEmptyOrFalse(arrList) ? SizedBox() : getPageView(),
+      //     //   ),
+      //     // ),
 
-        //     // ListView.builder(
-        //     //   padding: EdgeInsets.symmetric(
-        //     //       vertical: getSize(15), horizontal: getSize(15)),
-        //     //   shrinkWrap: true,
-        //     //   itemCount: businessFullDetailBaseList.state.listCount,
-        //     //   itemBuilder: (BuildContext context, int index) {
-        //     //     CategoryListModel categoryListModel = arrList[index];
-        //     //     return getItemWidget(categoryListModel);
-        //     //     // return Text("hello");
-        //     //   },
-        //     // ),
-        //   ],
-        // ),
-        child: ReviewAndRatings(),
-      );
+      //     // ListView.builder(
+      //     //   padding: EdgeInsets.symmetric(
+      //     //       vertical: getSize(15), horizontal: getSize(15)),
+      //     //   shrinkWrap: true,
+      //     //   itemCount: businessFullDetailBaseList.state.listCount,
+      //     //   itemBuilder: (BuildContext context, int index) {
+      //     //     CategoryListModel categoryListModel = arrList[index];
+      //     //     return getItemWidget(categoryListModel);
+      //     //     // return Text("hello");
+      //     //   },
+      //     // ),
+      //   ],
+      // ),
+      child: ReviewAndRatings(widget.businessModel),
+    );
   }
 
   // getItemWidget(CategoryListModel categoryListModel) {
@@ -273,7 +288,7 @@ class _BusinessFullDetailState extends State<BusinessFullDetail> {
                 ],
               ) /* add child content here */,
             ),
-            Expanded(child:businessFullDetailBaseList)
+            Expanded(child: businessFullDetailBaseList)
           ],
         ),
         // businessFullDetailBaseList,
