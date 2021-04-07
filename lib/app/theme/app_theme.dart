@@ -168,6 +168,7 @@ class AppTheme {
       accentColor: accentColor,
       buttonColor: complimentaryColor,
       fontFamily: "Karla",
+      visualDensity: VisualDensity.adaptivePlatformDensity,
       // determines the status bar icon color
       primaryColorBrightness: brightness,
       // used for the background color of material widgets

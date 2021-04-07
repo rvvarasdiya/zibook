@@ -2,11 +2,14 @@ import 'package:zaviato/app/base/BaseApiResp.dart';
 import 'package:zaviato/app/constant/ApiConstants.dart';
 import 'package:zaviato/app/constant/constants.dart';
 import 'package:retrofit/retrofit.dart';
+import 'package:zaviato/components/screens/dashboard/SettingScreen/changePasswordScreen.dart';
+import 'package:zaviato/models/Auth/ChangePasswordModel.dart';
 import 'package:zaviato/models/Auth/LogInResponseModel.dart';
 import 'package:zaviato/models/Auth/LogoutModel.dart';
 import 'package:zaviato/models/Auth/SignUpModel.dart';
 import 'package:zaviato/models/Auth/SignUpResponseModel.dart';
 import 'package:zaviato/models/ContactUs/contactUsModel.dart';
+import 'package:zaviato/models/FaqsModel.dart';
 import 'package:zaviato/models/Home/HomeScreenResponse.dart';
 import 'package:zaviato/models/Master/MasterResponse.dart';
 import 'package:zaviato/models/RegisterBusiness/RegisterBusiness.dart';
@@ -26,6 +29,9 @@ abstract class NetworkService {
 
   @POST(ApiConstants.homeScreenApi)
   Future<HomeScreenResponse> homeScreenApi();
+
+  @POST(ApiConstants.homeScreenApi)
+  Future<HomeScreenResponse> notificationScreenApi();
 
   @POST(ApiConstants.logInApi)
   Future<LogInResponseModel> logInApi(@Body() Map<String, dynamic> req);
@@ -67,12 +73,19 @@ abstract class NetworkService {
   @POST(ApiConstants.logoutApi)
   Future<BaseApiResp> logout();
 
+  @POST(ApiConstants.getFaqsApi)
+  Future<FaqsResp> getFaqs();
+
   @POST(ApiConstants.deleteBusinessApi)
   Future<BaseApiResp> removeBusiness(@Path("id") String id);
 
   @POST(ApiConstants.updateBusinessApi)
   Future<BaseApiResp> updteBusiness(@Body() UpdateBusinessReq req);
 
+  @POST(ApiConstants.changepasswordApi) 
+  Future<BaseApiResp> ChangePassword(@Body() ChangePassReq req);
+
   @POST(ApiConstants.addreviewRatingApi)
   Future<BaseApiResp> addReviewRating(@Body() Map<String, dynamic> req);
+
 }

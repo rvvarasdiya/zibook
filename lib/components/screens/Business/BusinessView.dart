@@ -35,12 +35,13 @@ class _BusinessViewState extends State<BusinessView> {
   List<Business> arrList = [];
 
   TextEditingController searchController = new TextEditingController();
-
+ List<Business> duplicateArrayList = [];
   bool _isShowSearchField = false;
 
   @override
   void initState() {
     super.initState();
+     searchController.text = "";
     fashionBaseList = BaseList(BaseListState(
 //      imagePath: noRideHistoryFound,
       noDataMsg: APPNAME,
@@ -73,12 +74,11 @@ class _BusinessViewState extends State<BusinessView> {
         isProgress: true,
       )
           .then((myBusinessRes) async {
-        arrList.clear();
+       arrList.clear();
+        duplicateArrayList.clear();
         arrList.addAll(myBusinessRes.data.list);
-        // print("data scusedddd");
-
-        fashionBaseList.state.listCount = myBusinessRes.data.list.length;
-        fashionBaseList.state.totalCount = myBusinessRes.data.count;
+        duplicateArrayList.addAll(myBusinessRes.data.list);
+        searchController.clear();
         page = page + 1;
         fashionBaseList.state.setApiCalling(false);
         fillArrayList();
@@ -90,6 +90,9 @@ class _BusinessViewState extends State<BusinessView> {
   }
 
   fillArrayList() {
+    fashionBaseList.state.setApiCalling(false);
+    fashionBaseList.state.listCount = arrList.length;
+    fashionBaseList.state.totalCount = arrList.length;
     fashionBaseList.state.listItems = ListView.builder(
       cacheExtent: 1000,
       padding:
@@ -111,7 +114,14 @@ class _BusinessViewState extends State<BusinessView> {
         padding: EdgeInsets.all(getSize(15)),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          boxShadow: getBoxShadow(context),
+           boxShadow: [
+              new BoxShadow(
+                  // color: ColorConstants.getShadowColor,
+                  color: Colors.grey.withOpacity(0.2),
+                  // offset: Offset(2, 6),
+                  blurRadius: 7.0,
+                  spreadRadius: 5.0),
+            ],
           color: Colors.white,
         ),
         child: Column(
@@ -146,78 +156,44 @@ class _BusinessViewState extends State<BusinessView> {
                   width: getSize(10),
                 ),
                 Expanded(
-                  child: Row(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
+                      Text(
+                        businessModel.name,
+                        style: appTheme.black16BoldTextStyle,
+                      ),
+                      SizedBox(
+                        height: getSize(5),
+                      ),
+                      Row(
                         children: <Widget>[
-                          Text(
-                            businessModel.name,
-                            style: appTheme.black16BoldTextStyle,
-                          ),
-                          SizedBox(
-                            height: getSize(5),
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Container(
-                                  decoration: getBoxDecoration(
-                                      ColorConstants.getGreenColor, 3),
-                                  padding: EdgeInsets.symmetric(horizontal: 5),
-                                  child: Text(
-                                    "4.2",
-                                    style: appTheme.white14RegularTextStyle,
-                                  )),
-                              SizedBox(width: getSize(4)),
-                              SmoothStarRating(
-                                  onRatingChanged: (value) {
-                                    // print("------------$rating   --------- $value");
-                                    // setState(() {
-                                    //   rating = value;
-                                    // });
-                                  },
-                                  rating: 4.2,
-                                  allowHalfRating: false,
-                                  starCount: 5,
-                                  size: getSize(15),
-                                  color: appTheme.colorPrimary,
-                                  borderColor: appTheme.dividerColor,
-                                  spacing: 0.0),
-                            ],
-                          ),
+                          Container(
+                              decoration: getBoxDecoration(
+                                  ColorConstants.getGreenColor, 3),
+                              padding: EdgeInsets.symmetric(horizontal: 5),
+                              child: Text(
+                                "4.2",
+                                style: appTheme.white14RegularTextStyle,
+                              )),
+                          SizedBox(width: getSize(4)),
+                          SmoothStarRating(
+                              onRatingChanged: (value) {
+                                // print("------------$rating   --------- $value");
+                                // setState(() {
+                                //   rating = value;
+                                // });
+                              },
+                              rating: 4.2,
+                              allowHalfRating: false,
+                              starCount: 5,
+                              size: getSize(15),
+                              color: appTheme.colorPrimary,
+                              borderColor: appTheme.dividerColor,
+                              spacing: 0.0),
                         ],
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          // print("----index $index");
-                          // print(categoryListModel.isFavorite);
-                          // print("favorite pressed ||| ");
-                          // setState(() {
-                          //   for (int i = 0; i < 10; i++) {
-                          //     if (i == index) {
-                          //       arrList[i].isFavorite = true;
-                          //     }
-                          //     // else{
-                          //     //   arrList[i].isFavorite =false;
-                          //     // }
-                          //   }
-                          //   // arrList[index].isFavorite = ! categoryListModel.isFavorite;
-                          // });
-                        },
-                        // child: Icon(
-                        //   (arrList[index].isFavorite)
-                        //       ? Icons.favorite
-                        //       : Icons.favorite_border,
-                        //   size: getSize(20),
-                        //   color: (arrList[index].isFavorite)
-                        //       ? appTheme.colorPrimary
-                        //       : null,
-                        // ),
-                        child: Icon(Icons.favorite),
-                      )
                     ],
                   ),
                 ),
@@ -371,9 +347,9 @@ callDeleteApi( String id){
           ),
           onPressed: () => Navigator.pop(context)),
       backgroundColor: appTheme.colorPrimary,
-      actionItems: [
+       actionItems: [
         Padding(
-          padding: EdgeInsets.all(getSize(8)),
+          padding: EdgeInsets.only(right:getSize(15)),
           child: Row(
             children: <Widget>[
               !_isShowSearchField
@@ -389,87 +365,91 @@ callDeleteApi( String id){
                       ),
                     )
                   : Container(
-                      width: getSize(300),
-                      height: getSize(50),
-                      // padding: EdgeInsets.all(getSize(8)),
-                      // margin: EdgeInsets.only(
-                      //     top: getSize(30),
-                      //     bottom: getSize(10),
-                      //     left: getSize(30)),
-                      // height: getSize(10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(25.0),
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 0.5,
+                        width: getSize(350),
+                        height: getSize(50),
+                        padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                        // padding: EdgeInsets.all(getSize(8)),
+                        // margin: EdgeInsets.only(
+                        //     top: getSize(30),
+                        //     bottom: getSize(10),
+                        //     left: getSize(30)),
+                        // height: getSize(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25.0),
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 0.5,
+                          ),
                         ),
-                      ),
-                      child: Row(
-                        children: <Widget>[
-                          Icon(Icons.search),
-                          Expanded(
-                            child: TextFormField(
-                              textAlignVertical: TextAlignVertical.center,
-                              // controller: searchbarcontroller,
-                              style: TextStyle(
-                                fontSize: getFontSize(15),
-                                // fontFamily: 'Segoe'
-                                // hintSize(height),
-                              ),
-                              maxLines: 1,
-                              decoration: InputDecoration(
-                                fillColor: Colors.transparent,
-                                border: InputBorder.none,
-                                isDense: true,
-                                contentPadding: const EdgeInsets.only(
-                                  left: 10,
+                        child: Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.search_rounded,
+                              color: Colors.black54,
+                              size: getSize(20),
+                            ),
+                            Expanded(
+                              child: TextFormField(
+                                autofocus: true,
+                                textAlignVertical: TextAlignVertical.center,
+                                controller: searchController,
+                                style: appTheme.black16RegularTextStyle,
+                                maxLines: 1,
+                                decoration: InputDecoration(
+                                  fillColor: Colors.transparent,
+                                  border: InputBorder.none,
+                                  isDense: true,
+                                  contentPadding: const EdgeInsets.only(
+                                    left: 10,
+                                  ),
+                                  hintText: "Search Here",
+                                  hintStyle: appTheme.black16RegularTextStyle,
                                 ),
-                                hintText: "Search Here",
-                                hintStyle: TextStyle(
-                                  fontFamily: 'Segoe',
-                                  fontSize: getFontSize(15),
-                                  // hintSize(height),
-                                  // AppStrings.hintTextsize,
-                                  color: Colors.black.withOpacity(0.5),
-                                ),
+                                onChanged: (text) {
+                                  searchBusiness(context, text);
+                                },
                               ),
                             ),
-                          ),
-                          Icon(Icons.clear),
-                        ],
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  searchController.clear();
+                                  _isShowSearchField = false;
+                                });
+                              },
+                              child: Icon(
+                                Icons.clear,
+                                color: Colors.black54,
+                                size: getSize(20),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-              SizedBox(
-                width: getSize(12),
-              ),
-              Container(
-                // alignment: Alignment.center,
-                // margin: EdgeInsets.only(top: getSize(30)),
-                width: getSize(40),
-                height: getSize(40),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  image: DecorationImage(
-                    image: AssetImage(userIcon),
-                    fit: BoxFit.fill,
-                  ),
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    new BoxShadow(
-                      color: ColorConstants.getShadowColor,
-                      offset: Offset(0, 5),
-                      blurRadius: 5.0,
-                    ),
-                  ],
-                ),
-
-                // NetworkImage('https://via.placeholder.com/150'),
-              ),
             ],
           ),
         ),
       ],
-    );
+   );
+  }
+  
+  searchBusiness(BuildContext context, String text) {
+    arrList.clear();
+    if (text.length >= 0) {
+      for (int i = 0; i < duplicateArrayList.length; i++) {
+        if (duplicateArrayList[i]
+            .name
+            .toLowerCase()
+            .startsWith(text.toLowerCase())) {
+          arrList.add(duplicateArrayList[i]);
+        }
+      }
+    } else {
+      arrList = duplicateArrayList.map((element) => element).toList();
+    }
+    print(arrList.length);
+
+    fillArrayList();
   }
 }

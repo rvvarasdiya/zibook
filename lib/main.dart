@@ -89,19 +89,24 @@ class _BaseState extends State<Base> {
   @override
   Widget build(BuildContext context) {
     // app.resolve<PrefUtils>().saveDeviceId();
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: APPNAME,
-      theme: themeData,
-      navigatorKey: key,
-      onGenerateRoute: onGenerateRoute,
-      navigatorObservers: [routeObserver],
-      home: SplashScreen(),
-      //  WelcomeScreen(),
-      routes: <String, WidgetBuilder>{
-        '/ThemeSetting': (BuildContext context) => ThemeSetting(),
-      },
-      builder: _builder,
+    return NotificationListener<OverscrollIndicatorNotification>(
+        onNotification: (overscroll) {
+    overscroll.disallowGlow();
+  },
+          child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: APPNAME,
+        theme: themeData,
+        navigatorKey: key,
+        onGenerateRoute: onGenerateRoute,
+        navigatorObservers: [routeObserver],
+        home: SplashScreen(),
+        //  WelcomeScreen(),
+        routes: <String, WidgetBuilder>{
+          '/ThemeSetting': (BuildContext context) => ThemeSetting(),
+        },
+        builder: _builder,
+      ),
     );
   }
 

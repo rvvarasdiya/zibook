@@ -55,6 +55,24 @@ class _NetworkService implements NetworkService {
   }
 
   @override
+  notificationScreenApi() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        'http://13.234.240.252:5700/api/v1/customer/category/paginate',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = HomeScreenResponse.fromJson(_result.data);
+    return Future.value(value);
+  }
+
+  @override
   logInApi(req) async {
     ArgumentError.checkNotNull(req, 'req');
     const _extra = <String, dynamic>{};
@@ -309,6 +327,24 @@ class _NetworkService implements NetworkService {
   }
 
   @override
+  getFaqs() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        'http://13.234.240.252:5700/api/v1/customer/faqs/paginate',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = FaqsResp.fromJson(_result.data);
+    return Future.value(value);
+  }
+
+  @override
   removeBusiness(id) async {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
@@ -336,6 +372,26 @@ class _NetworkService implements NetworkService {
     _data.addAll(req?.toJson() ?? <String, dynamic>{});
     final Response<Map<String, dynamic>> _result = await _dio.request(
         'http://13.234.240.252:5700/api/v1/customer/business/update',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = BaseApiResp.fromJson(_result.data);
+    return Future.value(value);
+  }
+
+  @override
+  ChangePassword(req) async {
+    ArgumentError.checkNotNull(req, 'req');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(req?.toJson() ?? <String, dynamic>{});
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        'http://13.234.240.252:5700/api/v1/auth/change-password',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',

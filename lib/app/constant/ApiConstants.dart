@@ -82,10 +82,16 @@ class ApiConstants {
   //logout
   static const String logoutApi = commonUrl + "common/user/logout";
   
+  //change password
+  static const String changepasswordApi = commonUrl + "auth/change-password";
+  
   //delete business
   static const String deleteBusinessApi = customerCommonUrl + "/business/remove/{id}";
 
   //add review and ratings
   static const String addreviewRatingApi = customerCommonUrl + "/rating-review/add";
+
+  //faqs
+  static const String getFaqsApi = customerCommonUrl + "/faqs/paginate";
 
 }

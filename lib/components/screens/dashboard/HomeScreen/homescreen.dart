@@ -11,11 +11,8 @@ import 'package:zaviato/app/network/ServiceModule.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/pref_utils.dart';
-import 'package:zaviato/components/screens/Business/BusinessFullDetail.dart';
-import 'package:zaviato/components/screens/Business/BusinessView.dart';
 import 'package:zaviato/components/screens/dashboard/HomeScreen/BusinessByCategoryScreen.dart';
 import 'package:zaviato/models/Home/HomeScreenResponse.dart';
-import 'package:http/http.dart' as http;
 
 import '../../../../main.dart';
 

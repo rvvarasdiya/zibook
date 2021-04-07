@@ -1,33 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:zaviato/app/Helper/Themehelper.dart';
+import 'package:zaviato/app/network/NetworkCall.dart';
+import 'package:zaviato/app/network/ServiceModule.dart';
 import 'package:zaviato/app/utils/CommonWidgets.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
-import 'package:zaviato/models/HelpScreenModel.dart';
+import 'package:zaviato/app/utils/string_utils.dart';
+import 'package:zaviato/models/FaqsModel.dart';
+
+import '../../../main.dart';
 
 class FaqsScreen extends StatefulWidget {
-  static const route = "HelpScreen";
+  static const route = "FaqsScreen";
   @override
   _FaqsScreenState createState() => _FaqsScreenState();
 }
 
 class _FaqsScreenState extends State<FaqsScreen> {
-  List<HelpScreenModel> helpScreenModelList = [];
+  List<Faqs> faqScreenModelList = [];
   // bool showMoreLess = false;
 
   @override
   void initState() {
     super.initState();
-
-    for (int i = 0; i < 10; i++) {
-      HelpScreenModel helpScreenModel = HelpScreenModel();
-      helpScreenModel.question = "Lorem Ipsum is simply dummy text of the?";
-      helpScreenModel.answer =
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. ";
-      helpScreenModel.isShowMoreLess = false;
-      helpScreenModelList.add(helpScreenModel);
-    }
+    callApi(true);
   }
-
+ callApi(bool isRefress, {bool isLoading = false}) {
+        NetworkCall<FaqsResp>()
+          .makeCall(
+        () => app
+            .resolve<ServiceModule>()
+            .networkService()
+            .getFaqs(),
+        context,
+        isProgress: true,
+      )
+          .then((respose) async {
+            faqScreenModelList.addAll(respose.data.list);
+            setState(() { });
+            print("Success");
+            // print(faqScreenModelList);
+      }).catchError((onError) {
+        print("Error");
+      });
+    
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,23 +64,23 @@ class _FaqsScreenState extends State<FaqsScreen> {
           cacheExtent: 1000,
           padding: EdgeInsets.symmetric(
               horizontal: getSize(30), vertical: getSize(30)),
-          itemCount: helpScreenModelList.length,
+          itemCount: faqScreenModelList.length,
           itemBuilder: (BuildContext context, int index) {
-            HelpScreenModel helpScreenModel = helpScreenModelList[index];
-            return getQuestionAnswer(helpScreenModel, index);
+            Faqs faqScreenModel = faqScreenModelList[index];
+            return getQuestionAnswer(faqScreenModel, index);
           },
         ),
       ),
     );
   }
 
-  getQuestionAnswer(HelpScreenModel helpScreenModel, int index) {
+  getQuestionAnswer(Faqs faqScreenModel, int index) {
     return InkWell(
       onTap: () {
         // NavigationUtilities.pushRoute(BusinessView.route);
         setState(() {
-                      helpScreenModel.isShowMoreLess =
-                          !helpScreenModel.isShowMoreLess;
+                      faqScreenModel.isShowMoreLess =
+                          !faqScreenModel.isShowMoreLess;
                     });
       },
       child: Container(
@@ -84,30 +100,30 @@ class _FaqsScreenState extends State<FaqsScreen> {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    helpScreenModel.question,
+                    faqScreenModel.question,
                     style: appTheme.black14RegularTextStyle,
                   ),
                 ),
                 InkWell(
                   onTap: () {
                     setState(() {
-                      helpScreenModel.isShowMoreLess =
-                          !helpScreenModel.isShowMoreLess;
+                      faqScreenModel.isShowMoreLess =
+                          !faqScreenModel.isShowMoreLess;
                     });
                   },
-                  child: !helpScreenModel.isShowMoreLess
+                  child: !faqScreenModel.isShowMoreLess
                       ? Icon(Icons.keyboard_arrow_down)
                       : Icon(Icons.keyboard_arrow_up),
                 ),
               ],
             ),
-            helpScreenModel.isShowMoreLess
+            faqScreenModel.isShowMoreLess
                 ? Container(
                     padding: EdgeInsets.only(
                         left: getSize(20),
                         top: getSize(10),
                         bottom: getSize(10)),
-                    child: Text(helpScreenModel.answer,
+                    child: Text(faqScreenModel.answer,
                         style: appTheme.black14RegularTextStyle),
                   )
                 : Container(),

@@ -30,7 +30,7 @@ import 'package:zaviato/main.dart';
 import '../../../app/app.export.dart';
 import 'chatscreen.dart';
 import 'notificationscreen.dart';
-import 'settingscreen.dart';
+import 'SettingScreen/settingscreen.dart';
 
 class Dashboard extends StatefulWidget {
 //   int type;

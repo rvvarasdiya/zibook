@@ -13,6 +13,8 @@ import 'package:zaviato/components/screens/editDetail/favoritescreen.dart';
 import 'package:zaviato/components/screens/feedback/feedbackscreen.dart';
 import 'package:zaviato/main.dart';
 
+import 'changePasswordScreen.dart';
+
 class SettingScreen extends StatefulWidget {
   @override
   _SettingScreenState createState() => _SettingScreenState();
@@ -177,19 +179,21 @@ class _SettingScreenState extends State<SettingScreen> {
 
                        
 
-                        //-------------- FeedBack
+                        //-------------- Change Password
                         GestureDetector(
                           onTap: () {
-                            NavigationUtilities.push(FeedbackScreen());
+                            NavigationUtilities.push(ChangePasswordScreen());
                           },
                           child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Image.asset(
-                                  helpIcon,
-                                  width: getSize(23),
-                                  height: getSize(23),
-                                ),
+                                Icon(Icons.lock_outline_rounded,size: getSize(25),color: Colors.black.withOpacity(0.75),),
+                                
+                                // Image.asset(
+                                //   helpIcon,
+                                //   width: getSize(23),
+                                //   height: getSize(23),
+                                // ),
                                 SizedBox(
                                   width: 15,
                                 ),
@@ -200,7 +204,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text("FeedBack",
+                                      Text("Change Password",
                                           style: appTheme.black16BoldTextStyle),
                                       IconButton(
                                           icon: Icon(
