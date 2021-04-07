@@ -113,7 +113,7 @@ class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
       padding:
           EdgeInsets.symmetric(vertical: getSize(10), horizontal: getSize(15)),
       shrinkWrap: true,
-      itemCount: arrList.length,
+      itemCount: fashionBaseList.state.listCount,
       itemBuilder: (BuildContext context, int index) {
         Business business = arrList[index];
         return getItemWidget(business, index);

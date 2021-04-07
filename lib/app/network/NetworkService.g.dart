@@ -258,7 +258,7 @@ class _NetworkService implements NetworkService {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final Response<Map<String, dynamic>> _result = await _dio.request(
-        'http://13.234.240.252:5700/api/v1/customer/business/paginate-my-businesses/',
+        'http://13.234.240.252:5700/api/v1/customer/business/paginate-my-businesses',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -341,6 +341,43 @@ class _NetworkService implements NetworkService {
             baseUrl: baseUrl),
         data: _data);
     final value = FaqsResp.fromJson(_result.data);
+    return Future.value(value);
+  }
+
+  @override
+  getFavoriteList() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        'http://13.234.240.252:5700/api/v1/customer/business/list-favourites',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = MyBusinessByCategoryRes.fromJson(_result.data);
+    return Future.value(value);
+  }
+
+  @override
+  addToFovourite(id) async {
+    ArgumentError.checkNotNull(id, 'id');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final Response<Map<String, dynamic>> _result = await _dio.request(
+        'http://13.234.240.252:5700/api/v1/customer/business/make-favourite/$id',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = AddFavoriteRes.fromJson(_result.data);
     return Future.value(value);
   }
 

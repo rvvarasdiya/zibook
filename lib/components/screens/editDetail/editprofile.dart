@@ -151,8 +151,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 width: getSize(100),
                                 height: getSize(20),
                                 decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage(editImage))),
+                                  image: DecorationImage(
+                                    image: AssetImage(editImage),
+                                  ),
+                                ),
                                 child: Text(
                                   "Edit",
                                   style: appTheme.white14RegularTextStyle,

@@ -10,6 +10,7 @@ import 'package:zaviato/models/Auth/SignUpModel.dart';
 import 'package:zaviato/models/Auth/SignUpResponseModel.dart';
 import 'package:zaviato/models/ContactUs/contactUsModel.dart';
 import 'package:zaviato/models/FaqsModel.dart';
+import 'package:zaviato/models/Favorite/Favorite.dart';
 import 'package:zaviato/models/Home/HomeScreenResponse.dart';
 import 'package:zaviato/models/Master/MasterResponse.dart';
 import 'package:zaviato/models/RegisterBusiness/RegisterBusiness.dart';
@@ -37,7 +38,7 @@ abstract class NetworkService {
   Future<LogInResponseModel> logInApi(@Body() Map<String, dynamic> req);
 
   @POST(ApiConstants.forgetPassword)
-  Future<BaseApiResp> forgetPasswordApi(@Body() Map<String, dynamic> req);
+  Future<BaseApiResp>   forgetPasswordApi(@Body() Map<String, dynamic> req);
 
   @POST(ApiConstants.verifyResetOtp)
   Future<BaseApiResp> verifyOTPApi(@Body() Map<String, dynamic> req);
@@ -75,6 +76,11 @@ abstract class NetworkService {
 
   @POST(ApiConstants.getFaqsApi)
   Future<FaqsResp> getFaqs();
+  @POST(ApiConstants.getFavoriteListApi)
+  Future<MyBusinessByCategoryRes> getFavoriteList();
+
+  @POST(ApiConstants.addToFavoriteApi)
+  Future<AddFavoriteRes> addToFovourite(@Path("id") String id);
 
   @POST(ApiConstants.deleteBusinessApi)
   Future<BaseApiResp> removeBusiness(@Path("id") String id);

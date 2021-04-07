@@ -67,6 +67,8 @@ class Business {
   String updatedAt;
   int iV;
 
+  int averageRating;
+
   Business(
       {this.categories,
       this.isActive,
@@ -84,7 +86,8 @@ class Business {
       this.status,
       this.createdAt,
       this.updatedAt,
-      this.iV});
+      this.iV,
+      this.averageRating});
 
   Business.fromJson(Map<String, dynamic> json) {
     if (json['categories'] != null) {
@@ -127,6 +130,7 @@ class Business {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
+    averageRating = json["averageRating"] ?? 0;
   }
 
   Map<String, dynamic> toJson() {

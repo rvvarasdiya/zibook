@@ -5,6 +5,7 @@ import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:path/path.dart' as path;
 import 'package:zaviato/app/constant/ApiConstants.dart';
 import 'package:zaviato/app/constant/ColorConstant.dart';
@@ -71,7 +72,7 @@ Future<FileUploadResp> uploadFile(BuildContext context, String folderName,
           // print(received);
         }
       },
-    ).catchError((error){
+    ).catchError((error) {
       print(error);
     });
     if (uploadProgressWidget._isDialogShown) {
@@ -104,7 +105,7 @@ Future<FormData> formdata(String folderName,
     List<int> bytes,
     bool pdfUpload = false}) async {
   var formData = FormData();
-  formData.fields..add(MapEntry("folder", folderName));
+  formData.fields.add(MapEntry("folder", folderName));
 
   if (pdfUpload) {
     await CompressImage.compress(
@@ -137,8 +138,11 @@ Future<FormData> formdata(String folderName,
   } else {
     formData.files.add(MapEntry(
       "file",
-      await MultipartFile.fromFile(file.path,
-          filename: path.basename(file.path)),
+      await MultipartFile.fromFile(
+        file.path,
+        filename: path.basename(file.path),
+        contentType: new MediaType("image", "jpeg"),
+      ),
     ));
   }
   print('formdata ${formData.length}');

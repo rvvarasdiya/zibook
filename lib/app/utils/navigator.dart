@@ -16,6 +16,7 @@ import 'package:zaviato/components/screens/Business/businessDetail1.dart';
 import 'package:zaviato/components/screens/WelcomeScreen/WelcomeScreen.dart';
 import 'package:zaviato/components/screens/contactus/contactusScreen.dart';
 import 'package:zaviato/components/screens/dashboard/HomeScreen/BusinessByCategoryScreen.dart';
+import 'package:zaviato/components/screens/dashboard/dashboard.dart';
 import 'package:zaviato/components/screens/editDetail/editprofile.dart';
 import 'package:zaviato/components/screens/editDetail/favoritescreen.dart';
 import 'package:zaviato/components/screens/feedback/feedbackscreen.dart';
@@ -166,7 +167,10 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       screen = BusinessViewByCategory(arguments: arguments);
       break;
     case FeedbackScreen.route:
-      screen = FeedbackScreen();
+      screen = FeedbackScreen(arguments:arguments);
+      break;
+    case Dashboard.route:
+      screen = Dashboard();
       break;
   }
 

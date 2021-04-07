@@ -9,13 +9,29 @@ import 'package:zaviato/app/network/ServiceModule.dart';
 import 'package:zaviato/app/utils/CommonTextfield.dart';
 import 'package:zaviato/app/utils/CustomDialog.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
+import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/widgets/shared/buttons.dart';
 import 'package:zaviato/components/widgets/shared/start_rating.dart';
+import 'package:zaviato/models/mybusiness/MyBusinessByCategoryRes.dart';
 
 import '../../../main.dart';
 
 class FeedbackScreen extends StatefulWidget {
   static const route = "FeedbackScreen";
+
+  Business businessModel;
+
+  FeedbackScreen({Map<String, dynamic> arguments}) {
+    if (!isNullEmptyOrFalse(arguments)) {
+      // if (!isNullEmptyOrFalse(arguments["moduleType"])) {
+      //   moduleType = arguments["moduleType"];
+      // }
+      if (!isNullEmptyOrFalse(arguments["model"])) {
+        businessModel = arguments["model"];
+      }
+    }
+  }
+
   @override
   _FeedbackScreenState createState() => _FeedbackScreenState();
 }
@@ -169,7 +185,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                       textAlignVertical: TextAlignVertical.center,
                       controller: feedbackController,
                       style: appTheme.black14RegularTextStyle
-                          .copyWith(color: Color(0xff6E7073)),
+                          .copyWith(color: Colors.black),
                       maxLines: 6,
                       maxLength: 750,
                       decoration: InputDecoration(
@@ -188,6 +204,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                 ),
                 AppButton.flat(
                   onTap: () {
+                    FocusScope.of(context).requestFocus(new FocusNode());
                     callApiToAddReviewAndRatings(context);
                   },
                   backgroundColor: appTheme.colorPrimary,
@@ -206,9 +223,9 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
   callApiToAddReviewAndRatings(BuildContext context) {
     Map<String, dynamic> req = {};
-    req["id"] = "5f17ecd86a286f6a7f6c5b5b";
-    req["rating"] = rating;
-    req["review"] = feedbackController.text;
+    req["id"] = widget.businessModel;
+    req["rating"] = rating.toString();
+    req["review"] = feedbackController.text.toString();
 
     NetworkCall<BaseApiResp>()
         .makeCall(
@@ -220,6 +237,8 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
             isProgress: true)
         .then((baseApiResp) async {
       print("Review added successfully");
+      showToast(baseApiResp.message, context: context);
+      Navigator.of(context).pop();
     }).catchError((onError) {
       if (onError is ErrorResp) {
         app.resolve<CustomDialogs>().confirmDialog(
