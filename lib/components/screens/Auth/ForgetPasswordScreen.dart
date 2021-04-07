@@ -172,7 +172,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
     Map<String, dynamic> req = {};
 
     if (!isNumeric(passwordController.text))
-      req["email"] = passwordController.text;
+      req["username"] = passwordController.text;
     else {
       req["mobile"] = passwordController.text;
     }
@@ -212,15 +212,15 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       },
     ).catchError((onError) {
 
-       Map<String, dynamic> req = {};
-        if (!isNumeric(passwordController.text))
-          req["email"] = passwordController.text;
-        else {
-          req["mobile"] = passwordController.text;
-        }
-        req["moduleType"] = OtpPage.ForgotPassword;
-        // callSendOTP(context);
-        NavigationUtilities.pushRoute(OtpVerifyScreen.route, args: req);
+      //  Map<String, dynamic> req = {};
+      //   if (!isNumeric(passwordController.text))
+      //     req["email"] = passwordController.text;
+      //   else {
+      //     req["mobile"] = passwordController.text;
+      //   }
+      //   req["moduleType"] = OtpPage.ForgotPassword;
+      //   // callSendOTP(context);
+      //   NavigationUtilities.pushRoute(OtpVerifyScreen.route, args: req);
 
       // isOtpTrue = false;
       // isOtpCheck = false;
@@ -232,7 +232,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             positiveBtnTitle: R.string().commonString.btnTryAgain,
           );
     });
-    ;
+    
   }
 
   // void startTimer() {

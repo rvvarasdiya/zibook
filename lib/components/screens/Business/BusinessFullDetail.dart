@@ -311,8 +311,10 @@ class _BusinessFullDetailState extends State<BusinessFullDetail> {
                             GestureDetector(
                               onTap: () {
                                 print("Rating pressed ........ ");
+                                Map<String, dynamic> arguments = {};
+                                arguments["model"] = widget.businessModel;
                                 NavigationUtilities.pushRoute(
-                                    FeedbackScreen.route);
+                                    FeedbackScreen.route,args: arguments);
                               },
                               child: Container(
                                 decoration: getBoxDecoration(

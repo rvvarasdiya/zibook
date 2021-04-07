@@ -65,7 +65,7 @@ class ApiConstants {
   static const String registerBusinessApi = customerCommonUrl + "/business/add";
 
   //register business
-  static const String mybusiness = customerCommonUrl + "/business/paginate-my-businesses/";
+  static const String mybusiness = customerCommonUrl + "/business/paginate-my-businesses";
 
   //List of businesses by category
   static const String businessViewByCategory = customerCommonUrl + "/business/paginate-by-category/{id}";
@@ -87,5 +87,11 @@ class ApiConstants {
 
   //add review and ratings
   static const String addreviewRatingApi = customerCommonUrl + "/rating-review/add";
+
+  //Add favorite
+  static const String addToFavoriteApi = customerCommonUrl + "/business/make-favourite/{id}";
+
+  //get favorite list
+  static const String getFavoriteListApi = customerCommonUrl + "/business/list-favourites";
 
 }

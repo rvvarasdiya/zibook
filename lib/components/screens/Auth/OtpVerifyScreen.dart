@@ -482,7 +482,7 @@ class _OtpVerifyScreenState extends State<OtpVerifyScreen> {
           //success
           // AppNavigation.shared.movetoHome(isPopAndSwitch: true);
           // Navigator.of(context).pop();
-          NavigationUtilities.push(Dashboard());
+          NavigationUtilities.pushRoute(Dashboard.route);
         },
         () {},
         isNetworkError: false,

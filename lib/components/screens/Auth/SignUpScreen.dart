@@ -441,7 +441,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
         // SyncManager.instance.callMasterSync(
         //   context,
-        //   () async {
+        //   () async { 
         //     //success
         //     // AppNavigation.shared.movetoHome(isPopAndSwitch: true);
         //     Navigator.of(context).pop();

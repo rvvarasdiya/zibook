@@ -7,11 +7,14 @@ import 'package:zaviato/app/constant/constants.dart';
 import 'package:zaviato/app/network/NetworkCall.dart';
 import 'package:zaviato/app/network/ServiceModule.dart';
 import 'package:zaviato/app/utils/CommonWidgets.dart';
+import 'package:zaviato/app/utils/CustomDialog.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
 import 'package:zaviato/components/screens/Business/BusinessFullDetail.dart';
+import 'package:zaviato/components/screens/editDetail/favoritescreen.dart';
 import 'package:zaviato/components/widgets/shared/start_rating.dart';
+import 'package:zaviato/models/Favorite/Favorite.dart';
 import 'package:zaviato/models/mybusiness/MyBusinessByCategoryRes.dart';
 
 import '../../../../main.dart';
@@ -116,6 +119,7 @@ class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
       itemCount: arrList.length,
       itemBuilder: (BuildContext context, int index) {
         Business business = arrList[index];
+
         return getItemWidget(business, index);
       },
     );
@@ -201,7 +205,7 @@ class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 5),
                                     child: Text(
-                                      "4.2",
+                                      businessModel.averageRating.toString() + ".0",
                                       style: appTheme.white14RegularTextStyle,
                                     )),
                                 SizedBox(width: getSize(4)),
@@ -212,7 +216,7 @@ class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
                                       //   rating = value;
                                       // });
                                     },
-                                    rating: 4.2,
+                                    rating: businessModel.averageRating.toDouble(),
                                     allowHalfRating: false,
                                     starCount: 5,
                                     size: getSize(15),
@@ -225,6 +229,8 @@ class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
                         ),
                         GestureDetector(
                           onTap: () {
+                            callApiForAddToFavourite(context, businessModel);
+
                             // print("----index $index");
                             // print(categoryListModel.isFavorite);
                             // print("favorite pressed ||| ");
@@ -249,7 +255,9 @@ class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
                           //       ? appTheme.colorPrimary
                           //       : null,
                           // ),
-                          child: Icon(Icons.favorite),
+                          child:
+                              //  Icon(Icons.favorite)
+                              Icon(Icons.favorite_border_outlined),
                         )
                       ],
                     ),
@@ -352,7 +360,7 @@ class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
       backgroundColor: appTheme.colorPrimary,
       actionItems: [
         Padding(
-          padding: EdgeInsets.only(right:getSize(15)),
+          padding: EdgeInsets.only(right: getSize(15)),
           child: Row(
             children: <Widget>[
               !_isShowSearchField
@@ -368,73 +376,93 @@ class _BusinessViewByCategoryState extends State<BusinessViewByCategory> {
                       ),
                     )
                   : Container(
-                        width: getSize(350),
-                        height: getSize(50),
-                        padding: EdgeInsets.symmetric(horizontal: getSize(10)),
-                        // padding: EdgeInsets.all(getSize(8)),
-                        // margin: EdgeInsets.only(
-                        //     top: getSize(30),
-                        //     bottom: getSize(10),
-                        //     left: getSize(30)),
-                        // height: getSize(10),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(25.0),
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 0.5,
-                          ),
+                      width: getSize(350),
+                      height: getSize(50),
+                      padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                      // padding: EdgeInsets.all(getSize(8)),
+                      // margin: EdgeInsets.only(
+                      //     top: getSize(30),
+                      //     bottom: getSize(10),
+                      //     left: getSize(30)),
+                      // height: getSize(10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(25.0),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 0.5,
                         ),
-                        child: Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.search_rounded,
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(
+                            Icons.search_rounded,
+                            color: Colors.black54,
+                            size: getSize(20),
+                          ),
+                          Expanded(
+                            child: TextFormField(
+                              autofocus: true,
+                              textAlignVertical: TextAlignVertical.center,
+                              controller: searchController,
+                              style: appTheme.black16RegularTextStyle,
+                              maxLines: 1,
+                              decoration: InputDecoration(
+                                fillColor: Colors.transparent,
+                                border: InputBorder.none,
+                                isDense: true,
+                                contentPadding: const EdgeInsets.only(
+                                  left: 10,
+                                ),
+                                hintText: "Search Here",
+                                hintStyle: appTheme.black16RegularTextStyle,
+                              ),
+                              onChanged: (text) {
+                                searchBusiness(context, text);
+                              },
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                searchController.clear();
+                                _isShowSearchField = false;
+                              });
+                            },
+                            child: Icon(
+                              Icons.clear,
                               color: Colors.black54,
                               size: getSize(20),
                             ),
-                            Expanded(
-                              child: TextFormField(
-                                autofocus: true,
-                                textAlignVertical: TextAlignVertical.center,
-                                controller: searchController,
-                                style: appTheme.black16RegularTextStyle,
-                                maxLines: 1,
-                                decoration: InputDecoration(
-                                  fillColor: Colors.transparent,
-                                  border: InputBorder.none,
-                                  isDense: true,
-                                  contentPadding: const EdgeInsets.only(
-                                    left: 10,
-                                  ),
-                                  hintText: "Search Here",
-                                  hintStyle: appTheme.black16RegularTextStyle,
-                                ),
-                                onChanged: (text) {
-                                  searchBusiness(context, text);
-                                },
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  searchController.clear();
-                                  _isShowSearchField = false;
-                                });
-                              },
-                              child: Icon(
-                                Icons.clear,
-                                color: Colors.black54,
-                                size: getSize(20),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
+                    ),
             ],
           ),
         ),
       ],
     );
+  }
+
+  callApiForAddToFavourite(BuildContext context, Business businessModel) {
+    NetworkCall<AddFavoriteRes>()
+        .makeCall(
+            () => app
+                .resolve<ServiceModule>()
+                .networkService()
+                .addToFovourite(businessModel.sId),
+            context,
+            isProgress: true)
+        .then(
+      (addFavoriteRes) async {
+        showToast("Added into favorite list...", context: context);
+        setState(() {});
+      },
+    ).catchError((onError) {
+      showToast("sorry! try again...", context: context);
+      setState(() {});
+    });
   }
 
   searchBusiness(BuildContext context, String text) {
