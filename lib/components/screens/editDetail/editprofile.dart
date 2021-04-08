@@ -578,6 +578,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   uploadProfileImage(File imgFile, Function imagePath) async {
+    // upload(imgFile);
     uploadFile(
       context,
       "upload-image",

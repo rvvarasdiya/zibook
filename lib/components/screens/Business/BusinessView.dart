@@ -9,6 +9,7 @@ import 'package:zaviato/app/constant/constants.dart';
 import 'package:zaviato/app/network/NetworkCall.dart';
 import 'package:zaviato/app/network/ServiceModule.dart';
 import 'package:zaviato/app/utils/CommonWidgets.dart';
+import 'package:zaviato/app/utils/CustomDialog.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
 import 'package:zaviato/app/utils/navigator.dart';
 import 'package:zaviato/app/utils/string_utils.dart';
@@ -23,8 +24,7 @@ import '../../../main.dart';
 
 class BusinessView extends StatefulWidget {
   static const route = "BusinessView";
- 
- 
+
   @override
   _BusinessViewState createState() => _BusinessViewState();
 }
@@ -35,13 +35,13 @@ class _BusinessViewState extends State<BusinessView> {
   List<Business> arrList = [];
 
   TextEditingController searchController = new TextEditingController();
- List<Business> duplicateArrayList = [];
+  List<Business> duplicateArrayList = [];
   bool _isShowSearchField = false;
 
   @override
   void initState() {
     super.initState();
-     searchController.text = "";
+    searchController.text = "";
     fashionBaseList = BaseList(BaseListState(
 //      imagePath: noRideHistoryFound,
       noDataMsg: APPNAME,
@@ -66,27 +66,25 @@ class _BusinessViewState extends State<BusinessView> {
   }
 
   callApi(bool isRefress, {bool isLoading = false}) {
-
-      NetworkCall<MyBusinessRes>()
-          .makeCall(
-        () => app.resolve<ServiceModule>().networkService().getMyBusinesses(),
-        context,
-        isProgress: true,
-      )
-          .then((myBusinessRes) async {
-       arrList.clear();
-        duplicateArrayList.clear();
-        arrList.addAll(myBusinessRes.data.list);
-        duplicateArrayList.addAll(myBusinessRes.data.list);
-        searchController.clear();
-        page = page + 1;
-        fashionBaseList.state.setApiCalling(false);
-        fillArrayList();
-        setState(() {});
-      }).catchError((onError) {
-        fashionBaseList.state.setApiCalling(false);
-      });
-    
+    NetworkCall<MyBusinessRes>()
+        .makeCall(
+      () => app.resolve<ServiceModule>().networkService().getMyBusinesses(),
+      context,
+      isProgress: true,
+    )
+        .then((myBusinessRes) async {
+      arrList.clear();
+      duplicateArrayList.clear();
+      arrList.addAll(myBusinessRes.data.list);
+      duplicateArrayList.addAll(myBusinessRes.data.list);
+      searchController.clear();
+      page = page + 1;
+      fashionBaseList.state.setApiCalling(false);
+      fillArrayList();
+      setState(() {});
+    }).catchError((onError) {
+      fashionBaseList.state.setApiCalling(false);
+    });
   }
 
   fillArrayList() {
@@ -114,14 +112,14 @@ class _BusinessViewState extends State<BusinessView> {
         padding: EdgeInsets.all(getSize(15)),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-           boxShadow: [
-              new BoxShadow(
-                  // color: ColorConstants.getShadowColor,
-                  color: Colors.grey.withOpacity(0.2),
-                  // offset: Offset(2, 6),
-                  blurRadius: 7.0,
-                  spreadRadius: 5.0),
-            ],
+          boxShadow: [
+            new BoxShadow(
+                // color: ColorConstants.getShadowColor,
+                color: Colors.grey.withOpacity(0.2),
+                // offset: Offset(2, 6),
+                blurRadius: 7.0,
+                spreadRadius: 5.0),
+          ],
           color: Colors.white,
         ),
         child: Column(
@@ -267,9 +265,10 @@ class _BusinessViewState extends State<BusinessView> {
                     width: getSize(130),
                     child: AppButton.flat(
                       onTap: () {
-                        Map<String,dynamic> args = {};
+                        Map<String, dynamic> args = {};
                         args["model"] = businessModel;
-                        NavigationUtilities.pushRoute(BusinessEdit.route,args : args);
+                        NavigationUtilities.pushRoute(BusinessEdit.route,
+                            args: args);
                       },
                       text: "Edit",
                       textSize: 12,
@@ -302,20 +301,24 @@ class _BusinessViewState extends State<BusinessView> {
     );
   }
 
-callDeleteApi( String id){
-  
-      NetworkCall<BaseApiResp>()
-          .makeCall(
-        () => app.resolve<ServiceModule>().networkService().removeBusiness(id),
-        context,
-        isProgress: true,
-      )
-          .then((myBusinessRes) async {
-            print("Deleted Successfully!!");
-      }).catchError((onError) {
-        print("Error on delete");
+  callDeleteApi(String id) {
+    NetworkCall<BaseApiResp>()
+        .makeCall(
+      () => app.resolve<ServiceModule>().networkService().removeBusiness(id),
+      context,
+      isProgress: true,
+    )
+        .then((myBusinessRes) async {
+      print("Deleted Successfully!!");
+      showToast(myBusinessRes.message, context: context);
+      Future.delayed(const Duration(milliseconds: 300), () {
+        callApi(false);
       });
-}
+    }).catchError((onError) {
+      print("Error on delete");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -347,9 +350,9 @@ callDeleteApi( String id){
           ),
           onPressed: () => Navigator.pop(context)),
       backgroundColor: appTheme.colorPrimary,
-       actionItems: [
+      actionItems: [
         Padding(
-          padding: EdgeInsets.only(right:getSize(15)),
+          padding: EdgeInsets.only(right: getSize(15)),
           child: Row(
             children: <Widget>[
               !_isShowSearchField
@@ -365,75 +368,75 @@ callDeleteApi( String id){
                       ),
                     )
                   : Container(
-                        width: getSize(350),
-                        height: getSize(50),
-                        padding: EdgeInsets.symmetric(horizontal: getSize(10)),
-                        // padding: EdgeInsets.all(getSize(8)),
-                        // margin: EdgeInsets.only(
-                        //     top: getSize(30),
-                        //     bottom: getSize(10),
-                        //     left: getSize(30)),
-                        // height: getSize(10),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(25.0),
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 0.5,
-                          ),
+                      width: getSize(350),
+                      height: getSize(50),
+                      padding: EdgeInsets.symmetric(horizontal: getSize(10)),
+                      // padding: EdgeInsets.all(getSize(8)),
+                      // margin: EdgeInsets.only(
+                      //     top: getSize(30),
+                      //     bottom: getSize(10),
+                      //     left: getSize(30)),
+                      // height: getSize(10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(25.0),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 0.5,
                         ),
-                        child: Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.search_rounded,
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(
+                            Icons.search_rounded,
+                            color: Colors.black54,
+                            size: getSize(20),
+                          ),
+                          Expanded(
+                            child: TextFormField(
+                              autofocus: true,
+                              textAlignVertical: TextAlignVertical.center,
+                              controller: searchController,
+                              style: appTheme.black16RegularTextStyle,
+                              maxLines: 1,
+                              decoration: InputDecoration(
+                                fillColor: Colors.transparent,
+                                border: InputBorder.none,
+                                isDense: true,
+                                contentPadding: const EdgeInsets.only(
+                                  left: 10,
+                                ),
+                                hintText: "Search Here",
+                                hintStyle: appTheme.black16RegularTextStyle,
+                              ),
+                              onChanged: (text) {
+                                searchBusiness(context, text);
+                              },
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                searchController.clear();
+                                _isShowSearchField = false;
+                              });
+                            },
+                            child: Icon(
+                              Icons.clear,
                               color: Colors.black54,
                               size: getSize(20),
                             ),
-                            Expanded(
-                              child: TextFormField(
-                                autofocus: true,
-                                textAlignVertical: TextAlignVertical.center,
-                                controller: searchController,
-                                style: appTheme.black16RegularTextStyle,
-                                maxLines: 1,
-                                decoration: InputDecoration(
-                                  fillColor: Colors.transparent,
-                                  border: InputBorder.none,
-                                  isDense: true,
-                                  contentPadding: const EdgeInsets.only(
-                                    left: 10,
-                                  ),
-                                  hintText: "Search Here",
-                                  hintStyle: appTheme.black16RegularTextStyle,
-                                ),
-                                onChanged: (text) {
-                                  searchBusiness(context, text);
-                                },
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  searchController.clear();
-                                  _isShowSearchField = false;
-                                });
-                              },
-                              child: Icon(
-                                Icons.clear,
-                                color: Colors.black54,
-                                size: getSize(20),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
+                    ),
             ],
           ),
         ),
       ],
-   );
+    );
   }
-  
+
   searchBusiness(BuildContext context, String text) {
     arrList.clear();
     if (text.length >= 0) {

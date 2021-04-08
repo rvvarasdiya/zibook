@@ -391,7 +391,7 @@ class _NetworkService implements NetworkService {
         'http://13.234.240.252:5700/api/v1/customer/business/remove/$id',
         queryParameters: queryParameters,
         options: RequestOptions(
-            method: 'POST',
+            method: 'PUT',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),

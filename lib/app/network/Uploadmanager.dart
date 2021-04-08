@@ -11,6 +11,9 @@ import 'package:zaviato/app/constant/ApiConstants.dart';
 import 'package:zaviato/app/constant/ColorConstant.dart';
 import 'package:zaviato/app/constant/constants.dart';
 import 'package:zaviato/app/utils/math_utils.dart';
+import 'package:zaviato/app/utils/pref_utils.dart';
+
+import '../../main.dart';
 //import 'package:percent_indicator/linear_percent_indicator.dart';
 
 Future<FileUploadResp> uploadFile(BuildContext context, String folderName,
@@ -19,21 +22,22 @@ Future<FileUploadResp> uploadFile(BuildContext context, String folderName,
     List<int> bytes,
     bool pdfUpload = false}) async {
   var dio = Dio();
-  dio.options.baseUrl = ApiConstants.documentUpload;
-
-  /*if (kDebugMode) {
-    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-        (client) {
-      // config the http client
-      client.findProxy = (uri) {
-        return Platform.isAndroid
-            ? "PROXY 10.0.2.2:8888"
-            : ApiConstants.PROXY_URL;
-      };
-      // you can also create a new HttpClient to dio
-      // return new HttpClient();
-    };
-  }*/
+  // dio.options.baseUrl = ApiConstants.documentUpload;
+  dio.options.headers["authorization"] =
+      "JWT ${app.resolve<PrefUtils>().getUserToken()}";
+  // if (kDebugMode) {
+  //   (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+  //       (client) {
+  //     // config the http client
+  //     client.findProxy = (uri) {
+  //       return Platform.isAndroid
+  //           ? "PROXY 10.0.2.2:8888"
+  //           : ApiConstants.PROXY_URL;
+  //     };
+  //     // you can also create a new HttpClient to dio
+  //     // return new HttpClient();
+  //   };
+  // }
   Response response;
   var formData1 =
       await formdata(folderName, files: files, file: file, bytes: bytes);
@@ -72,9 +76,7 @@ Future<FileUploadResp> uploadFile(BuildContext context, String folderName,
           // print(received);
         }
       },
-    ).catchError((error) {
-      print(error);
-    });
+    );
     if (uploadProgressWidget._isDialogShown) {
       uploadProgressWidget.state.updateProgress(1);
     }
@@ -105,7 +107,7 @@ Future<FormData> formdata(String folderName,
     List<int> bytes,
     bool pdfUpload = false}) async {
   var formData = FormData();
-  formData.fields.add(MapEntry("folder", folderName));
+  // formData.fields.add(MapEntry("folder", folderName));
 
   if (pdfUpload) {
     await CompressImage.compress(
@@ -113,7 +115,7 @@ Future<FormData> formdata(String folderName,
         desiredQuality: 50); //desiredQuality ranges from 0 to 100
   }
 
-  file = File(file.path);
+  // file = File(file.path);
   if (bytes != null) {
     formData.files.add(MapEntry(
       "file[]",
@@ -136,14 +138,23 @@ Future<FormData> formdata(String folderName,
 
     formData.files.addAll([entries as MapEntry<dynamic, dynamic>]);
   } else {
-    formData.files.add(MapEntry(
-      "file",
-      await MultipartFile.fromFile(
+    String fileName = file.path.split('/').last;
+
+    FormData data = FormData.fromMap({
+      "file": await MultipartFile.fromFile(
         file.path,
-        filename: path.basename(file.path),
-        contentType: new MediaType("image", "jpeg"),
+        filename: fileName,
       ),
-    ));
+    });
+    return data;
+    // formData.files.add(MapEntry(
+    //   "file",
+    //   await MultipartFile.fromFile(
+    //     file.path,
+    //     filename: path.basename(file.path),
+    //     contentType: new MediaType("image", "jpeg"),
+    //   ),
+    // ));
   }
   print('formdata ${formData.length}');
   print('formdata ${formData.fields}');
@@ -369,3 +380,28 @@ class Files {
     return data;
   }
 }
+
+// import 'dart:io';
+
+// import 'package:zaviato/app/constant/ApiConstants.dart';
+// import 'package:zaviato/app/utils/pref_utils.dart';
+// import 'package:zaviato/main.dart';
+
+// import '../app.export.dart';
+
+// void upload(File file) async {
+//    String fileName = file.path.split('/').last;
+
+//    FormData data = FormData.fromMap({
+//       "file": await MultipartFile.fromFile(
+//         file.path,
+//         filename: fileName,
+//       ),
+//    });
+
+//   Dio dio = new Dio();
+
+//   dio.post(ApiConstants.documentUpload, data: data)
+//   .then((response) => print(response))
+//   .catchError((error) => print(error));
+// }

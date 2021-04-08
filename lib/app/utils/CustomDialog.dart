@@ -63,7 +63,7 @@ showToast(
       .showToast(
           child: toast,
           gravity: gravity != null ? gravity : ToastGravity.BOTTOM,
-          toastDuration: Duration(seconds: 4));
+          toastDuration: Duration(seconds: 2));
 }
 
 class CustomDialogs {

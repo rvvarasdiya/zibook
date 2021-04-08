@@ -82,8 +82,9 @@ abstract class NetworkService {
   @POST(ApiConstants.addToFavoriteApi)
   Future<AddFavoriteRes> addToFovourite(@Path("id") String id);
 
-  @POST(ApiConstants.deleteBusinessApi)
+  @PUT(ApiConstants.deleteBusinessApi)
   Future<BaseApiResp> removeBusiness(@Path("id") String id);
+
 
   @POST(ApiConstants.updateBusinessApi)
   Future<BaseApiResp> updteBusiness(@Body() UpdateBusinessReq req);
